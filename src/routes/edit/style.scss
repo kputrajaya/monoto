@@ -1,0 +1,59 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.edit {
+  height: 100%;
+  position: relative;
+}
+
+.control {
+  height: $gap-lg;
+  background: $bg-sidebar;
+  @include no-select;
+}
+
+.tabWrapper {
+  padding: 0 $gap-sm;
+}
+
+.tab {
+  margin: 0 $gap-sm;
+  padding: 0 $gap-md;
+  font-size: $font-sm;
+  line-height: $gap-lg;
+  background: $bg-content;
+  display: inline-block;
+  position: relative;
+
+  &::before, &::after {
+    content: '';
+    border: 0 solid transparent;
+    border-bottom-width: $gap-lg;
+    border-bottom-color: $bg-content;
+    position: absolute;
+    top: 0;
+  }
+
+  &::before {
+    border-left-width: $gap-sm;
+    left: -$gap-sm;
+  }
+
+  &::after {
+    border-right-width: $gap-sm;
+    right: -$gap-sm;
+  }
+}
+
+.editor {
+  position: absolute;
+  top: $gap-lg;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  & > div {
+    height: 100%;
+    font-family: $fam-mono;
+  }
+}

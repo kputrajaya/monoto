@@ -1,0 +1,75 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.sidebar {
+  width: 25%;
+  max-width: 320px;
+  height: 100%;
+  background: $bg-sidebar;
+  position: relative;
+  overflow: auto;
+  flex-shrink: 0;
+  @include no-select;
+}
+
+.sidebarContent {
+  width: 100%;
+  padding: $gap-md 0;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.nav {
+  margin: -$gap-md 0 0;
+  padding: 0;
+  font-size: $font-sm;
+  color: $color-secondary;
+
+  & > li {
+    margin: $gap-md 0 0;
+    list-style: none;
+
+    &.tree {
+      margin: ($gap-md - $gap-xs) 0 $gap-lg;
+    }
+
+    a {
+      color: $color-light;
+    }
+
+    h3 {
+      margin: 0 $gap-md;
+      color: inherit;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.sidebarMenu {
+  padding: $gap-xs;
+  color: $color-light;
+  background: $bg-content;
+  position: absolute;
+  right: $gap-sm;
+  display: none;
+  z-index: 5;
+
+  &.shown {
+    display: block;
+  }
+
+  hr {
+    margin: $gap-xs 0;
+    border: 1px solid transparentize($color-secondary, .75);
+    border-bottom-width: 0;
+  }
+}
+
+.sidebarMenuItem {
+  padding: $gap-sm $gap-lg $gap-sm $gap-md;
+  cursor: pointer;
+
+  &:hover {
+    background: transparentize($color-secondary, .75);
+  }
+}
