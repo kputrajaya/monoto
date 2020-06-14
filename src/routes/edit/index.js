@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
+import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
 
 import { QueryContext } from '../../components/context';
@@ -13,8 +14,8 @@ require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
   const query = useContext(QueryContext);
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [title, setTitle] = useState(null);
+  const [body, setBody] = useState(null);
   const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
@@ -36,9 +37,10 @@ const Edit = ({ id }) => {
   }, [id, query]);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || body === null) return;
 
     const timer = setTimeout(() => {
+      console.log('Updating...');
       firebase.firestore().collection('tree').doc(id).update({body});
     }, 1000);
 
@@ -54,11 +56,13 @@ const Edit = ({ id }) => {
 
   return (
     <div class={style.edit}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+
       <div class={style.control}>
-        <div class={style.tabWrapper}>
-          <div class={style.tab}>
-            {title}
-          </div>
+        <div class={style.tab}>
+          {title}
         </div>
       </div>
       <CodeMirror

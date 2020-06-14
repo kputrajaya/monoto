@@ -16,23 +16,9 @@
   }
 
   @for $level from 1 through 5 {
-    &.level-#{$level} {
+    &.level#{$level} {
       padding-left: $level * $gap-md;
     }
-  }
-}
-
-.nodeActions {
-  padding: 0 $gap-sm;
-  font-size: $font-xs;
-  line-height: $gap-lg;
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  &:hover {
-    color: $color-light;
   }
 }
 
@@ -74,5 +60,19 @@
   &.active {
     font-weight: 600;
     border-bottom-color: $color-danger;
+  }
+}
+
+.actions {
+  padding: 0 $gap-sm;
+  font-size: $font-xs;
+  line-height: $gap-lg;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &:hover {
+    color: $color-light;
   }
 }

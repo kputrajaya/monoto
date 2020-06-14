@@ -36,7 +36,9 @@
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
-    "react-codemirror2": "^7.2.0"
+    "react-codemirror2": "^7.2.0",
+    "react-grid-system": "^7.0.2",
+    "react-helmet": "^6.1.0"
   },
   "jest": {
     "preset": "jest-preset-preact",

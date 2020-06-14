@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { Helmet } from 'react-helmet';
 
 import firebase from '../../components/firebase';
 import style from './style';
@@ -15,6 +16,10 @@ const Login = () => {
 
   return (
     <div class={style.login}>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
+
       <h2>Login</h2>
       <p>This is the Login component.</p>
       <button onClick={actionSignIn}>Sign in</button>

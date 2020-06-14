@@ -166,30 +166,30 @@ const Sidebar = () => {
 
   return (
     <div class={style.sidebar} ref={sidebarRef}>
-      <div class={style.sidebarContent}>
+      <div class={style.content}>
         <ul class={style.nav}>
-          <li class={style.tree}>
+          <li class={`${style.item} ${style.tree}`}>
             {renderNodesRecursive(nodeTree)}
           </li>
-          <li>
+          <li class={style.item}>
             <Link href="/"><h3>Home</h3></Link>
           </li>
-          <li>
+          <li class={style.item}>
             <Link href="/logout"><h3>Logout</h3></Link>
           </li>
         </ul>
       </div>
 
-      <div class={`${style.sidebarMenu} ${shownMenu ? style.shown : ''}`} style={shownMenu?.position}>
+      <div class={`${style.menu} ${shownMenu ? style.shown : ''}`} style={shownMenu?.position}>
         {
           shownMenu?.node?.isFolder &&
           <Fragment>
-            <div class={style.sidebarMenuItem} onClick={actionMenuNewNote}>
+            <div class={style.item} onClick={actionMenuNewNote}>
               New Note&hellip;
             </div>
             {
               shownMenu?.level < TREE_MAX_LEVEL &&
-              <div class={style.sidebarMenuItem} onClick={actionMenuNewFolder}>
+              <div class={style.item} onClick={actionMenuNewFolder}>
                 New Folder&hellip;
               </div>
             }
@@ -202,13 +202,13 @@ const Sidebar = () => {
         {
           shownMenu?.node?.id &&
           <Fragment>
-            <div class={style.sidebarMenuItem} onClick={actionMenuRename}>
+            <div class={style.item} onClick={actionMenuRename}>
               Rename&hellip;
             </div>
-            <div class={style.sidebarMenuItem} onClick={actionMenuMove}>
+            <div class={style.item} onClick={actionMenuMove}>
               Move&hellip;
             </div>
-            <div class={style.sidebarMenuItem} onClick={actionDelete}>
+            <div class={style.item} onClick={actionDelete}>
               Delete
             </div>
           </Fragment>

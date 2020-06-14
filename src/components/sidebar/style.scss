@@ -2,8 +2,6 @@
 @import '../../style/mixins';
 
 .sidebar {
-  width: 25%;
-  max-width: 320px;
   height: 100%;
   background: $bg-sidebar;
   position: relative;
@@ -12,11 +10,12 @@
   @include no-select;
 }
 
-.sidebarContent {
+.content {
   width: 100%;
   padding: $gap-md 0;
   white-space: nowrap;
   display: inline-block;
+
 }
 
 .nav {
@@ -25,7 +24,7 @@
   font-size: $font-sm;
   color: $color-secondary;
 
-  & > li {
+  .item {
     margin: $gap-md 0 0;
     list-style: none;
 
@@ -45,7 +44,7 @@
   }
 }
 
-.sidebarMenu {
+.menu {
   padding: $gap-xs;
   color: $color-light;
   background: $bg-content;
@@ -63,13 +62,13 @@
     border: 1px solid transparentize($color-secondary, .75);
     border-bottom-width: 0;
   }
-}
 
-.sidebarMenuItem {
-  padding: $gap-sm $gap-lg $gap-sm $gap-md;
-  cursor: pointer;
+  .item {
+    padding: $gap-sm $gap-lg $gap-sm $gap-md;
+    cursor: pointer;
 
-  &:hover {
-    background: transparentize($color-secondary, .75);
+    &:hover {
+      background: transparentize($color-secondary, .75);
+    }
   }
 }

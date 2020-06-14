@@ -1,8 +1,9 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Router } from 'preact-router';
+import { Helmet } from 'react-helmet';
 
-import Container from './container';
+import Layout from './layout';
 import { UserContext, QueryContext } from './context';
 import firebase from './firebase';
 import Edit from '../routes/edit';
@@ -28,20 +29,22 @@ const App = () => {
 
   return (
     <div id="app">
-      <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+      <Helmet defaultTitle="Monoto" titleTemplate="%s - Monoto">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+      </Helmet>
 
       <UserContext.Provider value={user}>
         <QueryContext.Provider value={query}>
           {
             user
               ? (
-                <Container>
+                <Layout>
                   <Router>
                     <Home path="/" />
                     <Edit path="/e/:id" />
                     <Logout path="/logout" />
                   </Router>
-                </Container>
+                </Layout>
               )
               : (
                 <Router>

@@ -36,13 +36,13 @@ const SidebarNode = ({ node, level, parentRef, parentMenuOpen, children }) => {
 
   return (
     <Fragment>
-      <div class={`${style.node} ${style[`level-${Math.min(level, TREE_MAX_LEVEL)}`]}`} title={node.title} onClick={actionOpen}>
+      <div class={`${style.node} ${style[`level${Math.min(level, TREE_MAX_LEVEL)}`]}`} title={node.title} onClick={actionOpen}>
         {
           node.isFolder
             ? <span class={`${style.folder} ${open ? style.open : ''}`}>{node.title}</span>
             : <Link className={style.note} activeClassName={style.active} href={noteUrl}>{node.title}</Link>
         }
-        <div class={style.nodeActions} onClick={actionMenuOpen}>
+        <div class={style.actions} onClick={actionMenuOpen}>
           &bull;&thinsp;&bull;&thinsp;&bull;
         </div>
       </div>

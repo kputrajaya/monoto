@@ -8,12 +8,9 @@
 
 .control {
   height: $gap-lg;
+  padding: 0 $gap-sm;
   background: $bg-sidebar;
   @include no-select;
-}
-
-.tabWrapper {
-  padding: 0 $gap-sm;
 }
 
 .tab {
