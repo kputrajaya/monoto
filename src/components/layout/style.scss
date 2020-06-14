@@ -5,18 +5,44 @@
   padding: 0 !important;
 }
 
+.hidden {
+  display: none;
+}
+
 .row {
   height: 100%;
 }
 
 .toggle {
   height: 100%;
-  background: scale-color($bg-sidebar, $lightness:-50%);
+  background: scale-color($bg-sidebar, $lightness:-25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+
+  &::before {
+    content: '';
+    border: 8px solid transparent;
+    border-left: 5px solid transparentize($color-secondary, .5);
+    position: relative;
+    left: 4px;
+  }
+
+  &.open::before {
+    border: 8px solid transparent;
+    border-right: 5px solid transparentize($color-secondary, .5);
+    left: -5px;
+  }
 }
 
 .sidebar {
   height: 100%;
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+  }
 }
 
 .content {

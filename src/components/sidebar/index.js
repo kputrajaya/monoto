@@ -9,7 +9,7 @@ import SidebarNode from '../sidebar-node';
 import { getNoteUrl, TREE_MAX_LEVEL, TREE_ROOT_NAME } from '../utils';
 import style from './style';
 
-const Sidebar = () => {
+const Sidebar = ({ hideSidebar }) => {
   const user = useContext(UserContext);
   const query = useContext(QueryContext);
   const [shownMenu, setShownMenu] = useState(null);
@@ -52,7 +52,15 @@ const Sidebar = () => {
     }];
   }, [query]);
 
-  const actionMenuOpen = (newShownMenu) => {
+  const actionLinkClick = () => {
+    console.log('item clicked');
+    if (hideSidebar) {
+      console.log('hiding sidebar');
+      hideSidebar();
+    }
+  };
+
+  const actionMenuClick = (newShownMenu) => {
     setShownMenu((oldShownMenu) => oldShownMenu?.node?.id === newShownMenu?.node?.id ? null : newShownMenu);
   };
 
@@ -157,7 +165,13 @@ const Sidebar = () => {
   const renderNodesRecursive = (nodes, level=1) => (
     nodes
       ? nodes.map((node) => (
-        <SidebarNode node={node} level={level} parentRef={sidebarRef} parentMenuOpen={actionMenuOpen}>
+        <SidebarNode
+          node={node}
+          level={level}
+          parentRef={sidebarRef}
+          onLinkClick={actionLinkClick}
+          onMenuClick={actionMenuClick}
+        >
           {renderNodesRecursive(node.children, level + 1)}
         </SidebarNode>
       ))
@@ -172,15 +186,15 @@ const Sidebar = () => {
             {renderNodesRecursive(nodeTree)}
           </li>
           <li class={style.item}>
-            <Link href="/"><h3>Home</h3></Link>
+            <Link href="/" onClick={actionLinkClick}><h3>Home</h3></Link>
           </li>
           <li class={style.item}>
-            <Link href="/logout"><h3>Logout</h3></Link>
+            <Link href="/logout" onClick={actionLinkClick}><h3>Logout</h3></Link>
           </li>
         </ul>
       </div>
 
-      <div class={`${style.menu} ${shownMenu ? style.shown : ''}`} style={shownMenu?.position}>
+      <div class={`${style.menu} ${shownMenu ? style.open : ''}`} style={shownMenu?.position}>
         {
           shownMenu?.node?.isFolder &&
           <Fragment>

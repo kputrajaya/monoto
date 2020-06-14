@@ -1,6 +1,6 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Col, Container, Hidden, Row, Visible } from 'react-grid-system';
+import { Col, Container, Row, ScreenClassRender } from 'react-grid-system';
 
 import Sidebar from '../sidebar';
 import style from './style';
@@ -12,22 +12,39 @@ const Layout = ({ children }) => {
     setShowSidebar((oldShowSidebar) => !oldShowSidebar);
   };
 
+  const actionHideSidebar = () => {
+    setShowSidebar(false);
+  };
+
+  const renderCols = (screenClass) => (
+    screenClass === 'xs' || screenClass === 'sm'
+      ? (
+        <Fragment>
+          <Col xs={1} class={`${style.toggle} ${showSidebar ? style.open : ''}`} onClick={actionToggleSidebar} />
+          <Col xs={11} class={`${style.sidebar} ${showSidebar ? '' : style.hidden}`}>
+            <Sidebar hideSidebar={actionHideSidebar} />
+          </Col>
+          <Col xs={11} class={`${style.content} ${showSidebar ? style.hidden : ''}`}>
+            {children}
+          </Col>
+        </Fragment>
+      )
+      : (
+        <Fragment>
+          <Col md={4} lg={3} xl={2} class={style.sidebar}>
+            <Sidebar />
+          </Col>
+          <Col md={8} lg={9} xl={10} class={style.content}>
+            {children}
+          </Col>
+        </Fragment>
+      )
+  );
+
   return (
     <Container fluid={true} class={style.container}>
       <Row nogutter={true} class={style.row}>
-        <Visible xs sm>
-          <Col xs={1} class={style.toggle} onClick={actionToggleSidebar} />
-        </Visible>
-        <Hidden xs={!showSidebar} sm={!showSidebar}>
-          <Col xs={11} md={4} lg={3} xl={2} class={style.sidebar}>
-              <Sidebar />
-          </Col>
-        </Hidden>
-        <Hidden xs={showSidebar} sm={showSidebar}>
-          <Col xs={11} md={8} lg={9} xl={10} class={style.content}>
-            {children}
-          </Col>
-        </Hidden>
+        <ScreenClassRender render={renderCols} />
       </Row>
     </Container>
   );

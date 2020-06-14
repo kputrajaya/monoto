@@ -6,7 +6,7 @@ import { Link } from 'preact-router/match';
 import { getNoteUrl, TREE_MAX_LEVEL } from '../utils';
 import style from './style';
 
-const SidebarNode = ({ node, level, parentRef, parentMenuOpen, children }) => {
+const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, children }) => {
   const [open, setOpen] = useState(!!node.open);
 
   const noteUrl = getNoteUrl(node.id);
@@ -16,16 +16,21 @@ const SidebarNode = ({ node, level, parentRef, parentMenuOpen, children }) => {
       setOpen((oldOpen) => !oldOpen);
     } else {
       route(noteUrl);
+      onLinkClick();
     }
+  };
+
+  const actionPrevent = (e) => {
+    e.preventDefault();
   };
 
   const actionMenuOpen = (e) => {
     e.stopPropagation();
 
-    const sidebarScroll = parentRef?.current?.scrollTop || 0;
+    const sidebarScroll = sidebarRef?.current?.scrollTop || 0;
     const nodePosition = e.target.getBoundingClientRect().top;
     const nodeHeight = e.target.offsetHeight;
-    parentMenuOpen({
+    onMenuClick({
       node,
       level,
       position: {
@@ -40,7 +45,7 @@ const SidebarNode = ({ node, level, parentRef, parentMenuOpen, children }) => {
         {
           node.isFolder
             ? <span class={`${style.folder} ${open ? style.open : ''}`}>{node.title}</span>
-            : <Link className={style.note} activeClassName={style.active} href={noteUrl}>{node.title}</Link>
+            : <Link className={style.note} activeClassName={style.active} href={noteUrl} onClick={actionPrevent}>{node.title}</Link>
         }
         <div class={style.actions} onClick={actionMenuOpen}>
           &bull;&thinsp;&bull;&thinsp;&bull;
