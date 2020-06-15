@@ -21,7 +21,14 @@ const Sidebar = ({ hideSidebar }) => {
   }, []);
 
   const nodeTree = useMemo(() => {
-    if (!query) return null;
+    const treeRoot = {
+      id: null,
+      title: TREE_ROOT_NAME,
+      isFolder: true,
+      open: true,
+      children: []
+    };
+    if (!query) return [treeRoot];
 
     // Build parent-children map
     const nodeMap = {};
@@ -43,19 +50,12 @@ const Sidebar = ({ hideSidebar }) => {
           .sort((a, b) => getSortableString(a).localeCompare(getSortableString(b)))
         : null
     );
-    return [{
-      id: null,
-      title: TREE_ROOT_NAME,
-      isFolder: true,
-      open: true,
-      children: getChildrenRecursive(null)
-    }];
+    treeRoot.children = getChildrenRecursive(null);
+    return [treeRoot];
   }, [query]);
 
   const actionLinkClick = () => {
-    console.log('item clicked');
     if (hideSidebar) {
-      console.log('hiding sidebar');
       hideSidebar();
     }
   };

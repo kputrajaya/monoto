@@ -7,9 +7,7 @@ import style from './style';
 const Login = () => {
   const actionSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then((result) => {
-      console.log(result);
-    }).catch((error) => {
+    firebase.auth().signInWithPopup(provider).catch((error) => {
       console.error(error);
     });
   }

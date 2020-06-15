@@ -40,7 +40,6 @@ const Edit = ({ id }) => {
     if (!id || body === null) return;
 
     const timer = setTimeout(() => {
-      console.log('Updating...');
       firebase.firestore().collection('tree').doc(id).update({body});
     }, 1000);
 

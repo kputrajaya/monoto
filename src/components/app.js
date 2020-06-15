@@ -12,11 +12,13 @@ import Login from '../routes/login';
 import Logout from '../routes/logout';
 
 const App = () => {
-  const [user, setUser] = useState(null);
-  const [query, setQuery] = useState(null);
+  const [user, setUser] = useState();
+  const [query, setQuery] = useState();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(setUser);
+    firebase.auth().onAuthStateChanged((newUser) => {
+      setUser(newUser);
+    });
   }, []);
 
   useEffect(() => {
@@ -27,6 +29,31 @@ const App = () => {
     return unsubscribe;
   }, [user]);
 
+  const renderApp = () => {
+    switch (user) {
+      case undefined:
+        return (
+          <div>Loading...</div>
+        );
+      case null:
+        return (
+          <Router>
+            <Login path="/" />
+          </Router>
+        );
+      default:
+        return (
+          <Layout>
+            <Router>
+              <Home path="/" />
+              <Edit path="/e/:id" />
+              <Logout path="/logout" />
+            </Router>
+          </Layout>
+        )
+    }
+  };
+
   return (
     <div id="app">
       <Helmet defaultTitle="Monoto" titleTemplate="%s - Monoto">
@@ -35,23 +62,7 @@ const App = () => {
 
       <UserContext.Provider value={user}>
         <QueryContext.Provider value={query}>
-          {
-            user
-              ? (
-                <Layout>
-                  <Router>
-                    <Home path="/" />
-                    <Edit path="/e/:id" />
-                    <Logout path="/logout" />
-                  </Router>
-                </Layout>
-              )
-              : (
-                <Router>
-                  <Login path="/" />
-                </Router>
-              )
-          }
+          {renderApp()}
         </QueryContext.Provider>
       </UserContext.Provider>
     </div>
