@@ -8,7 +8,6 @@ import firebase from '../../components/firebase';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
-require('codemirror/mode/gfm/gfm.js');
 require('codemirror/lib/codemirror.css');
 require('codemirror/theme/dracula.css');
 
@@ -73,7 +72,6 @@ const Edit = ({ id }) => {
           autofocus: true,
           keyMap: 'sublime',
           lineNumbers: true,
-          mode: 'gfm',
           tabSize: 2,
           theme: 'dracula'
         }}
