@@ -59,9 +59,12 @@ const Edit = ({ id }) => {
       </Helmet>
 
       <div class={style.control}>
-        <div class={style.tab}>
-          {title}
-        </div>
+        {
+          title &&
+          <div class={style.tab}>
+            {title}
+          </div>
+        }
       </div>
       <CodeMirror
         autoCursor={true}
