@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
+import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
 
@@ -13,30 +14,35 @@ require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
   const query = useContext(QueryContext);
-  const [title, setTitle] = useState(null);
-  const [body, setBody] = useState(null);
+  const [title, setTitle] = useState();
+  const [body, setBody] = useState();
   const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
     if (!id || !query) return;
 
+    let found = false;
     query.forEach((doc) => {
       if (doc.id !== id) return;
 
-      const data = doc.data();
-      setTitle(data.title);
+      found = true;
+      const { title: newTitle, body: newBody } = doc.data();
+      setTitle(newTitle);
       setBody((oldBody) => {
         // Update editor if the change comes from another window
-        if (oldBody !== data.body) {
-          setEditorValue(data.body);
+        if (oldBody !== newBody) {
+          setEditorValue(newBody);
         }
-        return data.body;
+        return newBody;
       })
     });
+    if (!found) {
+      route('/');
+    }
   }, [id, query]);
 
   useEffect(() => {
-    if (!id || body === null) return;
+    if (!id || typeof body !== 'string') return;
 
     const timer = setTimeout(() => {
       firebase.firestore().collection('tree').doc(id).update({body});
@@ -54,9 +60,12 @@ const Edit = ({ id }) => {
 
   return (
     <div class={style.edit}>
-      <Helmet>
-        <title>{title}</title>
-      </Helmet>
+      {
+        title &&
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
+      }
 
       <div class={style.control}>
         {

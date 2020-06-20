@@ -12,7 +12,7 @@ import style from './style';
 const Sidebar = ({ hideSidebar }) => {
   const user = useContext(UserContext);
   const query = useContext(QueryContext);
-  const [shownMenu, setShownMenu] = useState(null);
+  const [shownMenu, setShownMenu] = useState();
   const sidebarRef = createRef();
 
   useEffect(() => {
@@ -184,9 +184,6 @@ const Sidebar = ({ hideSidebar }) => {
         <ul class={style.nav}>
           <li class={`${style.item} ${style.tree}`}>
             {renderNodesRecursive(nodeTree)}
-          </li>
-          <li class={style.item}>
-            <Link href="/" onClick={actionLinkClick}><h3>Home</h3></Link>
           </li>
           <li class={style.item}>
             <Link href="/logout" onClick={actionLinkClick}><h3>Logout</h3></Link>

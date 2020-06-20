@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { Helmet } from 'react-helmet';
 
+import Svg from '../../components/svgr/drawkit-nature-man-monochrome';
 import style from './style';
 
 const Home = () => {
@@ -10,8 +11,8 @@ const Home = () => {
         <title>Home</title>
       </Helmet>
 
-      <h2>Home</h2>
-      <p>This is the Home component.</p>
+      <Svg class={style.image} />
+      <h2 class={style.text}>&quot;Nothing to see here&hellip;&quot;</h2>
     </div>
   );
 };

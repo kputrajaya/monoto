@@ -6,10 +6,12 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, QueryContext } from './context';
 import firebase from './firebase';
+import Loading from '../components/loading';
 import Edit from '../routes/edit';
 import Home from '../routes/home';
 import Login from '../routes/login';
 import Logout from '../routes/logout';
+import NotFound from '../routes/not-found';
 
 const App = () => {
   const [user, setUser] = useState();
@@ -32,13 +34,12 @@ const App = () => {
   const renderApp = () => {
     switch (user) {
       case undefined:
-        return (
-          <div>Loading...</div>
-        );
+        return <Loading />;
       case null:
         return (
           <Router>
             <Login path="/" />
+            <NotFound default />
           </Router>
         );
       default:
@@ -48,6 +49,7 @@ const App = () => {
               <Home path="/" />
               <Edit path="/e/:id" />
               <Logout path="/logout" />
+              <NotFound default />
             </Router>
           </Layout>
         )
