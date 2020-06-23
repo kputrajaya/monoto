@@ -69,13 +69,15 @@ const Sidebar = ({ hideSidebar }) => {
   };
 
   const actionMenuNewNote = async () => {
-    if (!shownMenu) return;
+    const parentId = shownMenu ? shownMenu.node.id : _getNewParentId();
+    if (parentId === undefined) return;
+
     const name = window.prompt('Enter note name:', 'New Note').trim();
     if (!name) return;
 
     const doc = await firebase.firestore().collection('tree').add({
       userId: user.uid,
-      parentId: shownMenu.node.id,
+      parentId,
       title: name,
       isFolder: false,
       body: ''
@@ -84,13 +86,15 @@ const Sidebar = ({ hideSidebar }) => {
   };
 
   const actionMenuNewFolder = () => {
-    if (!shownMenu) return;
+    const parentId = shownMenu ? shownMenu.node.id : _getNewParentId();
+    if (parentId === undefined) return;
+
     const name = window.prompt('Enter folder name:', 'New Folder').trim();
     if (!name) return;
 
     firebase.firestore().collection('tree').add({
       userId: user.uid,
-      parentId: shownMenu.node.id,
+      parentId,
       title: name,
       isFolder: true
     });
@@ -98,6 +102,7 @@ const Sidebar = ({ hideSidebar }) => {
 
   const actionMenuRename = () => {
     if (!shownMenu) return;
+
     const nodeType = shownMenu.node.isFolder ? 'folder' : 'note';
     const name = window.prompt(`Enter new ${nodeType} name:`, shownMenu.node.title).trim();
     if (!name) return;
@@ -109,32 +114,10 @@ const Sidebar = ({ hideSidebar }) => {
 
   const actionMenuMove = async () => {
     if (!shownMenu) return;
-    const getFoldersRecursive = (nodes, level=1) => nodes
-      .map(({ id, title, children }) => {
-        const childFolders = children
-          ? getFoldersRecursive(children.filter((childNode) => childNode.isFolder), level + 1)
-          : [];
-        childFolders.splice(0, 0, {id, title, level});
-        return childFolders;
-      })
-      .reduce((acc, folders) => acc.concat(folders), []);
-    const folders = getFoldersRecursive(nodeTree);
-    const minNumber = 1;
-    const maxNumber = folders.length;
-    const folderText = folders
-      .map((folder, index) => {
-        let result = '';
-        for (let i = 1; i < folder.level; i++) {
-          result += '   ';
-        }
-        result += ` ${index + 1} : ${folder.title}\n`;
-        return result;
-      })
-      .reduce((acc, row) => acc + row, '');
-    const number = Math.floor(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`).trim());
-    if (isNaN(number) || number < minNumber || number > maxNumber) return;
 
-    const parentId = folders[number - 1].id;
+    const parentId = _getNewParentId();
+    if (parentId === undefined) return;
+
     firebase.firestore().collection('tree').doc(shownMenu.node.id).update({
       parentId
     });
@@ -178,6 +161,35 @@ const Sidebar = ({ hideSidebar }) => {
       ))
       : null
   );
+
+  const _getNewParentId = () => {
+    const getFoldersRecursive = (nodes, level=1) => nodes
+      .map(({ id, title, children }) => {
+        const childFolders = children
+          ? getFoldersRecursive(children.filter((childNode) => childNode.isFolder), level + 1)
+          : [];
+        childFolders.splice(0, 0, {id, title, level});
+        return childFolders;
+      })
+      .reduce((acc, folders) => acc.concat(folders), []);
+    const folders = getFoldersRecursive(nodeTree);
+    const minNumber = 1;
+    const maxNumber = folders.length;
+    const folderText = folders
+      .map((folder, index) => {
+        let result = '';
+        for (let i = 1; i < folder.level; i++) {
+          result += '   ';
+        }
+        result += ` ${index + 1} : ${folder.title}\n`;
+        return result;
+      })
+      .reduce((acc, row) => acc + row, '');
+    const number = Math.floor(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`).trim());
+    return isNaN(number) || number < minNumber || number > maxNumber
+      ? undefined
+      : folders[number - 1].id;
+  };
 
   return (
     <div class={style.sidebar} ref={sidebarRef}>

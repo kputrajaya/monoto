@@ -1,7 +1,8 @@
 @import '../../style/variables';
+@import '../../style/mixins';
 
 .node {
-  padding-right: $gap-lg;
+  padding-right: $gap-lg + $gap-sm;
   font-size: $font-md;
   line-height: $gap-lg;
   color: $color-secondary;
@@ -10,6 +11,7 @@
   list-style: none;
   position: relative;
   cursor: pointer;
+  @include transition(background $transition-sm ease-out);
 
   &:hover {
     background: transparentize($color-secondary, .9);
@@ -65,7 +67,7 @@
 }
 
 .actions {
-  padding: 0 $gap-sm;
+  padding: 0 $gap-md 0 $gap-sm;
   font-size: $font-xs;
   line-height: $gap-lg;
   display: inline-block;

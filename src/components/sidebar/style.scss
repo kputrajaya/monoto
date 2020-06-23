@@ -49,12 +49,16 @@
   color: $color-light;
   background: $bg-content;
   position: absolute;
+  top: -999px;
   right: $gap-sm;
-  display: none;
   z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  @include transition(opacity $transition-sm ease-out);
 
   &.open {
-    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 
   hr {
@@ -66,6 +70,7 @@
   .item {
     padding: $gap-sm $gap-lg $gap-sm $gap-md;
     cursor: pointer;
+    @include transition(background $transition-sm ease-out);
 
     &:hover {
       background: transparentize($color-secondary, .9);

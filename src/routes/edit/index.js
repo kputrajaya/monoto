@@ -16,6 +16,7 @@ const Edit = ({ id }) => {
   const query = useContext(QueryContext);
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
+  const [editor, setEditor] = useState();
   const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
@@ -50,6 +51,12 @@ const Edit = ({ id }) => {
 
     return () => clearTimeout(timer);
   }, [id, body]);
+
+  useEffect(() => {
+    if (!id || !editor) return;
+
+    editor.focus();
+  }, [id, editor]);
 
   const actionChange = (editor, data, value) => {
     // Ignore if it's a programmatic change
@@ -87,6 +94,7 @@ const Edit = ({ id }) => {
           tabSize: 2,
           theme: 'dracula'
         }}
+        editorDidMount={setEditor}
         onChange={actionChange}
       />
     </div>
