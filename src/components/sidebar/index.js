@@ -70,7 +70,7 @@ const Sidebar = ({ hideSidebar }) => {
 
   const actionMenuNewNote = async () => {
     if (!shownMenu) return;
-    const name = window.prompt('Enter note name:');
+    const name = window.prompt('Enter note name:', 'New Note').trim();
     if (!name) return;
 
     const doc = await firebase.firestore().collection('tree').add({
@@ -85,7 +85,7 @@ const Sidebar = ({ hideSidebar }) => {
 
   const actionMenuNewFolder = () => {
     if (!shownMenu) return;
-    const name = window.prompt('Enter folder name:');
+    const name = window.prompt('Enter folder name:', 'New Folder').trim();
     if (!name) return;
 
     firebase.firestore().collection('tree').add({
@@ -98,7 +98,8 @@ const Sidebar = ({ hideSidebar }) => {
 
   const actionMenuRename = () => {
     if (!shownMenu) return;
-    const name = window.prompt(`Enter new ${shownMenu.node.isFolder ? 'folder' : 'note'} name:`, shownMenu.node.title);
+    const nodeType = shownMenu.node.isFolder ? 'folder' : 'note';
+    const name = window.prompt(`Enter new ${nodeType} name:`, shownMenu.node.title).trim();
     if (!name) return;
 
     firebase.firestore().collection('tree').doc(shownMenu.node.id).update({
@@ -130,7 +131,7 @@ const Sidebar = ({ hideSidebar }) => {
         return result;
       })
       .reduce((acc, row) => acc + row, '');
-    const number = Math.floor(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`));
+    const number = Math.floor(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`).trim());
     if (isNaN(number) || number < minNumber || number > maxNumber) return;
 
     const parentId = folders[number - 1].id;

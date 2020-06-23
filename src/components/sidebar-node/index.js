@@ -1,7 +1,6 @@
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { route } from 'preact-router';
-import { Link } from 'preact-router/match';
 
 import { getNoteUrl, TREE_MAX_LEVEL } from '../utils';
 import style from './style';
@@ -18,10 +17,6 @@ const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, childr
       route(noteUrl);
       onLinkClick();
     }
-  };
-
-  const actionPrevent = (e) => {
-    e.preventDefault();
   };
 
   const actionMenuOpen = (e) => {
@@ -45,7 +40,7 @@ const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, childr
         {
           node.isFolder
             ? <span class={`${style.folder} ${open ? style.open : ''}`}>{node.title}</span>
-            : <Link className={style.note} activeClassName={style.active} href={noteUrl} onClick={actionPrevent}>{node.title}</Link>
+            : <span class={style.note}>{node.title}</span>
         }
         <div class={style.actions} onClick={actionMenuOpen}>
           &bull;&thinsp;&bull;&thinsp;&bull;
