@@ -7,8 +7,8 @@
 }
 
 .control {
-  height: $gap-lg;
-  padding: 0 $gap-sm;
+  height: $gap-xs + $gap-lg;
+  padding: $gap-xs $gap-sm 0;
   background: $bg-sidebar;
   @include no-select;
 }
@@ -16,6 +16,7 @@
 .tab {
   margin: 0 $gap-sm;
   padding: 0 $gap-md;
+  min-width: $gap-lg;
   font-size: $font-sm;
   line-height: $gap-lg;
   background: $bg-content;
@@ -44,7 +45,7 @@
 
 .editor {
   position: absolute;
-  top: $gap-lg;
+  top: $gap-xs + $gap-lg;
   right: 0;
   left: 0;
   bottom: 0;

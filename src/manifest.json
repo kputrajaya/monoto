@@ -1,11 +1,11 @@
 {
-  "name": "monoto",
-  "short_name": "monoto",
+  "name": "Monoto",
+  "short_name": "Monoto",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff",
-  "theme_color": "#673ab8",
+  "background_color": "#181920",
+  "theme_color": "#bd93f9",
   "icons": [
     {
       "src": "/assets/icons/android-chrome-192x192.png",
