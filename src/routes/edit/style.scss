@@ -54,4 +54,11 @@
     height: 100%;
     font-family: $fam-mono;
   }
+
+  :global(.cm-s-dracula .CodeMirror-linenumber) {
+    color: $color-secondary;
+  }
+  :global(.CodeMirror pre.CodeMirror-line) {
+    padding: 0 $gap-xs;
+  }
 }

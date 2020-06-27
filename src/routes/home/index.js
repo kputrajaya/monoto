@@ -13,6 +13,7 @@ const Home = () => {
 
       <Svg class={style.image} />
       <h2 class={style.text}>&quot;Nothing to see here&hellip;&quot;</h2>
+      <a class={style.link}>Start a new note.</a>
     </div>
   );
 };

@@ -5,7 +5,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#181920",
-  "theme_color": "#bd93f9",
+  "theme_color": "#c097fc",
   "icons": [
     {
       "src": "/assets/icons/android-chrome-192x192.png",

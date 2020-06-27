@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-import Svg from '../svgr/svg-loaders-puff';
+import Svg from '../../components/svgr/svg-loaders-puff';
 import style from './style';
 
 const Loading = () => {

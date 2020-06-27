@@ -1,8 +1,11 @@
-$bg-sidebar: #181920;
-$bg-content: #282a36;
+$gap-xs: 5px;
+$gap-sm: 8px;
+$gap-md: 15px;
+$gap-lg: 30px;
+$gap-xl: 60px;
 
 $color-light: #f8f8f2;
-$color-primary: #bd93f9;
+$color-primary: #c097fc;
 $color-secondary: #9e9fa4;
 $color-tertiary: #5d5e63;
 $color-success: #73cd6e;
@@ -10,21 +13,27 @@ $color-danger: #ff79c6;
 $color-warning: #f1fa8c;
 $color-info: #7df5e1;
 
+$color-to-bg-lightness: -33%;
+$color-to-bg-saturation: $color-to-bg-lightness * 1.5;
+$color-to-bg-hover-lightness: $color-to-bg-lightness * .8;
+$color-to-bg-hover-saturation: $color-to-bg-hover-lightness * 1.5;
+
+$bg-sidebar: #181920;
+$bg-content: #282a36;
+$bg-primary: scale-color($color-primary, $lightness: $color-to-bg-lightness, $saturation: $color-to-bg-saturation);
+$bg-primary-hover: scale-color($color-primary, $lightness: $color-to-bg-hover-lightness, $saturation: $color-to-bg-hover-saturation);
+
 $fam-sans: 'Open Sans', Arial, sans-serif;
 $fam-mono: 'Inconsolata', Monaco, monospace;
 
-$font-xs: .64 * 14px;
-$font-sm: .8 * 14px;
-$font-md: 1 * 14px;
-$font-lg: 1.25 * 14px;
-$font-xl: 1.563 * 14px;
+$font-md: 14px;
+$font-xs: .64 * $font-md;
+$font-sm: .8 * $font-md;
+$font-lg: 1.25 * $font-md;
+$font-xl: 1.563 * $font-md;
+$font-2l: 1.953 * $font-md;
+$font-3l: 2.441 * $font-md;
 
 $line-height: 1.2;
-
-$gap-xs: 5px;
-$gap-sm: 8px;
-$gap-md: 15px;
-$gap-lg: 30px;
-$gap-xl: 60px;
 
 $transition-sm: 100ms;

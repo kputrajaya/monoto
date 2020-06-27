@@ -1,5 +1,6 @@
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
+import { Helmet } from 'react-helmet';
 import { Col, Container, Row, ScreenClassRender } from 'react-grid-system';
 
 import Sidebar from '../sidebar';
@@ -43,6 +44,10 @@ const Layout = ({ children }) => {
 
   return (
     <Container fluid={true} class={style.container}>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
       <Row nogutter={true} class={style.row}>
         <ScreenClassRender render={renderCols} />
       </Row>

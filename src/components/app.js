@@ -6,12 +6,13 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, QueryContext } from './context';
 import firebase from './firebase';
-import Loading from '../components/loading';
+import Loading from '../routes/loading';
 import Edit from '../routes/edit';
 import Home from '../routes/home';
 import Login from '../routes/login';
 import Logout from '../routes/logout';
 import NotFound from '../routes/not-found';
+import Shortcuts from '../routes/shortcuts';
 
 const App = () => {
   const [user, setUser] = useState();
@@ -48,6 +49,7 @@ const App = () => {
             <Router>
               <Home path="/" />
               <Edit path="/e/:id" />
+              <Shortcuts path="/shortcuts" />
               <Logout path="/logout" />
               <NotFound default />
             </Router>
@@ -59,7 +61,8 @@ const App = () => {
   return (
     <div id="app">
       <Helmet defaultTitle="Monoto" titleTemplate="%s - Monoto">
-        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+        <meta name="robots" content="index, follow" />
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
       </Helmet>
 
       <UserContext.Provider value={user}>

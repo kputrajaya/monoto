@@ -1,7 +1,9 @@
 @import './variables';
 
 * {
+  font-family: inherit;
   box-sizing: border-box;
+  outline: none;
   -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
 }
 
@@ -21,7 +23,7 @@ html, body {
 }
 
 a {
-  color: $color-info;
+  color: $color-primary;
   text-decoration: none;
   border-bottom: 1px dotted transparentize($color-secondary, .5);
   cursor: pointer;
