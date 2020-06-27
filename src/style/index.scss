@@ -35,4 +35,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #app {
   height: 100%;
+
+  #loading {
+    height: 100%;
+    background: $bg-sidebar;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
