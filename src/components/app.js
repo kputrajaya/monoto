@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, QueryContext } from './context';
 import firebase from './firebase';
-import Loading from '../routes/loading';
+import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
 import Home from '../routes/home';
 import Login from '../routes/login';
@@ -35,7 +35,7 @@ const App = () => {
   const renderApp = () => {
     switch (user) {
       case undefined:
-        return <Loading />;
+        return <div id="loading"><Svg /></div>;
       case null:
         return (
           <Router>
