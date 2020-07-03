@@ -17,11 +17,11 @@ const Login = () => {
     <div class={style.login}>
       <Helmet titleTemplate={null}>
         <title>Welcome to Monoto</title>
-        <meta name="description" content="Monoto is a note taking app with code editor feel. It's cloud-based, lightweight, mobile-friendly, and organizable." />
+        <meta name="description" content="Monoto is a note taking app with text editor feel. It's cloud-based, lightweight, mobile-friendly, and organizable." />
       </Helmet>
 
       <h1 class={style.title}>Monoto</h1>
-      <h2 class={style.subtitle}>Note taking app, with code editor feel</h2>
+      <h2 class={style.subtitle}>Note taking app, text editor feel</h2>
       <ul class={style.features}>
         <li>
           <h3>Cloud-based</h3>
@@ -29,7 +29,7 @@ const Login = () => {
         </li>
         <li>
           <h3>Lightweight</h3>
-          Engineered to achieve fast load times
+          Built to achieve fast load times
         </li>
         <li>
           <h3>Mobile-friendly</h3>
