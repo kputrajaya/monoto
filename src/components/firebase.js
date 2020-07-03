@@ -4,7 +4,7 @@ import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDMLzj5TqoFIIDaFoG6Rr8aNfn-jaqiGMs',
-  authDomain: 'monoto.app',
+  authDomain: 'auth.monoto.app',
   databaseURL: 'https://monote-app.firebaseio.com',
   projectId: 'monote-app',
   storageBucket: 'monote-app.appspot.com',
