@@ -2,19 +2,17 @@ import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { route } from 'preact-router';
 
-import { getNoteUrl, TREE_MAX_LEVEL } from '../utils';
+import { NOTE_PATH, TREE_MAX_LEVEL } from '../utils';
 import style from './style';
 
 const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, children }) => {
   const [open, setOpen] = useState(!!node.open);
 
-  const noteUrl = getNoteUrl(node.id);
-
   const actionOpen = () => {
     if (node.isFolder) {
       setOpen((oldOpen) => !oldOpen);
     } else {
-      route(noteUrl);
+      route(NOTE_PATH + node.id);
       onLinkClick();
     }
   };

@@ -4,8 +4,9 @@ import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
 
-import { QueryContext } from '../../components/context';
+import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
+import { HOME_PATH } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -13,17 +14,17 @@ require('codemirror/lib/codemirror.css');
 require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
-  const query = useContext(QueryContext);
+  const tree = useContext(TreeContext);
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
   const [editor, setEditor] = useState();
   const [editorValue, setEditorValue] = useState('');
 
   useEffect(() => {
-    if (!id || !query) return;
+    if (!id || !tree) return;
 
     let found = false;
-    query.forEach((doc) => {
+    tree.forEach((doc) => {
       if (doc.id !== id) return;
 
       found = true;
@@ -38,9 +39,9 @@ const Edit = ({ id }) => {
       })
     });
     if (!found) {
-      route('/');
+      route(HOME_PATH);
     }
-  }, [id, query]);
+  }, [id, tree]);
 
   useEffect(() => {
     if (!id || typeof body !== 'string') return;

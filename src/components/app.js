@@ -4,7 +4,7 @@ import { Router } from 'preact-router';
 import { Helmet } from 'react-helmet';
 
 import Layout from './layout';
-import { UserContext, QueryContext } from './context';
+import { UserContext, TreeContext } from './context';
 import firebase from './firebase';
 import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
@@ -16,7 +16,7 @@ import Shortcuts from '../routes/shortcuts';
 
 const App = () => {
   const [user, setUser] = useState();
-  const [query, setQuery] = useState();
+  const [tree, setTree] = useState();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((newUser) => {
@@ -26,8 +26,8 @@ const App = () => {
 
   useEffect(() => {
     if (!user) return;
-    const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((querySnapshot) => {
-      setQuery(querySnapshot);
+    const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((docs) => {
+      setTree(docs);
     });
     return unsubscribe;
   }, [user]);
@@ -66,9 +66,9 @@ const App = () => {
       </Helmet>
 
       <UserContext.Provider value={user}>
-        <QueryContext.Provider value={query}>
+        <TreeContext.Provider value={tree}>
           {renderApp()}
-        </QueryContext.Provider>
+        </TreeContext.Provider>
       </UserContext.Provider>
     </div>
   );
