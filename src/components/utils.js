@@ -8,6 +8,8 @@ export const NOTE_PATH ='/e/';
 export const TREE_MAX_LEVEL = 4;
 export const TREE_ROOT_NAME = 'Notes';
 
+export const cleanString = (input) => (input || '').trim();
+
 export const treeBuild = (tree) => {
   const treeRoot = {
     id: null,
@@ -121,7 +123,7 @@ export const treeDeleteNode = async (node, user) => {
 
 const _getNewName = (isFolder, defaultName) => {
   const nodeType = isFolder ? 'folder' : 'note';
-  const name = window.prompt(`Enter new ${nodeType} name:`, defaultName).trim();
+  const name = cleanString(window.prompt(`Enter new ${nodeType} name:`, defaultName));
   if (!name) {
     window.alert('Entered an invalid name!');
   }
@@ -155,7 +157,7 @@ const _getNewParentId = (tree) => {
       return result;
     })
     .reduce((acc, row) => acc + row, '');
-  const number = Math.floor(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`, '1').trim());
+  const number = Math.floor(cleanString(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`, '1')));
   const parentId = isNaN(number) || number < minNumber || number > maxNumber
     ? undefined
     : folders[number - 1].id;
