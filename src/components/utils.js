@@ -201,7 +201,7 @@ const _getNewParentId = (tree) => {
     defaultValue: '1',
     process: (input) => {
       const inputNumber = Math.floor(input);
-      return isNaN(inputNumber) || number < minNumber || inputNumber > maxNumber ? null : inputNumber;
+      return isNaN(inputNumber) || inputNumber < minNumber || inputNumber > maxNumber ? null : inputNumber;
     },
     error: 'Chosen an invalid folder!'
   });
