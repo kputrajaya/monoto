@@ -7,64 +7,172 @@
 }
 
 .control {
-  height: $gap-xs + $gap-lg;
-  padding: $gap-xs $gap-sm 0;
-  background: $bg-sidebar;
+  height: gap(xs) + gap(lg);
+  padding: gap(xs) gap(sm) 0;
+  background: color(sidebar);
   @include no-select;
 }
 
 .tab {
-  margin: 0 $gap-sm;
-  padding: 0 $gap-md;
-  min-width: $gap-lg;
-  font-size: $font-sm;
-  line-height: $gap-lg;
-  background: $bg-content;
+  margin: 0 gap(sm);
+  padding: 0 gap(md);
+  min-width: gap(lg);
+  font-size: font(sm);
+  line-height: gap(lg);
+  background: color(content);
   display: inline-block;
   position: relative;
 
   &::before, &::after {
     content: '';
     border: 0 solid transparent;
-    border-bottom-width: $gap-lg;
-    border-bottom-color: $bg-content;
+    border-bottom-width: gap(lg);
+    border-bottom-color: color(content);
     position: absolute;
     top: 0;
   }
 
   &::before {
-    border-left-width: $gap-sm;
-    left: -$gap-sm;
+    border-left-width: gap(sm);
+    left: -gap(sm);
   }
 
   &::after {
-    border-right-width: $gap-sm;
-    right: -$gap-sm;
+    border-right-width: gap(sm);
+    right: -gap(sm);
   }
 }
 
 .actions {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: gap(xs);
+  right: gap(xs);
+}
+
+.buttonPrimary {
+  @include button(primary);
+}
+
+.buttonSecondary {
+  @include button(secondary);
 }
 
 .editor {
   position: absolute;
-  top: $gap-xs + $gap-lg;
+  top: gap(xs) + gap(lg);
   right: 0;
   left: 0;
   bottom: 0;
 
   & > div {
     height: 100%;
-    font-family: $fam-mono;
+    font-family: $family-mono;
   }
 
   :global(.cm-s-dracula .CodeMirror-linenumber) {
-    color: $color-secondary;
+    color: color(secondary);
   }
   :global(.CodeMirror pre.CodeMirror-line) {
-    padding: 0 $gap-xs;
+    padding: 0 gap(xs);
+  }
+}
+
+.preview {
+  padding: gap(lg);
+  font-size: font(md);
+  color: color(secondary);
+  background: color(content);
+  position: absolute;
+  top: gap(xs) + gap(lg);
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: 10;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: gap(lg) 0 gap(md);
+    color: color(light);
+  }
+  h1 {
+    font-size: font(x2l);
+  }
+  h2 {
+    font-size: font(xl);
+  }
+  h3 {
+    font-size: font(lg);
+  }
+  h4 {
+    font-size: font(md);
+  }
+  h5 {
+    font-size: font(sm);
+  }
+  h6 {
+    font-size: font(xs);
+  }
+
+  p {
+    line-height: $line-height-lg;
+  }
+
+  hr {
+    margin: gap(lg) 0;
+    border: 0;
+    border-top: gap(x3s) solid color(secondary);
+  }
+
+  ul, ol {
+    padding: 0 0 0 gap(lg);
+
+    li {
+      padding: gap(xs) 0;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th, td {
+      padding: gap(xs) gap(sm);
+      border: gap(x3s) solid color(secondary);
+    }
+
+    th {
+      color: color(light);
+    }
+  }
+
+  blockquote {
+    margin: 0;
+    padding: 0 gap(md);
+    border-left: gap(x3s) solid color(secondary);
+  }
+
+  code {
+    padding: gap(xs) gap(sm);
+    font-family: $family-mono;
+    background: color(sidebar);
+    border-radius: gap(xs);
+  }
+
+  pre {
+    padding: gap(sm) gap(md);
+    background: color(sidebar);
+    border-radius: gap(xs);
+
+    code {
+      padding: 0;
+    }
   }
 }

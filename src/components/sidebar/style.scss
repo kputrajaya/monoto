@@ -3,7 +3,7 @@
 
 .sidebar {
   height: 100%;
-  background: $bg-sidebar;
+  background: color(sidebar);
   position: relative;
   overflow: auto;
   flex-shrink: 0;
@@ -12,7 +12,7 @@
 
 .content {
   width: 100%;
-  padding: $gap-md 0;
+  padding: gap(md) 0;
   white-space: nowrap;
   display: inline-block;
 
@@ -21,24 +21,24 @@
 .nav {
   margin: 0;
   padding: 0;
-  font-size: $font-sm;
-  color: $color-secondary;
+  font-size: font(sm);
+  color: color(secondary);
 
   .item {
     list-style: none;
 
     &.tree {
-      margin: 0 0 $gap-lg;
+      margin: 0 0 gap(lg);
     }
 
     a {
-      color: $color-light;
+      color: color(light);
     }
 
     h3 {
       margin: 0;
-      padding: $gap-sm $gap-md;
-      font-size: $font-sm;
+      padding: gap(sm) gap(md);
+      font-size: font(sm);
       color: inherit;
       text-transform: uppercase;
     }
@@ -46,12 +46,12 @@
 }
 
 .menu {
-  padding: $gap-xs;
-  color: $color-light;
-  background: $bg-content;
+  padding: gap(xs);
+  color: color(light);
+  background: color(content);
   position: absolute;
   top: -999px;
-  right: $gap-sm;
+  right: gap(sm);
   z-index: 5;
   visibility: hidden;
   opacity: 0;
@@ -63,18 +63,18 @@
   }
 
   hr {
-    margin: $gap-xs 0;
-    border: 1px solid transparentize($color-secondary, .9);
+    margin: gap(xs) 0;
+    border: gap(x3s) solid transparentize(color(secondary), .9);
     border-bottom-width: 0;
   }
 
   .item {
-    padding: $gap-sm $gap-lg $gap-sm $gap-md;
+    padding: gap(sm) gap(lg) gap(sm) gap(md);
     cursor: pointer;
     @include transition(background $transition-sm ease-out);
 
     &:hover {
-      background: transparentize($color-secondary, .9);
+      background: transparentize(color(secondary), .9);
     }
   }
 }

@@ -15,13 +15,13 @@
 }
 
 .text {
-  margin: $gap-lg 0 0;
-  font-size: $font-lg;
+  margin: gap(lg) 0 0;
+  font-size: font(lg);
   font-weight: 400;
   text-align: center;
 }
 
 .link {
-  margin: $gap-md 0 0;
+  margin: gap(md) 0 0;
 }
 

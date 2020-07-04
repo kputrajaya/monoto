@@ -17,32 +17,32 @@
 
 .title {
   margin: 0;
-  font-size: $font-3l;
+  font-size: font(x3l);
   text-transform: lowercase;
-  color: $color-primary;
+  color: color(primary);
   text-align: center;
 }
 
 .subtitle {
-  margin: $gap-sm 0 0;
-  font-size: $font-lg;
+  margin: gap(sm) 0 0;
+  font-size: font(lg);
   font-weight: 400;
   text-align: center;
 }
 
 .features {
-  margin: $gap-xl 0 0;
+  margin: gap(xl) 0 0;
   padding: 0;
-  font-size: $font-md;
-  color: $color-secondary;
+  font-size: font(md);
+  color: color(secondary);
   text-align: center;
   list-style-type: none;
 
   li > h3 {
-    margin: $gap-lg 0 $gap-sm;
-    font-size: $font-sm;
+    margin: gap(lg) 0 gap(sm);
+    font-size: font(sm);
     text-transform: uppercase;
-    color: $color-light;
+    color: color(light);
   }
 
   li:first-child > h3 {
@@ -51,27 +51,15 @@
 }
 
 .button {
-  margin: $gap-xl 0 0;
-  padding: $gap-md $gap-lg;
-  font-size: $font-md;
-  font-weight: 600;
-  color: $color-light;
-  text-align: center;
-  background: $bg-primary;
-  border: none;
-  border-radius: $gap-xs;
-  cursor: pointer;
-  display: inline-block;
-  @include transition(background $transition-sm ease-out);
-
-  &:hover {
-    background: $bg-primary-hover;
-  }
+  @include button(primary);
+  margin: gap(xl) 0 0;
+  padding: gap(md) gap(lg);
+  font-size: font(md);
 }
 
 .buttonIcon {
-  width: $gap-md;
-  height: $gap-md;
-  margin: 2px $gap-md -2px 0;
-  fill: $color-light;
+  width: gap(md);
+  height: gap(md);
+  margin: gap(x2s) gap(md) -gap(x2s) 0;
+  fill: color(light);
 }

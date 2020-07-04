@@ -12,20 +12,20 @@ html, body {
   width: 100%;
   padding: 0;
   margin: 0;
-  background: $bg-content;
-  font-family: $fam-sans;
-  font-size: $font-md;
+  background: color(content);
+  font-family: $family-sans;
+  font-size: font(md);
   font-weight: 400;
-  line-height: $line-height;
-  color: $color-light;
+  line-height: $line-height-md;
+  color: color(light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: $color-primary;
+  color: color(primary);
   text-decoration: none;
-  border-bottom: 1px dotted transparentize($color-secondary, .5);
+  border-bottom: gap(x3s) dotted transparentize(color(secondary), .5);
   cursor: pointer;
 }
 
@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 
   #loading {
     height: 100%;
-    background: $bg-sidebar;
+    background: color(sidebar);
     display: flex;
     justify-content: center;
     align-items: center;

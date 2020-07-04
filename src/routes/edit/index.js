@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
+import marked from 'marked';
 
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
@@ -20,7 +21,16 @@ const Edit = ({ id }) => {
   const [editor, setEditor] = useState();
   const [editorBody, setEditorBody] = useState('');
   const [editedBody, setEditedBody] = useState();
+  const [htmlContent, setHtmlContent] = useState();
   const [syncingHash, setSyncingHash] = useState();
+
+  useEffect(() => {
+    setTitle(null);
+    setEditorBody(null);
+    setEditedBody(null);
+    setHtmlContent(null);
+    setSyncingHash(null);
+  }, [id]);
 
   useEffect(() => {
     if (!id || !tree) return;
@@ -79,8 +89,8 @@ const Edit = ({ id }) => {
     setEditedBody(value);
   };
 
-  const actionShare = () => {
-    console.log(editedBody || editorBody);
+  const actionPreview = () => {
+    setHtmlContent((oldHtmlContent) => oldHtmlContent ? null : marked(editedBody || editorBody));
   };
 
   return (
@@ -99,6 +109,11 @@ const Edit = ({ id }) => {
             {title}
           </div>
         }
+        <div class={style.actions}>
+          <button class={htmlContent ? style.buttonSecondary : style.buttonPrimary} onClick={actionPreview}>
+            {htmlContent ? 'Close' : 'Preview'}
+          </button>
+        </div>
       </div>
       <CodeMirror
         autoCursor={true}
@@ -116,6 +131,11 @@ const Edit = ({ id }) => {
         editorDidMount={setEditor}
         onChange={actionChange}
       />
+      {
+        htmlContent &&
+        /* eslint-disable-next-line react/no-danger */
+        <div class={style.preview} dangerouslySetInnerHTML={{__html: htmlContent}} />
+      }
     </div>
   );
 };

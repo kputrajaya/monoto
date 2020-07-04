@@ -1,3 +1,5 @@
+@import './variables';
+
 @mixin transition($value...) {
     -webkit-transition: $value;
     -moz-transition: $value;
@@ -13,4 +15,22 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@mixin button($name) {
+  padding: gap(xs) gap(sm);
+  font-size: font(sm);
+  font-weight: 600;
+  color: color(light);
+  text-align: center;
+  background: scale-color(color($name), $lightness: -33%, $saturation: -50%);
+  border: none;
+  border-radius: gap(xs);
+  cursor: pointer;
+  display: inline-block;
+  @include transition(background $transition-sm ease-out);
+
+  &:hover {
+    background: scale-color(color($name), $lightness: -30%, $saturation: -45%);
+  }
 }
