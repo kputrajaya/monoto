@@ -8,7 +8,26 @@ export const EDIT_PATH ='/e/';
 export const TREE_MAX_LEVEL = 4;
 export const TREE_ROOT_NAME = 'Notes';
 
-export const cleanString = (input) => (input || '').trim();
+export const userAlert = ({ title }) => window.alert(title);
+
+export const userInput = ({ title, defaultValue, process, error }) => {
+  let input = window.prompt(title, defaultValue);
+  if (input === null) return;
+
+  input = (input || '').trim();
+  if (process) {
+    input = process(input);
+  }
+  if (!input && error) {
+    userAlert({
+      title: error
+    });
+  }
+  return input
+};
+
+export const userConfirm = ({ title }) => window.confirm(title);
+
 export const hashString = (input) => {
   let hash = 0;
   if (!input.length) return hash;
@@ -104,6 +123,12 @@ export const treeMoveNode = async (node, tree) => {
 
   const parentId = _getNewParentId(tree);
   if (parentId === undefined) return;
+  if (parentId === node.parentId) {
+    userAlert({
+      title: 'Destination is the same or you don\'t have any folders!'
+    });
+    return;
+  }
 
   firebase.firestore().collection('tree').doc(node.id).update({
     parentId
@@ -113,8 +138,9 @@ export const treeMoveNode = async (node, tree) => {
 export const treeDeleteNode = async (node, user) => {
   if (!node) return;
 
-  const confirmed = window.confirm(`Delete ${node.isFolder ? 'folder and all its contents' : 'note'}?`);
-  if (!confirmed) return;
+  if (!userConfirm({
+    title: `Delete ${node.isFolder ? 'folder and its contents' : 'note'}?`
+  })) return;
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
@@ -133,12 +159,13 @@ export const treeDeleteNode = async (node, user) => {
   route(HOME_PATH);
 };
 
-const _getNewName = (isFolder, defaultName) => {
+const _getNewName = (isFolder, defaultValue) => {
   const nodeType = isFolder ? 'folder' : 'note';
-  const name = cleanString(window.prompt(`Enter new ${nodeType} name:`, defaultName));
-  if (!name) {
-    window.alert('Entered an invalid name!');
-  }
+  const name = userInput({
+    title: `Enter new ${nodeType} name:`,
+    defaultValue,
+    error: 'Entered an invalid name!'
+  });
   return name;
 };
 
@@ -169,12 +196,15 @@ const _getNewParentId = (tree) => {
       return result;
     })
     .reduce((acc, row) => acc + row, '');
-  const number = Math.floor(cleanString(window.prompt(`${folderText} Choose folder [${minNumber}-${maxNumber}]:`, '1')));
-  const parentId = isNaN(number) || number < minNumber || number > maxNumber
-    ? undefined
-    : folders[number - 1].id;
-  if (parentId === undefined) {
-    window.alert('Chosen an invalid folder!');
-  }
+  const number = userInput({
+    title: `${folderText} Choose folder [${minNumber}-${maxNumber}]:`,
+    defaultValue: '1',
+    process: (input) => {
+      const inputNumber = Math.floor(input);
+      return isNaN(inputNumber) || number < minNumber || inputNumber > maxNumber ? null : inputNumber;
+    },
+    error: 'Chosen an invalid folder!'
+  });
+  const parentId = folders[number - 1].id;
   return parentId;
 };
