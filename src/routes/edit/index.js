@@ -11,6 +11,7 @@ import style from './style';
 
 require('codemirror/keymap/sublime.js');
 require('codemirror/lib/codemirror.css');
+require('codemirror/mode/markdown/markdown');
 require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
@@ -90,6 +91,7 @@ const Edit = ({ id }) => {
         value={editorValue}
         options={{
           autofocus: true,
+          mode: 'markdown',
           keyMap: 'sublime',
           lineNumbers: true,
           tabSize: 2,
