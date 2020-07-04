@@ -6,7 +6,7 @@ import { UnControlled  as CodeMirror } from 'react-codemirror2';
 
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
-import { HOME_PATH } from '../../components/utils';
+import { hashString, HOME_PATH } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -17,9 +17,10 @@ require('codemirror/theme/dracula.css');
 const Edit = ({ id }) => {
   const tree = useContext(TreeContext);
   const [title, setTitle] = useState();
-  const [body, setBody] = useState();
   const [editor, setEditor] = useState();
-  const [editorValue, setEditorValue] = useState('');
+  const [editorBody, setEditorBody] = useState('');
+  const [editedBody, setEditedBody] = useState();
+  const [syncingHash, setSyncingHash] = useState();
 
   useEffect(() => {
     if (!id || !tree) return;
@@ -30,29 +31,40 @@ const Edit = ({ id }) => {
 
       found = true;
       const { title: newTitle, body: newBody } = doc.data();
+      const newBodyHash = hashString(newBody);
+      console.debug('Received', newBodyHash);
+
       setTitle(newTitle);
-      setBody((oldBody) => {
+      setEditedBody((oldBody) => {
+        if (newBodyHash === syncingHash || oldBody === newBody) return newBody;
+
         // Update editor if the change comes from another window
-        if (oldBody !== newBody) {
-          setEditorValue(newBody);
-        }
-        return newBody;
+        console.debug('Replacing content');
+        setEditorBody(newBody);
+        return null;
       })
     });
     if (!found) {
       route(HOME_PATH);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, tree]);
 
   useEffect(() => {
-    if (!id || typeof body !== 'string') return;
+    if (!id || typeof editedBody !== 'string') return;
 
     const timer = setTimeout(() => {
-      firebase.firestore().collection('tree').doc(id).update({body});
+      const editedBodyHash = hashString(editedBody);
+      console.debug('Syncing', editedBodyHash);
+
+      setSyncingHash(editedBodyHash);
+      firebase.firestore().collection('tree').doc(id).update({
+        body: editedBody
+      });
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [id, body]);
+  }, [id, editedBody]);
 
   useEffect(() => {
     if (!id || !editor) return;
@@ -64,7 +76,11 @@ const Edit = ({ id }) => {
     // Ignore if it's a programmatic change
     if (!data.origin) return;
 
-    setBody(value);
+    setEditedBody(value);
+  };
+
+  const actionShare = () => {
+    console.log(editedBody || editorBody);
   };
 
   return (
@@ -88,7 +104,7 @@ const Edit = ({ id }) => {
         autoCursor={true}
         autoScroll={true}
         className={style.editor}
-        value={editorValue}
+        value={editorBody}
         options={{
           autofocus: true,
           mode: 'markdown',

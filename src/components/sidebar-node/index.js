@@ -2,7 +2,7 @@ import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { route } from 'preact-router';
 
-import { NOTE_PATH, TREE_MAX_LEVEL } from '../utils';
+import { EDIT_PATH, TREE_MAX_LEVEL } from '../utils';
 import style from './style';
 
 const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, children }) => {
@@ -12,7 +12,7 @@ const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, childr
     if (node.isFolder) {
       setOpen((oldOpen) => !oldOpen);
     } else {
-      route(NOTE_PATH + node.id);
+      route(EDIT_PATH + node.id);
       onLinkClick();
     }
   };

@@ -43,6 +43,12 @@
   }
 }
 
+.actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .editor {
   position: absolute;
   top: $gap-xs + $gap-lg;

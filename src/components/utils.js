@@ -3,12 +3,24 @@ import { route } from 'preact-router';
 import firebase from './firebase';
 
 export const HOME_PATH = '/';
-export const NOTE_PATH ='/e/';
+export const EDIT_PATH ='/e/';
 
 export const TREE_MAX_LEVEL = 4;
 export const TREE_ROOT_NAME = 'Notes';
 
 export const cleanString = (input) => (input || '').trim();
+export const hashString = (input) => {
+  let hash = 0;
+  if (!input.length) return hash;
+
+  for (let i = 0; i < input.length; i++) {
+    const char = input.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash;
+};
+
 
 export const treeBuild = (tree) => {
   const treeRoot = {
@@ -58,7 +70,7 @@ export const treeCreateNote = async (node, user, tree) => {
     isFolder: false,
     body: ''
   });
-  route(NOTE_PATH + doc.id);
+  route(EDIT_PATH + doc.id);
 };
 
 export const treeCreateFolder = async (node, user, tree) => {
