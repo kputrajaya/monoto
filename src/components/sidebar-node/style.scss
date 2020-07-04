@@ -35,7 +35,7 @@
     border-left: 5px solid color(secondary);
     position: absolute;
     top: 6px;
-    left: -gap(md);
+    left: - gap(md);
   }
 
   &.open::before {
@@ -57,7 +57,7 @@
     border-radius: 50%;
     position: absolute;
     top: 8px;
-    left: -gap(md);
+    left: - gap(md);
   }
 }
 

@@ -60,6 +60,6 @@
 .buttonIcon {
   width: gap(md);
   height: gap(md);
-  margin: gap(x2s) gap(md) -gap(x2s) 0;
+  margin: gap(x2s) gap(md) (- gap(x2s)) 0;
   fill: color(light);
 }

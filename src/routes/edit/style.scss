@@ -34,12 +34,12 @@
 
   &::before {
     border-left-width: gap(sm);
-    left: -gap(sm);
+    left: - gap(sm);
   }
 
   &::after {
     border-right-width: gap(sm);
-    right: -gap(sm);
+    right: - gap(sm);
   }
 }
 
@@ -100,24 +100,6 @@
   h1, h2, h3, h4, h5, h6 {
     margin: gap(lg) 0 gap(md);
     color: color(light);
-  }
-  h1 {
-    font-size: font(x2l);
-  }
-  h2 {
-    font-size: font(xl);
-  }
-  h3 {
-    font-size: font(lg);
-  }
-  h4 {
-    font-size: font(md);
-  }
-  h5 {
-    font-size: font(sm);
-  }
-  h6 {
-    font-size: font(xs);
   }
 
   p {
