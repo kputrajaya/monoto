@@ -79,8 +79,6 @@
 
 .preview {
   padding: gap(lg);
-  font-size: font(md);
-  color: color(secondary);
   background: color(content);
   position: absolute;
   top: gap(xs) + gap(lg);
@@ -89,6 +87,12 @@
   bottom: 0;
   overflow: auto;
   z-index: 10;
+}
+
+.previewContent {
+  max-width: 760px;
+  font-size: font(md);
+  color: color(secondary);
 
   & > :first-child {
     margin-top: 0;

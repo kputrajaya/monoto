@@ -133,8 +133,10 @@ const Edit = ({ id }) => {
       />
       {
         htmlContent &&
-        /* eslint-disable-next-line react/no-danger */
-        <div class={style.preview} dangerouslySetInnerHTML={{__html: htmlContent}} />
+        <div class={style.preview}>
+          {/* eslint-disable-next-line react/no-danger */}
+          <div class={style.previewContent} dangerouslySetInnerHTML={{__html: htmlContent}} />
+        </div>
       }
     </div>
   );
