@@ -19,9 +19,7 @@ export const userInput = ({ title, defaultValue, process, error }) => {
     input = process(input);
   }
   if (!input && error) {
-    userAlert({
-      title: error
-    });
+    userAlert({title: error});
   }
   return input
 };
@@ -113,9 +111,7 @@ export const treeRenameNode = async (node) => {
   const name = _getNewName(node.isFolder, node.title);
   if (!name) return;
 
-  firebase.firestore().collection('tree').doc(node.id).update({
-    title: name
-  });
+  firebase.firestore().collection('tree').doc(node.id).update({title: name});
 };
 
 export const treeMoveNode = async (node, tree) => {
@@ -123,10 +119,12 @@ export const treeMoveNode = async (node, tree) => {
 
   const parentId = _getNewParentId(tree);
   if (parentId === undefined) return;
+  if (parentId === node.id) {
+    userAlert({title: 'Cannot move folder into itself!'});
+    return;
+  }
   if (parentId === node.parentId) {
-    userAlert({
-      title: 'Destination is the same or you don\'t have any folders!'
-    });
+    userAlert({title: 'Destination is the same or you don\'t have any folders!'});
     return;
   }
 
@@ -138,9 +136,7 @@ export const treeMoveNode = async (node, tree) => {
 export const treeDeleteNode = async (node, user) => {
   if (!node) return;
 
-  if (!userConfirm({
-    title: `Delete ${node.isFolder ? 'folder and its contents' : 'note'}?`
-  })) return;
+  if (!userConfirm({title: `Delete ${node.isFolder ? 'folder and its contents' : 'note'}?`})) return;
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
