@@ -13,17 +13,13 @@ const Layout = ({ children }) => {
     setShowSidebar((oldShowSidebar) => !oldShowSidebar);
   };
 
-  const actionHideSidebar = () => {
-    setShowSidebar(false);
-  };
-
   const renderCols = (screenClass) => (
     screenClass === 'xs' || screenClass === 'sm'
       ? (
         <Fragment>
           <Col xs={1} class={`${style.toggle} ${showSidebar ? style.open : ''}`} onClick={actionToggleSidebar} />
           <Col xs={11} class={`${style.sidebar} ${showSidebar ? '' : style.hidden}`}>
-            <Sidebar hideSidebar={actionHideSidebar} />
+            <Sidebar hideSidebar={actionToggleSidebar} />
           </Col>
           <Col xs={11} class={`${style.content} ${showSidebar ? style.hidden : ''}`}>
             {children}

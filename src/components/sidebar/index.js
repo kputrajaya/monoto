@@ -34,16 +34,6 @@ const Sidebar = ({ hideSidebar }) => {
 
   const nodeTree = useMemo(() => treeBuild(tree), [tree]);
 
-  const menuHotkeysArgs = (key, menuRef) => (
-    [key, () => menuRef.current ? menuRef.current.click() : null, {}, [menuRef]]
-  );
-  useHotkeys('esc', () => shownMenu ? setShownMenu(null) : null, {}, [shownMenu]);
-  useHotkeys(...menuHotkeysArgs('e', menuNewNoteRef));
-  useHotkeys(...menuHotkeysArgs('f', menuNewFolderRef));
-  useHotkeys(...menuHotkeysArgs('r', menuRenameRef));
-  useHotkeys(...menuHotkeysArgs('v', menuMoveRef));
-  useHotkeys(...menuHotkeysArgs('d', menuDeleteRef));
-
   const actionLinkClick = () => {
     if (hideSidebar) {
       hideSidebar();
@@ -63,6 +53,14 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuRename = () => treeRenameNode(shownMenu?.node);
   const actionMenuMove = () => treeMoveNode(shownMenu?.node, tree);
   const actionMenuDelete = () => treeDeleteNode(shownMenu?.node, user);
+
+  const menuHotkeysArgs = (key, ref) => [key, () => ref.current ? ref.current.click() : null, {}, [ref]];
+  useHotkeys(...menuHotkeysArgs('e', menuNewNoteRef));
+  useHotkeys(...menuHotkeysArgs('f', menuNewFolderRef));
+  useHotkeys(...menuHotkeysArgs('r', menuRenameRef));
+  useHotkeys(...menuHotkeysArgs('v', menuMoveRef));
+  useHotkeys(...menuHotkeysArgs('d', menuDeleteRef));
+  useHotkeys('esc', actionMenuClose, {}, [shownMenu]);
 
   const renderNodesRecursive = (nodes, level=1) => (
     nodes
