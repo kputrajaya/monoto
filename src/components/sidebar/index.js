@@ -1,6 +1,7 @@
 import { createRef, Fragment, h } from 'preact';
 import { useEffect, useContext, useMemo, useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import { TreeContext, UserContext } from '../context';
 import SidebarNode from '../sidebar-node';
@@ -20,6 +21,11 @@ const Sidebar = ({ hideSidebar }) => {
   const tree = useContext(TreeContext);
   const [shownMenu, setShownMenu] = useState();
   const sidebarRef = createRef();
+  const menuNewNoteRef = createRef();
+  const menuNewFolderRef = createRef();
+  const menuRenameRef = createRef();
+  const menuMoveRef = createRef();
+  const menuDeleteRef = createRef();
 
   useEffect(() => {
     document.addEventListener('click', actionMenuClose);
@@ -33,6 +39,18 @@ const Sidebar = ({ hideSidebar }) => {
       hideSidebar();
     }
   };
+
+  const buildHotkeysArgs = (hotkey, menuRef) => [
+    hotkey,
+    () => menuRef.current ? menuRef.current.click() : null,
+    null,
+    [menuRef]
+  ];
+  useHotkeys(...buildHotkeysArgs('e', menuNewNoteRef));
+  useHotkeys(...buildHotkeysArgs('f', menuNewFolderRef));
+  useHotkeys(...buildHotkeysArgs('r', menuRenameRef));
+  useHotkeys(...buildHotkeysArgs('v', menuMoveRef));
+  useHotkeys(...buildHotkeysArgs('d', menuDeleteRef));
 
   const actionMenuClick = (newShownMenu) => {
     setShownMenu((oldShownMenu) => oldShownMenu?.node?.id === newShownMenu?.node?.id ? null : newShownMenu);
@@ -84,13 +102,13 @@ const Sidebar = ({ hideSidebar }) => {
         {
           shownMenu?.node?.isFolder &&
           <Fragment>
-            <div class={style.item} onClick={actionMenuNewNote}>
-              New Note&hellip;
+            <div class={style.item} ref={menuNewNoteRef} onClick={actionMenuNewNote}>
+              New Not<u>e</u>&hellip;
             </div>
             {
               shownMenu?.level < TREE_MAX_LEVEL &&
-              <div class={style.item} onClick={actionMenuNewFolder}>
-                New Folder&hellip;
+              <div class={style.item} ref={menuNewFolderRef} onClick={actionMenuNewFolder}>
+                New <u>F</u>older&hellip;
               </div>
             }
           </Fragment>
@@ -102,14 +120,14 @@ const Sidebar = ({ hideSidebar }) => {
         {
           shownMenu?.node?.id &&
           <Fragment>
-            <div class={style.item} onClick={actionMenuRename}>
-              Rename&hellip;
+            <div class={style.item} ref={menuRenameRef} onClick={actionMenuRename}>
+              <u>R</u>ename&hellip;
             </div>
-            <div class={style.item} onClick={actionMenuMove}>
-              Move&hellip;
+            <div class={style.item} ref={menuMoveRef} onClick={actionMenuMove}>
+              Mo<u>v</u>e&hellip;
             </div>
-            <div class={style.item} onClick={actionMenuDelete}>
-              Delete
+            <div class={style.item} ref={menuDeleteRef} onClick={actionMenuDelete}>
+              <u>D</u>elete
             </div>
           </Fragment>
         }

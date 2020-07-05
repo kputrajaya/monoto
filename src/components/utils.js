@@ -205,6 +205,5 @@ const _getNewParentId = (tree) => {
     },
     error: 'Chosen an invalid folder!'
   });
-  const parentId = folders[number - 1].id;
-  return parentId;
+  return number ? folders[number - 1].id : undefined;
 };
