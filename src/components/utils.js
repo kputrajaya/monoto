@@ -120,7 +120,7 @@ export const treeMoveNode = async (node, tree) => {
   const parentId = _getNewParentId(tree);
   if (parentId === undefined) return;
   if (parentId === node.id) {
-    userAlert({title: 'Cannot move folder into itself!'});
+    userAlert({title: 'Can\'t move folder into itself!'});
     return;
   }
   if (parentId === node.parentId) {
