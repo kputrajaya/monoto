@@ -34,23 +34,21 @@ const Sidebar = ({ hideSidebar }) => {
 
   const nodeTree = useMemo(() => treeBuild(tree), [tree]);
 
+  const menuHotkeysArgs = (key, menuRef) => (
+    [key, () => menuRef.current ? menuRef.current.click() : null, {}, [menuRef]]
+  );
+  useHotkeys('esc', () => shownMenu ? setShownMenu(null) : null, {}, [shownMenu]);
+  useHotkeys(...menuHotkeysArgs('e', menuNewNoteRef));
+  useHotkeys(...menuHotkeysArgs('f', menuNewFolderRef));
+  useHotkeys(...menuHotkeysArgs('r', menuRenameRef));
+  useHotkeys(...menuHotkeysArgs('v', menuMoveRef));
+  useHotkeys(...menuHotkeysArgs('d', menuDeleteRef));
+
   const actionLinkClick = () => {
     if (hideSidebar) {
       hideSidebar();
     }
   };
-
-  const buildHotkeysArgs = (hotkey, menuRef) => [
-    hotkey,
-    () => menuRef.current ? menuRef.current.click() : null,
-    null,
-    [menuRef]
-  ];
-  useHotkeys(...buildHotkeysArgs('e', menuNewNoteRef));
-  useHotkeys(...buildHotkeysArgs('f', menuNewFolderRef));
-  useHotkeys(...buildHotkeysArgs('r', menuRenameRef));
-  useHotkeys(...buildHotkeysArgs('v', menuMoveRef));
-  useHotkeys(...buildHotkeysArgs('d', menuDeleteRef));
 
   const actionMenuClick = (newShownMenu) => {
     setShownMenu((oldShownMenu) => oldShownMenu?.node?.id === newShownMenu?.node?.id ? null : newShownMenu);
