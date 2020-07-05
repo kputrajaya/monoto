@@ -117,14 +117,10 @@ export const treeRenameNode = async (node) => {
 export const treeMoveNode = async (node, tree) => {
   if (!node) return;
 
-  const parentId = _getNewParentId(tree);
+  const parentId = _getNewParentId(tree, node);
   if (parentId === undefined) return;
-  if (parentId === node.id) {
-    userAlert({title: 'Can\'t move folder into itself!'});
-    return;
-  }
   if (parentId === node.parentId) {
-    userAlert({title: 'Destination is the same or you don\'t have any folders!'});
+    userAlert({title: 'No valid folders found!'});
     return;
   }
 
@@ -165,21 +161,26 @@ const _getNewName = (isFolder, defaultValue) => {
   return name;
 };
 
-const _getNewParentId = (tree) => {
+const _getNewParentId = (tree, currentNode=null) => {
   const getFoldersRecursive = (nodes, level=1) => nodes
     .map(({ id, title, children }) => {
+      // Exclude notes and itself
       const childFolders = children
-        ? getFoldersRecursive(children.filter((childNode) => childNode.isFolder), level + 1)
+        ? getFoldersRecursive(
+          children.filter((childNode) => childNode.isFolder && childNode.id !== currentNode?.id),
+          level + 1
+        )
         : [];
       childFolders.splice(0, 0, {id, title, level});
       return childFolders;
     })
     .reduce((acc, folders) => acc.concat(folders), []);
 
-  const nodeTree = treeBuild(tree);
-  const folders = getFoldersRecursive(nodeTree);
+  // Check if root is the only valid option
+  const folders = getFoldersRecursive(treeBuild(tree));
   if (folders.length == 1) return null;
 
+  // Get user input
   const minNumber = 1;
   const maxNumber = folders.length;
   const folderText = folders
@@ -201,5 +202,8 @@ const _getNewParentId = (tree) => {
     },
     error: 'Chosen an invalid folder!'
   });
-  return number ? folders[number - 1].id : undefined;
+
+  // Get parent ID, mark unchanged parent as no-op by returning undefined
+  const parentId = number ? folders[number - 1].id : undefined;
+  return parentId !== currentNode?.parentId ? parentId : undefined;
 };
