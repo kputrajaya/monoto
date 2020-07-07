@@ -1,11 +1,11 @@
 @import './variables';
 
 @mixin transition($value...) {
-    -webkit-transition: $value;
-    -moz-transition: $value;
-    -ms-transition: $value;
-    -o-transition: $value;
-    transition: $value;
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -ms-transition: $value;
+  -o-transition: $value;
+  transition: $value;
 }
 
 @mixin no-select {
