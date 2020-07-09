@@ -1,22 +1,15 @@
-# monoto
+# Monoto
 
-## CLI Commands
+Note taking app, text editor feel.
 
-``` bash
-# install dependencies
-npm install
+## Built With
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# test the production build locally
-npm run serve
-
-# run tests with jest and preact-render-spy
-npm run test
-```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+* [Preact](https://preactjs.com/)
+* [Firebase](https://firebase.google.com/)
+* [React Helmet](https://github.com/nfl/react-helmet)
+* [React Grid System](https://github.com/sealninja/react-grid-system)
+* [React CodeMirror2](https://github.com/scniro/react-codemirror2)
+* [Marked](https://github.com/markedjs/marked)
+* [React Hotkeys Hook](https://github.com/JohannesKlauss/react-hotkeys-hook)
+* [SVGR](https://react-svgr.com/)
+* [Vercel](https://vercel.com/)
