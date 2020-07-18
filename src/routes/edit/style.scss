@@ -69,11 +69,11 @@
     font-family: $family-mono;
   }
 
-  :global(.cm-s-dracula .CodeMirror-linenumber) {
-    color: color(secondary);
+  :global(.CodeMirror .CodeMirror-lines) {
+    padding: gap(sm) 0;
   }
-  :global(.CodeMirror pre.CodeMirror-line) {
-    padding: 0 gap(xs);
+  :global(.CodeMirror .CodeMirror-line) {
+    padding: 0 gap(sm);
   }
 }
 

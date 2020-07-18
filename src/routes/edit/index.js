@@ -124,7 +124,6 @@ const Edit = ({ id }) => {
           autofocus: true,
           mode: 'markdown',
           keyMap: 'sublime',
-          lineNumbers: true,
           tabSize: 2,
           theme: 'dracula'
         }}
