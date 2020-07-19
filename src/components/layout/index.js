@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   };
 
   const renderCols = (screenClass) => (
-    screenClass === 'xs' || screenClass === 'sm'
+    screenClass === 'xs' || screenClass === 'sm' || screenClass === 'md'
       ? (
         <Fragment>
           <Col xs={1} class={`${style.toggle} ${showSidebar ? style.open : ''}`} onClick={actionToggleSidebar} />

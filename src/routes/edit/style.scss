@@ -92,7 +92,7 @@
 .previewContent {
   max-width: 760px;
   font-size: font(md);
-  color: color(secondary);
+  line-height: $line-height-lg;
 
   & > :first-child {
     margin-top: 0;
@@ -103,11 +103,10 @@
 
   h1, h2, h3, h4, h5, h6 {
     margin: gap(lg) 0 gap(md);
-    color: color(light);
   }
 
   p {
-    line-height: $line-height-lg;
+    margin: 0 0 gap(md);
   }
 
   hr {
@@ -117,15 +116,17 @@
   }
 
   ul, ol {
+    margin: 0 0 gap(md);
     padding: 0 0 0 gap(lg);
 
     li {
-      padding: gap(xs) 0;
+      padding: gap(x2s) 0;
     }
   }
 
   table {
     width: 100%;
+    margin: 0 0 gap(md);
     border-spacing: 0;
     border-collapse: collapse;
 
@@ -133,26 +134,24 @@
       padding: gap(xs) gap(sm);
       border: gap(x3s) solid color(secondary);
     }
-
-    th {
-      color: color(light);
-    }
   }
 
   blockquote {
-    margin: 0;
+    margin: 0 0 gap(md);
     padding: 0 gap(md);
     border-left: gap(x3s) solid color(secondary);
   }
 
   code {
-    padding: gap(xs) gap(sm);
+    margin: 0;
+    padding: gap(xs);
     font-family: $family-mono;
     background: color(sidebar);
     border-radius: gap(xs);
   }
 
   pre {
+    margin: 0 0 gap(md);
     padding: gap(sm) gap(md);
     background: color(sidebar);
     border-radius: gap(xs);

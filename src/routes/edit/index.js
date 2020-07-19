@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
 import marked from 'marked';
@@ -19,12 +20,13 @@ const Edit = ({ id }) => {
   const tree = useContext(TreeContext);
   const [title, setTitle] = useState();
   const [editor, setEditor] = useState();
-  const [editorBody, setEditorBody] = useState('');
+  const [editorBody, setEditorBody] = useState();
   const [editedBody, setEditedBody] = useState();
   const [htmlContent, setHtmlContent] = useState();
   const [syncingHash, setSyncingHash] = useState();
 
   useEffect(() => {
+    console.debug('Resetting');
     setTitle(null);
     setEditorBody(null);
     setEditedBody(null);
@@ -46,19 +48,32 @@ const Edit = ({ id }) => {
 
       setTitle(newTitle);
       setEditedBody((oldBody) => {
-        if (newBodyHash === syncingHash || oldBody === newBody) return newBody;
+        if (newBodyHash === syncingHash) {
+          console.debug('Not replacing, same hash');
+          return newBody;
+        }
+        if (newBody === oldBody) {
+          console.debug('Not replacing, same body');
+          return newBody;
+        }
 
-        // Update editor if the change comes from another window
+        // Only update editor on remote changes, add 0 timeout for proper "reset"
         console.debug('Replacing content');
-        setEditorBody(newBody);
+        setTimeout(() => setEditorBody(newBody), 0);
         return null;
-      })
+      });
     });
     if (!found) {
       route(HOME_PATH);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, tree]);
+
+  useEffect(() => {
+    if (!id | !editor) return;
+
+    editor.focus();
+  }, [id, editor]);
 
   useEffect(() => {
     if (!id || typeof editedBody !== 'string') return;
@@ -76,11 +91,7 @@ const Edit = ({ id }) => {
     return () => clearTimeout(timer);
   }, [id, editedBody]);
 
-  useEffect(() => {
-    if (!id || !editor) return;
-
-    editor.focus();
-  }, [id, editor]);
+  useHotkeys('esc', () => setHtmlContent(null), {}, []);
 
   const actionChange = (editor, data, value) => {
     // Ignore if it's a programmatic change
