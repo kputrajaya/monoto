@@ -132,7 +132,7 @@ export const treeMoveNode = async (node, tree) => {
 export const treeDeleteNode = async (node, user) => {
   if (!node) return;
 
-  if (!userConfirm({title: `Delete ${node.isFolder ? 'folder and its contents' : 'note'}?`})) return;
+  if (!userConfirm({title: `Delete "${node.title}"${node.isFolder ? ' and its contents' : ''}?`})) return;
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
