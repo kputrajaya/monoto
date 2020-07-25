@@ -3,24 +3,44 @@
 .shortcuts {
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-.image {
-  width: 67%;
-  max-width: 600px;
-  max-height: 400px;
+.tableWrapper {
+  width: 100%;
+  max-height: 100%;
+  padding: 0 gap(sm);
+  overflow-y: auto;
 }
 
-.text {
-  margin: gap(lg) 0 0;
-  font-size: font(lg);
-  font-weight: 400;
-  text-align: center;
+.table {
+  margin: 0 auto gap(lg);
+
+  td {
+    padding: gap(xs);
+    color: color(secondary);
+  }
+
+  .title {
+    padding: gap(lg) gap(xs) gap(sm);
+    font-size: font(sm);
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  .keys {
+    padding: (gap(xs) - gap(x2s)) 0;
+    text-align: right;
+  }
 }
 
-.link {
-  margin: gap(md) 0 0;
+.step {
+  margin: gap(x2s) gap(xs);
+  padding: gap(x2s) gap(xs);
+  font-size: font(sm);
+  color: color(light);
+  background: transparentize(color(secondary), .5);
+  border-radius: gap(xs);
+  display: inline-block;
+  word-spacing: - gap(x3s);
 }

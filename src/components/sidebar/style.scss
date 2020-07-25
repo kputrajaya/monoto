@@ -5,7 +5,7 @@
   height: 100%;
   background: color(sidebar);
   position: relative;
-  overflow: auto;
+  overflow-y: auto;
   flex-shrink: 0;
   @include no-select;
 }
