@@ -41,6 +41,13 @@
     border-right-width: gap(sm);
     right: - gap(sm);
   }
+
+  svg {
+    width: gap(sm);
+    height: gap(sm);
+    margin: 0 (- gap(x2s)) 0 gap(sm);
+    display: inline-block;
+  }
 }
 
 .actions {

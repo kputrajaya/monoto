@@ -8,7 +8,8 @@ import marked from 'marked';
 
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
-import { hashString, HOME_PATH } from '../../components/utils';
+import Svg from '../../components/svgr/svg-loaders-dot';
+import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -18,11 +19,12 @@ require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
   const tree = useContext(TreeContext);
-  const [title, setTitle] = useState();
   const [editor, setEditor] = useState();
+  const [title, setTitle] = useState();
   const [editorBody, setEditorBody] = useState();
   const [editedBody, setEditedBody] = useState();
   const [htmlContent, setHtmlContent] = useState();
+  const [syncing, setSyncing] = useState(false);
   const [syncingHash, setSyncingHash] = useState();
 
   useEffect(() => {
@@ -31,6 +33,7 @@ const Edit = ({ id }) => {
     setEditorBody(null);
     setEditedBody(null);
     setHtmlContent(null);
+    setSyncing(false);
     setSyncingHash(null);
   }, [id]);
 
@@ -43,21 +46,22 @@ const Edit = ({ id }) => {
 
       found = true;
       const { title: newTitle, body: newBody } = doc.data();
-      const newBodyHash = hashString(newBody);
+      const newBodyHash = hashNote(id, newBody);
       console.debug('Received', newBodyHash);
 
       setTitle(newTitle);
-      setEditedBody((oldBody) => {
+      setEditedBody((oldEditedBody) => {
         if (newBodyHash === syncingHash) {
           console.debug('Not replacing, same hash');
-          return newBody;
+          return oldEditedBody;
         }
-        if (newBody === oldBody) {
+        if (newBody === oldEditedBody) {
           console.debug('Not replacing, same body');
-          return newBody;
+          return oldEditedBody;
         }
 
-        // Only update editor on remote changes, add 0 timeout for proper "reset"
+        // Only update editorBody on remote changes
+        // Timeout allows it to reset to null first, ensuring proper clean up
         console.debug('Replacing content');
         setTimeout(() => setEditorBody(newBody), 0);
         return null;
@@ -70,26 +74,34 @@ const Edit = ({ id }) => {
   }, [id, tree]);
 
   useEffect(() => {
+    if (typeof editedBody !== 'string') return;
+
+    setSyncing(true);
+
+    const timer = setTimeout(async () => {
+      const editedBodyHash = hashNote(id, editedBody);
+      console.debug('Syncing', editedBodyHash);
+
+      setSyncingHash(editedBodyHash);
+      try {
+        await firebase.firestore().collection('tree').doc(id).update({
+          body: editedBody
+        });
+      } catch {
+        // TODO: Handle update errors
+      }
+      setSyncing(false);
+    }, EDIT_DEBOUNCE_DURATION);
+
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editedBody]);
+
+  useEffect(() => {
     if (!id | !editor) return;
 
     editor.focus();
   }, [id, editor]);
-
-  useEffect(() => {
-    if (!id || typeof editedBody !== 'string') return;
-
-    const timer = setTimeout(() => {
-      const editedBodyHash = hashString(editedBody);
-      console.debug('Syncing', editedBodyHash);
-
-      setSyncingHash(editedBodyHash);
-      firebase.firestore().collection('tree').doc(id).update({
-        body: editedBody
-      });
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [id, editedBody]);
 
   useHotkeys('esc', () => setHtmlContent(null), {}, []);
 
@@ -118,6 +130,7 @@ const Edit = ({ id }) => {
           title &&
           <div class={style.tab}>
             {title}
+            {syncing && <Svg />}
           </div>
         }
         <div class={style.actions}>

@@ -3,10 +3,12 @@ import { route } from 'preact-router';
 import firebase from './firebase';
 
 export const HOME_PATH = '/';
-export const EDIT_PATH ='/e/';
+export const EDIT_PATH = '/e/';
 
 export const TREE_MAX_LEVEL = 4;
 export const TREE_ROOT_NAME = 'Notes';
+
+export const EDIT_DEBOUNCE_DURATION = 750;
 
 export const userAlert = ({ title }) => window.alert(title);
 
@@ -37,6 +39,8 @@ export const hashString = (input) => {
   }
   return hash;
 };
+
+export const hashNote = (id, body) => hashString(`${id}: ${body}`);
 
 
 export const treeBuild = (tree) => {
