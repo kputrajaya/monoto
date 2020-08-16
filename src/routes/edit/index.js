@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
-import { useHotkeys } from 'react-hotkeys-hook';
 import { Helmet } from 'react-helmet';
 import { UnControlled  as CodeMirror } from 'react-codemirror2';
 import marked from 'marked';
@@ -9,7 +8,7 @@ import marked from 'marked';
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/svg-loaders-dot';
-import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH } from '../../components/utils';
+import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH, useShortcut } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -41,11 +40,11 @@ const Edit = ({ id }) => {
     if (!id || !tree) return;
 
     let found = false;
-    tree.forEach((doc) => {
-      if (doc.id !== id) return;
+    tree.forEach((node) => {
+      if (node.id !== id) return;
 
       found = true;
-      const { title: newTitle, body: newBody } = doc.data();
+      const { title: newTitle, body: newBody } = node.data();
       const newBodyHash = hashNote(id, newBody);
       console.debug('Received', newBodyHash);
 
@@ -78,7 +77,7 @@ const Edit = ({ id }) => {
 
     setSyncing(true);
 
-    const timer = setTimeout(async () => {
+    const timeout = setTimeout(async () => {
       const editedBodyHash = hashNote(id, editedBody);
       console.debug('Syncing', editedBodyHash);
 
@@ -93,7 +92,7 @@ const Edit = ({ id }) => {
       setSyncing(false);
     }, EDIT_DEBOUNCE_DURATION);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editedBody]);
 
@@ -103,7 +102,7 @@ const Edit = ({ id }) => {
     editor.focus();
   }, [id, editor]);
 
-  useHotkeys('esc', () => setHtmlContent(null), {}, []);
+  useShortcut('esc', () => setHtmlContent(null), []);
 
   const actionChange = (editor, data, value) => {
     // Ignore if it's a programmatic change
@@ -140,17 +139,19 @@ const Edit = ({ id }) => {
         </div>
       </div>
       <CodeMirror
-        autoCursor={true}
-        autoScroll={true}
         className={style.editor}
         value={editorBody}
         options={{
           autofocus: true,
+          lineWrapping: true,
           mode: 'markdown',
           keyMap: 'sublime',
           tabSize: 2,
           theme: 'dracula'
         }}
+        cursor={{line: 0, ch: 0}}
+        autoCursor={true}
+        autoScroll={true}
         editorDidMount={setEditor}
         onChange={actionChange}
       />

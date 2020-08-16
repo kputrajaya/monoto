@@ -6,6 +6,26 @@ import style from './style';
 const Shortcuts = () => {
   const data = [
     {
+      title: 'Global',
+      keys: [
+        {
+          mac: ['Cmd + Shift + S'],
+          pc: ['Ctrl + Shift + S'],
+          action: 'Search notes'
+        },
+        {
+          mac: ['Cmd + Shift + E'],
+          pc: ['Ctrl + Shift + E'],
+          action: 'New note'
+        },
+        {
+          mac: ['Cmd + Shift + F'],
+          pc: ['Ctrl + Shift + F'],
+          action: 'New folder'
+        }
+      ]
+    },
+    {
       title: 'Operations',
       keys: [
         {

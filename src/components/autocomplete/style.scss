@@ -1,0 +1,37 @@
+@import '../../style/variables';
+@import '../../style/mixins';
+
+.container {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: gap(xs) gap(sm);
+  color: color(light);
+  background: transparent;
+  border: none;
+  border-bottom: gap(x3s) solid transparentize(color(secondary), .5);
+}
+
+.result {
+  width: 100%;
+  padding: gap(xs);
+  color: color(light);
+  background: color(content);
+  overflow: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 11;
+}
+
+.item {
+  padding: gap(sm) gap(md);
+  cursor: pointer;
+  @include transition(background $transition-sm ease-out);
+
+  &:hover, &.selected {
+    background: transparentize(color(secondary), .9);
+  }
+}

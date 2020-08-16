@@ -1,4 +1,5 @@
 import { route } from 'preact-router';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 import firebase from './firebase';
 
@@ -14,7 +15,7 @@ export const userAlert = ({ title }) => window.alert(title);
 
 export const userInput = ({ title, defaultValue, process, error }) => {
   let input = window.prompt(title, defaultValue);
-  if (input === null) return;
+  if (input === null) return null;
 
   input = (input || '').trim();
   if (process) {
@@ -35,13 +36,24 @@ export const hashString = (input) => {
   for (let i = 0; i < input.length; i++) {
     const char = input.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
+    // Convert to 32-bit integer
+    hash = hash & hash;
   }
   return hash;
 };
 
 export const hashNote = (id, body) => hashString(`${id}: ${body}`);
 
+export const useShortcut = (key, action, deps) => useHotkeys(
+  key.indexOf('cmd') >= 0 ? `${key}, ${key.replace(/cmd/g, 'ctrl')}` : key,
+  (e) => {
+    action();
+    e.preventDefault();
+    return false;
+  },
+  {filter: () => true, keydown: false, keyup: true},
+  deps
+);
 
 export const treeBuild = (tree) => {
   const treeRoot = {
@@ -55,12 +67,12 @@ export const treeBuild = (tree) => {
 
   // Build parent-children map
   const nodeMap = {};
-  tree.forEach((doc) => {
-    const data = doc.data();
+  tree.forEach((node) => {
+    const data = node.data();
     nodeMap[data.parentId] = nodeMap[data.parentId] || [];
     nodeMap[data.parentId].push({
       ...data,
-      id: doc.id
+      id: node.id
     });
   });
 
@@ -153,6 +165,39 @@ export const treeDeleteNode = async (node, user) => {
   const doc = await firebase.firestore().collection('tree').doc(node.id).get();
   deleteRecursive([doc]);
   route(HOME_PATH);
+};
+
+export const treeSearchNote = (tree, query) => {
+  let result = [];
+  if (!query || query.length < 2) return result;
+
+  const lowercaseQuery = query.toLowerCase();
+  tree.forEach((node) => {
+    const data = node.data();
+    if (data.isFolder) return;
+
+    let score = 0;
+    if (data.title.toLowerCase().indexOf(lowercaseQuery) >= 0) {
+      score += 2;
+    }
+    if (data.body.toLowerCase().indexOf(lowercaseQuery) >= 0) {
+      score += 1;
+    }
+    if (score > 0) {
+      result.push({
+        id: node.id,
+        title: data.title,
+        score
+      });
+    }
+  });
+
+  result = result.sort((a, b) => {
+    if (a.score > b.score) return -1;
+    if (b.score > a.score) return 1;
+    return a.title.localeCompare(b.title);
+  });
+  return result;
 };
 
 const _getNewName = (isFolder, defaultValue) => {

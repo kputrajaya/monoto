@@ -1,18 +1,22 @@
 import { createRef, Fragment, h } from 'preact';
 import { useEffect, useContext, useMemo, useState } from 'preact/hooks';
+import { route } from 'preact-router';
 import { Link } from 'preact-router/match';
-import { useHotkeys } from 'react-hotkeys-hook';
 
+import Autocomplete from '../autocomplete';
 import { TreeContext, UserContext } from '../context';
 import SidebarNode from '../sidebar-node';
 import {
+  EDIT_PATH,
   treeBuild,
   treeCreateFolder,
   treeCreateNote,
   treeDeleteNode,
   treeMoveNode,
   treeRenameNode,
-  TREE_MAX_LEVEL
+  treeSearchNote,
+  TREE_MAX_LEVEL,
+  useShortcut
 } from '../utils';
 import style from './style';
 
@@ -20,7 +24,9 @@ const Sidebar = ({ hideSidebar }) => {
   const user = useContext(UserContext);
   const tree = useContext(TreeContext);
   const [shownMenu, setShownMenu] = useState();
+  const nodeTree = useMemo(() => treeBuild(tree), [tree]);
   const sidebarRef = createRef();
+  const searchRef = createRef();
   const menuNewNoteRef = createRef();
   const menuNewFolderRef = createRef();
   const menuRenameRef = createRef();
@@ -31,8 +37,6 @@ const Sidebar = ({ hideSidebar }) => {
     document.addEventListener('click', actionMenuClose);
     return () => document.removeEventListener('click', actionMenuClose);
   }, []);
-
-  const nodeTree = useMemo(() => treeBuild(tree), [tree]);
 
   const actionLinkClick = () => {
     if (hideSidebar) {
@@ -54,13 +58,16 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuMove = () => treeMoveNode(shownMenu?.node, tree);
   const actionMenuDelete = () => treeDeleteNode(shownMenu?.node, user);
 
-  const menuHotkeysArgs = (key, ref) => [key, () => ref.current ? ref.current.click() : null, {}, [ref]];
-  useHotkeys(...menuHotkeysArgs('e', menuNewNoteRef));
-  useHotkeys(...menuHotkeysArgs('f', menuNewFolderRef));
-  useHotkeys(...menuHotkeysArgs('r', menuRenameRef));
-  useHotkeys(...menuHotkeysArgs('v', menuMoveRef));
-  useHotkeys(...menuHotkeysArgs('d', menuDeleteRef));
-  useHotkeys('esc', actionMenuClose, {}, [shownMenu]);
+  const menuShortcutArgs = (key, ref) => [key, () => ref.current ? ref.current.click() : null, [ref]];
+  useShortcut(...menuShortcutArgs('e', menuNewNoteRef));
+  useShortcut(...menuShortcutArgs('f', menuNewFolderRef));
+  useShortcut(...menuShortcutArgs('r', menuRenameRef));
+  useShortcut(...menuShortcutArgs('v', menuMoveRef));
+  useShortcut(...menuShortcutArgs('d', menuDeleteRef));
+  useShortcut('esc', actionMenuClose, [shownMenu]);
+  useShortcut('cmd+shift+s', () => searchRef.current ? searchRef.current.focus() : null, [searchRef]);
+  useShortcut('cmd+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
+  useShortcut('cmd+shift+f', () => treeCreateFolder(null, user, tree), [user, tree]);
 
   const renderNodesRecursive = (nodes, level=1) => (
     nodes
@@ -81,6 +88,19 @@ const Sidebar = ({ hideSidebar }) => {
   return (
     <div class={style.sidebar} ref={sidebarRef}>
       <div class={style.content}>
+        <div class={style.search}>
+          <Autocomplete
+            fetch={(query) => treeSearchNote(tree, query)}
+            label={(choice) => choice.title}
+            select={(choice) => {
+              route(EDIT_PATH + choice.id);
+              actionLinkClick();
+            }}
+            maxHeight="calc(100vh - 60px)"
+            ref={searchRef}
+          />
+        </div>
+
         <ul class={style.nav}>
           <li class={`${style.item} ${style.tree}`}>
             {renderNodesRecursive(nodeTree)}

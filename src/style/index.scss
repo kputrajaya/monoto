@@ -22,13 +22,6 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: color(primary);
-  text-decoration: none;
-  border-bottom: gap(x3s) dotted transparentize(color(secondary), .5);
-  cursor: pointer;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
@@ -49,6 +42,17 @@ h5 {
 }
 h6 {
   font-size: font(xs);
+}
+
+a {
+  color: color(primary);
+  text-decoration: none;
+  border-bottom: gap(x3s) dotted transparentize(color(secondary), .5);
+  cursor: pointer;
+}
+
+input {
+  outline: none;
 }
 
 #app {

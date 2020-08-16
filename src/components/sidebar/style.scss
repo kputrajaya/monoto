@@ -15,7 +15,11 @@
   padding: gap(md) 0;
   white-space: nowrap;
   display: inline-block;
+}
 
+.search {
+  margin: 0 0 gap(md);
+  padding: 0 gap(md);
 }
 
 .nav {
@@ -31,15 +35,11 @@
       margin: 0 0 gap(lg);
     }
 
-    a {
-      color: color(light);
-    }
-
     h3 {
       margin: 0;
       padding: gap(sm) gap(md);
       font-size: font(sm);
-      color: inherit;
+      color: color(light);
       text-transform: uppercase;
     }
   }
@@ -52,7 +52,7 @@
   position: absolute;
   top: -999px;
   right: gap(sm);
-  z-index: 5;
+  z-index: 10;
   visibility: hidden;
   opacity: 0;
   @include transition(opacity $transition-sm ease-out);
