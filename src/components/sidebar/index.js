@@ -65,9 +65,9 @@ const Sidebar = ({ hideSidebar }) => {
   useShortcut(...menuShortcutArgs('v', menuMoveRef));
   useShortcut(...menuShortcutArgs('d', menuDeleteRef));
   useShortcut('esc', actionMenuClose, [shownMenu]);
-  useShortcut('cmd+shift+s', () => searchRef.current ? searchRef.current.focus() : null, [searchRef]);
-  useShortcut('cmd+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
-  useShortcut('cmd+shift+f', () => treeCreateFolder(null, user, tree), [user, tree]);
+  useShortcut('ctrl+shift+s', () => searchRef.current ? searchRef.current.focus() : null, [searchRef]);
+  useShortcut('ctrl+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
+  useShortcut('ctrl+shift+f', () => treeCreateFolder(null, user, tree), [user, tree]);
 
   const renderNodesRecursive = (nodes, level=1) => (
     nodes
@@ -90,13 +90,14 @@ const Sidebar = ({ hideSidebar }) => {
       <div class={style.content}>
         <div class={style.search}>
           <Autocomplete
-            fetch={(query) => treeSearchNote(tree, query)}
-            label={(choice) => choice.title}
-            select={(choice) => {
+            placeholder="Search ..."
+            getChoices={(query) => treeSearchNote(tree, query)}
+            getLabel={(choice) => choice.title}
+            setChoice={(choice) => {
               route(EDIT_PATH + choice.id);
               actionLinkClick();
             }}
-            maxHeight="calc(100vh - 60px)"
+            resultMaxHeight="calc(100vh - 60px)"
             ref={searchRef}
           />
         </div>

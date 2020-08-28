@@ -12,13 +12,12 @@
 
 .content {
   width: 100%;
-  padding: gap(md) 0;
   white-space: nowrap;
   display: inline-block;
 }
 
 .search {
-  margin: 0 0 gap(md);
+  margin: gap(xs) 0 gap(sm);
   padding: 0 gap(md);
 }
 

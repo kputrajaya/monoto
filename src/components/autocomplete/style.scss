@@ -7,8 +7,10 @@
 
 .input {
   width: 100%;
-  padding: gap(xs) gap(sm);
+  padding: 0;
+  font-size: font(sm);
   color: color(light);
+  line-height: gap(lg);
   background: transparent;
   border: none;
   border-bottom: gap(x3s) solid transparentize(color(secondary), .5);

@@ -147,7 +147,16 @@ const Edit = ({ id }) => {
           mode: 'markdown',
           keyMap: 'sublime',
           tabSize: 2,
-          theme: 'dracula'
+          theme: 'dracula',
+          extraKeys: {
+            Tab: (cm) => {
+              if (cm.somethingSelected()) {
+                cm.indentSelection('add');
+              } else {
+                cm.replaceSelection('  ', 'end', '+input');
+              }
+            }
+          }
         }}
         cursor={{line: 0, ch: 0}}
         autoCursor={true}

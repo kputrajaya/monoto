@@ -6,10 +6,10 @@ import { useShortcut } from '../utils';
 import style from './style';
 
 // eslint-disable-next-line react/display-name
-const Autocomplete = forwardRef(({ fetch, label, select, maxHeight }, ref) => {
+const Autocomplete = forwardRef(({ placeholder, getChoices, getLabel, setChoice, resultMaxHeight }, ref) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const choices = useMemo(() => fetch(query), [fetch, query]);
+  const choices = useMemo(() => getChoices(query), [getChoices, query]);
 
   useEffect(() => {
     setSelectedIndex(0);
@@ -24,7 +24,7 @@ const Autocomplete = forwardRef(({ fetch, label, select, maxHeight }, ref) => {
 
   const actionSelect = (choice) => {
     if (!choice) return;
-    select(choice);
+    setChoice(choice);
     actionClear();
   };
 
@@ -56,19 +56,19 @@ const Autocomplete = forwardRef(({ fetch, label, select, maxHeight }, ref) => {
         class={style.input}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search ..."
+        placeholder={placeholder}
         ref={ref}
       />
       {
         query && choices.length > 0 &&
-        <div class={style.result} style={{maxHeight}}>
+        <div class={style.result} style={resultMaxHeight ? {maxHeight: resultMaxHeight} : null}>
           {
             choices.map((choice, index) => (
               <div
                 class={`${style.item} ${selectedIndex === index ? style.selected : ''}`}
                 onClick={() => actionSelect(choice)}
               >
-                {label(choice)}
+                {getLabel(choice)}
               </div>
             ))
           }

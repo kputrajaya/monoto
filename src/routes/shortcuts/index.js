@@ -9,17 +9,17 @@ const Shortcuts = () => {
       title: 'Global',
       keys: [
         {
-          mac: ['Cmd + Shift + S'],
+          mac: ['Ctrl + Shift + S'],
           pc: ['Ctrl + Shift + S'],
           action: 'Search notes'
         },
         {
-          mac: ['Cmd + Shift + E'],
+          mac: ['Ctrl + Shift + E'],
           pc: ['Ctrl + Shift + E'],
           action: 'New note'
         },
         {
-          mac: ['Cmd + Shift + F'],
+          mac: ['Ctrl + Shift + F'],
           pc: ['Ctrl + Shift + F'],
           action: 'New folder'
         }
