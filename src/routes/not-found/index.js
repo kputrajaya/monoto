@@ -10,7 +10,6 @@ const NotFound = () => {
     <div class={style.notFound}>
       <Helmet>
         <title>Not Found</title>
-        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <Svg class={style.image} />

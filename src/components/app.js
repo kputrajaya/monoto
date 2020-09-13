@@ -61,7 +61,6 @@ const App = () => {
   return (
     <div id="app">
       <Helmet defaultTitle="Monoto" titleTemplate="%s - Monoto">
-        <meta name="robots" content="index, follow" />
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
       </Helmet>
 
