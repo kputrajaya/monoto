@@ -8,7 +8,7 @@ import marked from 'marked';
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/svg-loaders-dot';
-import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH, useShortcut } from '../../components/utils';
+import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH, MDFAPI_URL, useShortcut } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -113,6 +113,19 @@ const Edit = ({ id }) => {
 
   const actionPreview = () => {
     setHtmlContent((oldHtmlContent) => oldHtmlContent ? null : marked(editedBody || editorBody));
+  };
+
+  const actionDownload = async () => {
+    try {
+      const response = await fetch(MDFAPI_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({markdown: marked(editedBody || editorBody)})
+      });
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

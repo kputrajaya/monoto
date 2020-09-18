@@ -11,6 +11,8 @@ export const TREE_ROOT_NAME = 'Notes';
 
 export const EDIT_DEBOUNCE_DURATION = 750;
 
+export const MDFAPI_URL = 'https://mdfapi.kvn.pt/';
+
 export const userAlert = ({ title }) => window.alert(title);
 
 export const userInput = ({ title, defaultValue, process, error }) => {
