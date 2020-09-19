@@ -1,5 +1,4 @@
 import { h } from 'preact';
-import { Helmet } from 'react-helmet';
 
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/icon8-google';
