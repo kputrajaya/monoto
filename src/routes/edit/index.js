@@ -146,7 +146,7 @@ const Edit = ({ id }) => {
           </div>
         }
         <div class={style.actions}>
-          <button class={style.buttonPrimary} onClick={actionDownload}>
+          <button class={style.buttonPrimary} onClick={actionDownload} style="display:none">
             Download
           </button>
           <button class={htmlContent ? style.buttonSecondary : style.buttonPrimary} onClick={actionPreview}>
