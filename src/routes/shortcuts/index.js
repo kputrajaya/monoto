@@ -137,7 +137,7 @@ const Shortcuts = () => {
     }
   ];
 
-  const keyType = typeof window !== 'undefined' && window.navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'pc';
+  const keyType = window.navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'pc';
 
   return (
     <div class={style.shortcuts}>
