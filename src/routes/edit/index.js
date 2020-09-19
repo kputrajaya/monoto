@@ -154,32 +154,35 @@ const Edit = ({ id }) => {
           </button>
         </div>
       </div>
-      <CodeMirror
-        className={style.editor}
-        value={editorBody}
-        options={{
-          autofocus: true,
-          lineWrapping: true,
-          mode: 'markdown',
-          keyMap: 'sublime',
-          tabSize: 2,
-          theme: 'dracula',
-          extraKeys: {
-            Tab: (cm) => {
-              if (cm.somethingSelected()) {
-                cm.indentSelection('add');
-              } else {
-                cm.replaceSelection('  ', 'end', '+input');
+      {
+        typeof window !== 'undefined' &&
+        <CodeMirror
+          className={style.editor}
+          value={editorBody}
+          options={{
+            autofocus: true,
+            lineWrapping: true,
+            mode: 'markdown',
+            keyMap: 'sublime',
+            tabSize: 2,
+            theme: 'dracula',
+            extraKeys: {
+              Tab: (cm) => {
+                if (cm.somethingSelected()) {
+                  cm.indentSelection('add');
+                } else {
+                  cm.replaceSelection('  ', 'end', '+input');
+                }
               }
             }
-          }
-        }}
-        cursor={{line: 0, ch: 0}}
-        autoCursor={true}
-        autoScroll={true}
-        editorDidMount={setEditor}
-        onChange={actionChange}
-      />
+          }}
+          cursor={{line: 0, ch: 0}}
+          autoCursor={true}
+          autoScroll={true}
+          editorDidMount={setEditor}
+          onChange={actionChange}
+        />
+      }
       {
         htmlContent &&
         <div class={style.preview}>
