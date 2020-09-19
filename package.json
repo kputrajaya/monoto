@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "eslint src && preact build --no-prerender --preload",
+    "build": "eslint src && preact build",
     "serve": "sirv build --cors --single",
     "dev": "preact watch",
     "lint": "eslint src",
