@@ -15,11 +15,6 @@ const Login = () => {
 
   return (
     <div class={style.login}>
-      <Helmet titleTemplate={null}>
-        <title>Welcome to Monoto</title>
-        <meta name="description" content="Monoto is a note taking app with text editor feel. It's cloud-based, lightweight, mobile-friendly, and organizable." />
-      </Helmet>
-
       <h1 class={style.title}>Monoto</h1>
       <h2 class={style.subtitle}>Note taking app, text editor feel</h2>
       <ul class={style.features}>
