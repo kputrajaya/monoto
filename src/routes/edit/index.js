@@ -29,7 +29,7 @@ const Edit = ({ id }) => {
   const [syncingHash, setSyncingHash] = useState();
 
   const downloadFormRef = createRef();
-  const downloadInputRef = createRef();
+  const downloadBodyRef = createRef();
 
   useEffect(() => {
     console.debug('Resetting');
@@ -122,7 +122,7 @@ const Edit = ({ id }) => {
 
   const actionDownload = async () => {
     // Use DOM to prevent rerenders for download
-    downloadInputRef.current.value = editedBody || editorBody;
+    downloadBodyRef.current.value = editedBody || editorBody;
     downloadFormRef.current.submit();
   };
 
@@ -179,10 +179,6 @@ const Edit = ({ id }) => {
         onChange={actionChange}
       />
 
-      <form class={style.hidden} action={DOWNLOAD_PATH} method="POST" ref={downloadFormRef}>
-        <input name="title" value={title} />
-        <input name="markdown" ref={downloadInputRef} />
-      </form>
       {
         htmlContent &&
         <div class={style.preview}>
@@ -190,6 +186,10 @@ const Edit = ({ id }) => {
           <div class={style.previewContent} dangerouslySetInnerHTML={{__html: htmlContent}} />
         </div>
       }
+      <form class={style.hidden} action={DOWNLOAD_PATH} method="POST" ref={downloadFormRef}>
+        <input name="title" value={title} />
+        <textarea name="markdown" ref={downloadBodyRef} />
+      </form>
     </div>
   );
 };
