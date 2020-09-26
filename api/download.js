@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const { title, markdown } = req.body.markdown;
+  const { title, markdown } = req.body;
   const html = mdToHtml(markdown);
   const pdf = await htmlToPdf(html);
 
