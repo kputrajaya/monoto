@@ -107,6 +107,9 @@ const Sidebar = ({ hideSidebar }) => {
             {renderNodesRecursive(nodeTree)}
           </li>
           <li class={style.item}>
+            <Link href="/" onClick={actionLinkClick}><h3>Home</h3></Link>
+          </li>
+          <li class={style.item}>
             <Link href="/shortcuts" onClick={actionLinkClick}><h3>Shortcuts</h3></Link>
           </li>
           <li class={style.item}>

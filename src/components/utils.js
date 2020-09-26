@@ -5,13 +5,12 @@ import firebase from './firebase';
 
 export const HOME_PATH = '/';
 export const EDIT_PATH = '/e/';
+export const DOWNLOAD_PATH = '/api/download';
 
 export const TREE_MAX_LEVEL = 4;
 export const TREE_ROOT_NAME = 'Notes';
 
 export const EDIT_DEBOUNCE_DURATION = 750;
-
-export const MDFAPI_URL = 'https://mdfapi.kvn.pt/';
 
 export const userAlert = ({ title }) => window.alert(title);
 

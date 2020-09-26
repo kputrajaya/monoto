@@ -1,6 +1,10 @@
 @import '../../style/variables';
 @import '../../style/mixins';
 
+.hidden {
+  display: none;
+}
+
 .edit {
   height: 100%;
   position: relative;
@@ -53,14 +57,16 @@
 .actions {
   position: absolute;
   top: gap(xs);
-  right: gap(xs);
+  right: 0;
 }
 
 .buttonPrimary {
+  margin-right: gap(xs);
   @include button(primary);
 }
 
 .buttonSecondary {
+  margin-right: gap(xs);
   @include button(secondary);
 }
 

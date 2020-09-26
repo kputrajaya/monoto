@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { createRef, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
@@ -8,7 +8,7 @@ import marked from 'marked';
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/svg-loaders-dot';
-import { EDIT_DEBOUNCE_DURATION, hashNote, HOME_PATH, MDFAPI_URL, useShortcut } from '../../components/utils';
+import { EDIT_DEBOUNCE_DURATION, DOWNLOAD_PATH, hashNote, HOME_PATH, useShortcut } from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -22,9 +22,14 @@ const Edit = ({ id }) => {
   const [title, setTitle] = useState();
   const [editorBody, setEditorBody] = useState();
   const [editedBody, setEditedBody] = useState();
+
   const [htmlContent, setHtmlContent] = useState();
+
   const [syncing, setSyncing] = useState(false);
   const [syncingHash, setSyncingHash] = useState();
+
+  const downloadFormRef = createRef();
+  const downloadInputRef = createRef();
 
   useEffect(() => {
     console.debug('Resetting');
@@ -116,16 +121,9 @@ const Edit = ({ id }) => {
   };
 
   const actionDownload = async () => {
-    try {
-      const response = await fetch(MDFAPI_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({markdown: marked(editedBody || editorBody)})
-      });
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
+    // Use DOM to prevent rerenders for download
+    downloadInputRef.current.value = editedBody || editorBody;
+    downloadFormRef.current.submit();
   };
 
   return (
@@ -146,7 +144,7 @@ const Edit = ({ id }) => {
           </div>
         }
         <div class={style.actions}>
-          <button class={style.buttonPrimary} onClick={actionDownload} style="display:none">
+          <button class={style.buttonPrimary} onClick={actionDownload}>
             Download
           </button>
           <button class={htmlContent ? style.buttonSecondary : style.buttonPrimary} onClick={actionPreview}>
@@ -180,6 +178,11 @@ const Edit = ({ id }) => {
         editorDidMount={setEditor}
         onChange={actionChange}
       />
+
+      <form class={style.hidden} action={DOWNLOAD_PATH} method="POST" ref={downloadFormRef}>
+        <input name="title" value={title} />
+        <input name="markdown" ref={downloadInputRef} />
+      </form>
       {
         htmlContent &&
         <div class={style.preview}>
