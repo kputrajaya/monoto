@@ -9,7 +9,7 @@ const Login = () => {
   const actionSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).catch((error) => {
-      log(`Error: ${error}`);
+      log(`Firebase sign in failed: ${error}`);
     });
   }
 

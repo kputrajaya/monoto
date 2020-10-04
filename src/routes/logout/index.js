@@ -9,7 +9,7 @@ const Logout = () => {
     firebase.auth().signOut().then(() => {
       route(HOME_PATH, true);
     }).catch((error) => {
-      log(`Error: ${error}`);
+      log(`Firebase sign out failed: ${error}`);
     });
   }, []);
 };
