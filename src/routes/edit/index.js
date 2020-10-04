@@ -2,13 +2,20 @@ import { createRef, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
-import { UnControlled  as CodeMirror } from 'react-codemirror2';
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 import marked from 'marked';
 
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/svg-loaders-dot';
-import { EDIT_DEBOUNCE_DURATION, DOWNLOAD_PATH, hashNote, HOME_PATH, useShortcut } from '../../components/utils';
+import {
+  EDIT_DEBOUNCE_DURATION,
+  DOWNLOAD_PATH,
+  hashNote,
+  log,
+  HOME_PATH,
+  useShortcut,
+} from '../../components/utils';
 import style from './style';
 
 require('codemirror/keymap/sublime.js');
@@ -32,7 +39,7 @@ const Edit = ({ id }) => {
   const downloadBodyRef = createRef();
 
   useEffect(() => {
-    console.debug('Resetting');
+    log('Resetting');
     setTitle(null);
     setEditorBody(null);
     setEditedBody(null);
@@ -51,22 +58,22 @@ const Edit = ({ id }) => {
       found = true;
       const { title: newTitle, body: newBody } = node.data();
       const newBodyHash = hashNote(id, newBody);
-      console.debug('Received', newBodyHash);
+      log('Received', newBodyHash);
 
       setTitle(newTitle);
       setEditedBody((oldEditedBody) => {
         if (newBodyHash === syncingHash) {
-          console.debug('Not replacing, same hash');
+          log('Not replacing, same hash');
           return oldEditedBody;
         }
         if (newBody === oldEditedBody) {
-          console.debug('Not replacing, same body');
+          log('Not replacing, same body');
           return oldEditedBody;
         }
 
         // Only update editorBody on remote changes
         // Timeout allows it to reset to null first, ensuring proper clean up
-        console.debug('Replacing content');
+        log('Replacing content');
         setTimeout(() => setEditorBody(newBody), 0);
         return null;
       });
@@ -78,18 +85,18 @@ const Edit = ({ id }) => {
   }, [id, tree]);
 
   useEffect(() => {
-    if (typeof editedBody !== 'string') return;
+    if (typeof editedBody !== 'string') return null;
 
     setSyncing(true);
 
     const timeout = setTimeout(async () => {
       const editedBodyHash = hashNote(id, editedBody);
-      console.debug('Syncing', editedBodyHash);
+      log('Syncing', editedBodyHash);
 
       setSyncingHash(editedBodyHash);
       try {
         await firebase.firestore().collection('tree').doc(id).update({
-          body: editedBody
+          body: editedBody,
         });
       } catch {
         // TODO: Handle update errors
@@ -102,7 +109,7 @@ const Edit = ({ id }) => {
   }, [editedBody]);
 
   useEffect(() => {
-    if (!id | !editor) return;
+    if (!id || !editor) return;
 
     editor.focus();
   }, [id, editor]);
@@ -117,7 +124,7 @@ const Edit = ({ id }) => {
   };
 
   const actionPreview = () => {
-    setHtmlContent((oldHtmlContent) => oldHtmlContent ? null : marked(editedBody || editorBody));
+    setHtmlContent((oldHtmlContent) => (oldHtmlContent ? null : marked(editedBody || editorBody)));
   };
 
   const actionDownload = async () => {
@@ -129,28 +136,31 @@ const Edit = ({ id }) => {
   return (
     <div class={style.edit}>
       {
-        title &&
-        <Helmet>
+        title
+        && <Helmet>
           <title>{title}</title>
         </Helmet>
       }
 
       <div class={style.control}>
         {
-          title &&
-          <div class={style.tab}>
+          title
+          && <div class={style.tab}>
             {title}
             {syncing && <Svg />}
           </div>
         }
         <div class={style.actions}>
           {
-            htmlContent &&
-            <button class={style.buttonPrimary} onClick={actionDownload}>
+            htmlContent
+            && <button class={style.buttonPrimary} onClick={actionDownload}>
               Download
             </button>
           }
-          <button class={htmlContent ? style.buttonSecondary : style.buttonPrimary} onClick={actionPreview}>
+          <button
+            class={htmlContent ? style.buttonSecondary : style.buttonPrimary}
+            onClick={actionPreview}
+          >
             {htmlContent ? 'Close' : 'Preview'}
           </button>
         </div>
@@ -172,8 +182,8 @@ const Edit = ({ id }) => {
               } else {
                 cm.replaceSelection('  ', 'end', '+input');
               }
-            }
-          }
+            },
+          },
         }}
         cursor={{line: 0, ch: 0}}
         autoCursor={true}
@@ -183,8 +193,8 @@ const Edit = ({ id }) => {
       />
 
       {
-        htmlContent &&
-        <div class={style.preview}>
+        htmlContent
+        && <div class={style.preview}>
           {/* eslint-disable-next-line react/no-danger */}
           <div class={style.previewContent} dangerouslySetInnerHTML={{__html: htmlContent}} />
         </div>

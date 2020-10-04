@@ -12,15 +12,22 @@ export const TREE_ROOT_NAME = 'Notes';
 
 export const EDIT_DEBOUNCE_DURATION = 750;
 
+// eslint-disable-next-line no-alert
 export const userAlert = ({ title }) => window.alert(title);
 
-export const userInput = ({ title, defaultValue, process, error }) => {
+export const userInput = ({
+  title,
+  defaultValue,
+  transform,
+  error,
+}) => {
+  // eslint-disable-next-line no-alert
   let input = window.prompt(title, defaultValue);
   if (input === null) return null;
 
   input = (input || '').trim();
-  if (process) {
-    input = process(input);
+  if (transform) {
+    input = transform(input);
   }
   if (!input && error) {
     userAlert({title: error});
@@ -28,17 +35,23 @@ export const userInput = ({ title, defaultValue, process, error }) => {
   return input
 };
 
+// eslint-disable-next-line no-alert
 export const userConfirm = ({ title }) => window.confirm(title);
+
+// eslint-disable-next-line no-console
+export const log = console.debug;
 
 export const hashString = (input) => {
   let hash = 0;
   if (!input.length) return hash;
 
-  for (let i = 0; i < input.length; i++) {
+  for (let i = 0; i < input.length; i += 1) {
     const char = input.charCodeAt(i);
+    // eslint-disable-next-line no-bitwise
     hash = (hash << 5) - hash + char;
     // Convert to 32-bit integer
-    hash = hash & hash;
+    // eslint-disable-next-line no-bitwise
+    hash &= hash;
   }
   return hash;
 };
@@ -53,7 +66,7 @@ export const useShortcut = (key, action, deps) => useHotkeys(
     return false;
   },
   {filter: () => true, keydown: false, keyup: true},
-  deps
+  deps,
 );
 
 export const treeBuild = (tree) => {
@@ -62,7 +75,7 @@ export const treeBuild = (tree) => {
     title: TREE_ROOT_NAME,
     isFolder: true,
     open: true,
-    children: []
+    children: [],
   };
   if (!tree) return [treeRoot];
 
@@ -73,7 +86,7 @@ export const treeBuild = (tree) => {
     nodeMap[data.parentId] = nodeMap[data.parentId] || [];
     nodeMap[data.parentId].push({
       ...data,
-      id: node.id
+      id: node.id,
     });
   });
 
@@ -90,11 +103,70 @@ export const treeBuild = (tree) => {
   return [treeRoot];
 };
 
+const prvGetNewName = (isFolder, defaultValue) => {
+  const nodeType = isFolder ? 'folder' : 'note';
+  const name = userInput({
+    title: `Enter new ${nodeType} name:`,
+    defaultValue,
+    error: 'Entered an invalid name!',
+  });
+  return name;
+};
+
+const prvGetNewParentId = (tree, currentNode = null) => {
+  const getFoldersRecursive = (nodes, level = 1) => nodes
+    .map(({ id, title, children }) => {
+      // Exclude notes and itself
+      const childFolders = children
+        ? getFoldersRecursive(
+          children.filter((childNode) => childNode.isFolder && childNode.id !== currentNode?.id),
+          level + 1,
+        )
+        : [];
+      childFolders.splice(0, 0, {id, title, level});
+      return childFolders;
+    })
+    .reduce((acc, folders) => acc.concat(folders), []);
+
+  // Check if root is the only valid option
+  const folders = getFoldersRecursive(treeBuild(tree));
+  if (folders.length === 1) return null;
+
+  // Get user input
+  const minNumber = 1;
+  const maxNumber = folders.length;
+  const folderText = folders
+    .map((folder, index) => {
+      let result = '';
+      for (let i = 1; i < folder.level; i += 1) {
+        result += '   ';
+      }
+      result += ` ${index + 1} : ${folder.title}\n`;
+      return result;
+    })
+    .reduce((acc, row) => acc + row, '');
+  const number = userInput({
+    title: `${folderText} Choose folder [${minNumber}-${maxNumber}]:`,
+    defaultValue: '1',
+    transform: (input) => {
+      const inputNumber = Math.floor(input);
+      return Number.isNaN(inputNumber) || inputNumber < minNumber || inputNumber > maxNumber
+        ? null
+        : inputNumber;
+    },
+    error: 'Chosen an invalid folder!',
+  });
+
+  // Get parent ID, mark unchanged parent as no-op by returning undefined
+  const parentId = number ? folders[number - 1].id : undefined;
+  return parentId !== currentNode?.parentId ? parentId : undefined;
+};
+
 export const treeCreateNote = async (node, user, tree) => {
-  const parentId = node ? node.id : _getNewParentId(tree);
+  const parentId = node ? node.id : prvGetNewParentId(tree);
   if (parentId === undefined) return;
 
-  const name = _getNewName(false, 'New Note');
+  const name = prvGetNewName(false, 'New Note');
   if (!name) return;
 
   const doc = await firebase.firestore().collection('tree').add({
@@ -102,30 +174,30 @@ export const treeCreateNote = async (node, user, tree) => {
     parentId,
     title: name,
     isFolder: false,
-    body: ''
+    body: '',
   });
   route(EDIT_PATH + doc.id);
 };
 
 export const treeCreateFolder = async (node, user, tree) => {
-  const parentId = node ? node.id : _getNewParentId(tree);
+  const parentId = node ? node.id : prvGetNewParentId(tree);
   if (parentId === undefined) return;
 
-  const name = _getNewName(true, 'New Folder');
+  const name = prvGetNewName(true, 'New Folder');
   if (!name) return;
 
   firebase.firestore().collection('tree').add({
     userId: user.uid,
     parentId,
     title: name,
-    isFolder: true
+    isFolder: true,
   });
 };
 
 export const treeRenameNode = async (node) => {
   if (!node) return;
 
-  const name = _getNewName(node.isFolder, node.title);
+  const name = prvGetNewName(node.isFolder, node.title);
   if (!name) return;
 
   firebase.firestore().collection('tree').doc(node.id).update({title: name});
@@ -134,16 +206,14 @@ export const treeRenameNode = async (node) => {
 export const treeMoveNode = async (node, tree) => {
   if (!node) return;
 
-  const parentId = _getNewParentId(tree, node);
+  const parentId = prvGetNewParentId(tree, node);
   if (parentId === undefined) return;
   if (parentId === node.parentId) {
     userAlert({title: 'No valid folders found!'});
     return;
   }
 
-  firebase.firestore().collection('tree').doc(node.id).update({
-    parentId
-  });
+  firebase.firestore().collection('tree').doc(node.id).update({parentId});
 };
 
 export const treeDeleteNode = async (node, user) => {
@@ -153,7 +223,7 @@ export const treeDeleteNode = async (node, user) => {
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
-      const id = doc.id;
+      const { id } = doc;
       doc.ref.delete();
       const childDocs = await firebase.firestore()
         .collection('tree')
@@ -188,7 +258,7 @@ export const treeSearchNote = (tree, query) => {
       result.push({
         id: node.id,
         title: data.title,
-        score
+        score,
       });
     }
   });
@@ -199,61 +269,4 @@ export const treeSearchNote = (tree, query) => {
     return a.title.localeCompare(b.title);
   });
   return result;
-};
-
-const _getNewName = (isFolder, defaultValue) => {
-  const nodeType = isFolder ? 'folder' : 'note';
-  const name = userInput({
-    title: `Enter new ${nodeType} name:`,
-    defaultValue,
-    error: 'Entered an invalid name!'
-  });
-  return name;
-};
-
-const _getNewParentId = (tree, currentNode=null) => {
-  const getFoldersRecursive = (nodes, level=1) => nodes
-    .map(({ id, title, children }) => {
-      // Exclude notes and itself
-      const childFolders = children
-        ? getFoldersRecursive(
-          children.filter((childNode) => childNode.isFolder && childNode.id !== currentNode?.id),
-          level + 1
-        )
-        : [];
-      childFolders.splice(0, 0, {id, title, level});
-      return childFolders;
-    })
-    .reduce((acc, folders) => acc.concat(folders), []);
-
-  // Check if root is the only valid option
-  const folders = getFoldersRecursive(treeBuild(tree));
-  if (folders.length == 1) return null;
-
-  // Get user input
-  const minNumber = 1;
-  const maxNumber = folders.length;
-  const folderText = folders
-    .map((folder, index) => {
-      let result = '';
-      for (let i = 1; i < folder.level; i++) {
-        result += '   ';
-      }
-      result += ` ${index + 1} : ${folder.title}\n`;
-      return result;
-    })
-    .reduce((acc, row) => acc + row, '');
-  const number = userInput({
-    title: `${folderText} Choose folder [${minNumber}-${maxNumber}]:`,
-    defaultValue: '1',
-    process: (input) => {
-      const inputNumber = Math.floor(input);
-      return isNaN(inputNumber) || inputNumber < minNumber || inputNumber > maxNumber ? null : inputNumber;
-    },
-    error: 'Chosen an invalid folder!'
-  });
-
-  // Get parent ID, mark unchanged parent as no-op by returning undefined
-  const parentId = number ? folders[number - 1].id : undefined;
-  return parentId !== currentNode?.parentId ? parentId : undefined;
 };

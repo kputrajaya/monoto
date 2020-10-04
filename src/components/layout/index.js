@@ -1,6 +1,11 @@
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Col, Container, Row, ScreenClassRender } from 'react-grid-system';
+import {
+  Col,
+  Container,
+  Row,
+  ScreenClassRender,
+} from 'react-grid-system';
 
 import Sidebar from '../sidebar';
 import style from './style';

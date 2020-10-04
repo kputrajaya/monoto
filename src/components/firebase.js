@@ -10,7 +10,7 @@ const firebaseConfig = {
   projectId: 'monote-app',
   storageBucket: 'monote-app.appspot.com',
   measurementId: 'G-X9FSVCH70W',
-  messagingSenderId: '646929563973'
+  messagingSenderId: '646929563973',
 };
 firebase.initializeApp(firebaseConfig);
 

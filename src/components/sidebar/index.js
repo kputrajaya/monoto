@@ -1,5 +1,10 @@
 import { createRef, Fragment, h } from 'preact';
-import { useEffect, useContext, useMemo, useState } from 'preact/hooks';
+import {
+  useEffect,
+  useContext,
+  useMemo,
+  useState,
+} from 'preact/hooks';
 import { route } from 'preact-router';
 import { Link } from 'preact-router/match';
 
@@ -16,7 +21,7 @@ import {
   treeRenameNode,
   treeSearchNote,
   TREE_MAX_LEVEL,
-  useShortcut
+  useShortcut,
 } from '../utils';
 import style from './style';
 
@@ -33,6 +38,10 @@ const Sidebar = ({ hideSidebar }) => {
   const menuMoveRef = createRef();
   const menuDeleteRef = createRef();
 
+  const actionMenuClose = () => {
+    setShownMenu(null);
+  };
+
   useEffect(() => {
     document.addEventListener('click', actionMenuClose);
     return () => document.removeEventListener('click', actionMenuClose);
@@ -45,11 +54,10 @@ const Sidebar = ({ hideSidebar }) => {
   };
 
   const actionMenuClick = (newShownMenu) => {
-    setShownMenu((oldShownMenu) => oldShownMenu?.node?.id === newShownMenu?.node?.id ? null : newShownMenu);
-  };
-
-  const actionMenuClose = () => {
-    setShownMenu(null);
+    setShownMenu((oldShownMenu) => (oldShownMenu?.node?.id === newShownMenu?.node?.id
+      ? null
+      : newShownMenu
+    ));
   };
 
   const actionMenuNewNote = () => treeCreateNote(shownMenu?.node, user, tree);
@@ -58,18 +66,22 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuMove = () => treeMoveNode(shownMenu?.node, tree);
   const actionMenuDelete = () => treeDeleteNode(shownMenu?.node, user);
 
-  const menuShortcutArgs = (key, ref) => [key, () => ref.current ? ref.current.click() : null, [ref]];
+  const menuShortcutArgs = (key, ref) => [
+    key,
+    () => (ref.current ? ref.current.click() : null),
+    [ref],
+  ];
   useShortcut(...menuShortcutArgs('e', menuNewNoteRef));
   useShortcut(...menuShortcutArgs('f', menuNewFolderRef));
   useShortcut(...menuShortcutArgs('r', menuRenameRef));
   useShortcut(...menuShortcutArgs('v', menuMoveRef));
   useShortcut(...menuShortcutArgs('d', menuDeleteRef));
   useShortcut('esc', actionMenuClose, [shownMenu]);
-  useShortcut('ctrl+shift+s', () => searchRef.current ? searchRef.current.focus() : null, [searchRef]);
+  useShortcut('ctrl+shift+s', () => (searchRef.current ? searchRef.current.focus() : null), [searchRef]);
   useShortcut('ctrl+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
   useShortcut('ctrl+shift+f', () => treeCreateFolder(null, user, tree), [user, tree]);
 
-  const renderNodesRecursive = (nodes, level=1) => (
+  const renderNodesRecursive = (nodes, level = 1) => (
     nodes
       ? nodes.map((node) => (
         <SidebarNode
@@ -120,26 +132,26 @@ const Sidebar = ({ hideSidebar }) => {
 
       <div class={`${style.menu} ${shownMenu ? style.open : ''}`} style={shownMenu?.position}>
         {
-          shownMenu?.node?.isFolder &&
-          <Fragment>
+          shownMenu?.node?.isFolder
+          && <Fragment>
             <div class={style.item} ref={menuNewNoteRef} onClick={actionMenuNewNote}>
               New Not<u>e</u>&hellip;
             </div>
             {
-              shownMenu?.level < TREE_MAX_LEVEL &&
-              <div class={style.item} ref={menuNewFolderRef} onClick={actionMenuNewFolder}>
+              shownMenu?.level < TREE_MAX_LEVEL
+              && <div class={style.item} ref={menuNewFolderRef} onClick={actionMenuNewFolder}>
                 New <u>F</u>older&hellip;
               </div>
             }
           </Fragment>
         }
         {
-          (shownMenu?.node?.id && shownMenu?.node?.isFolder) &&
-          <hr />
+          (shownMenu?.node?.id && shownMenu?.node?.isFolder)
+          && <hr />
         }
         {
-          shownMenu?.node?.id &&
-          <Fragment>
+          shownMenu?.node?.id
+          && <Fragment>
             <div class={style.item} ref={menuRenameRef} onClick={actionMenuRename}>
               <u>R</u>ename&hellip;
             </div>

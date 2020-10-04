@@ -11,19 +11,19 @@ const Shortcuts = () => {
         {
           mac: ['Ctrl + Shift + S'],
           pc: ['Ctrl + Shift + S'],
-          action: 'Search notes'
+          action: 'Search notes',
         },
         {
           mac: ['Ctrl + Shift + E'],
           pc: ['Ctrl + Shift + E'],
-          action: 'New note'
+          action: 'New note',
         },
         {
           mac: ['Ctrl + Shift + F'],
           pc: ['Ctrl + Shift + F'],
-          action: 'New folder'
-        }
-      ]
+          action: 'New folder',
+        },
+      ],
     },
     {
       title: 'Operations',
@@ -31,24 +31,24 @@ const Shortcuts = () => {
         {
           mac: ['Cmd + K', 'Cmd + K'],
           pc: ['Ctrl + K', 'Ctrl + K'],
-          action: 'Delete until line end'
+          action: 'Delete until line end',
         },
         {
           mac: ['Cmd + K', 'Cmd + Bksp'],
           pc: ['Ctrl + K', 'Ctrl + Bksp'],
-          action: 'Delete until line start'
+          action: 'Delete until line start',
         },
         {
           mac: ['Cmd + K', 'Cmd + U'],
           pc: ['Ctrl + K', 'Ctrl + U'],
-          action: 'Uppercase selection'
+          action: 'Uppercase selection',
         },
         {
           mac: ['Cmd + K', 'Cmd + L'],
           pc: ['Ctrl + K', 'Ctrl + L'],
-          action: 'Lowercase selection'
-        }
-      ]
+          action: 'Lowercase selection',
+        },
+      ],
     },
     {
       title: 'Line operations',
@@ -56,54 +56,54 @@ const Shortcuts = () => {
         {
           mac: ['Cmd + Ctrl + Up'],
           pc: ['Shift + Ctrl + Up'],
-          action: 'Swap line up'
+          action: 'Swap line up',
         },
         {
           mac: ['Cmd + Ctrl + Down'],
           pc: ['Shift + Ctrl + Down'],
-          action: 'Swap line down'
+          action: 'Swap line down',
         },
         {
           mac: ['Cmd + Enter'],
           pc: ['Ctrl + Enter'],
-          action: 'Insert line after'
+          action: 'Insert line after',
         },
         {
           mac: ['Shift + Cmd + Enter'],
           pc: ['Shift + Ctrl + Enter'],
-          action: 'Insert line before'
+          action: 'Insert line before',
         },
         {
           mac: ['Cmd + L'],
           pc: ['Ctrl + L'],
-          action: 'Select line'
+          action: 'Select line',
         },
         {
           mac: ['Shift + Ctrl + K'],
           pc: ['Shift + Ctrl + K'],
-          action: 'Delete line'
+          action: 'Delete line',
         },
         {
           mac: ['Shift + Cmd + D'],
           pc: ['Shift + Ctrl + D'],
-          action: 'Duplicate line'
+          action: 'Duplicate line',
         },
         {
           mac: ['Cmd + J'],
           pc: ['Ctrl + J'],
-          action: 'Join lines'
+          action: 'Join lines',
         },
         {
           mac: ['F5'],
           pc: ['F9'],
-          action: 'Sort lines'
+          action: 'Sort lines',
         },
         {
           mac: ['Cmd + F5'],
           pc: ['Ctrl + F9'],
-          action: 'Sort lines (case insensitive)'
-        }
-      ]
+          action: 'Sort lines (case insensitive)',
+        },
+      ],
     },
     {
       title: 'Multicursors',
@@ -111,30 +111,30 @@ const Shortcuts = () => {
         {
           mac: ['Cmd + Click'],
           pc: ['Ctrl + Click'],
-          action: 'New cursor at pointer'
+          action: 'New cursor at pointer',
         },
         {
           mac: ['Cmd + D'],
           pc: ['Ctrl + D'],
-          action: 'New selection at next occurrence'
+          action: 'New selection at next occurrence',
         },
         {
           mac: ['Cmd + K', 'Cmd + D'],
           pc: ['Ctrl + K', 'Ctrl + D'],
-          action: 'Skip then new selection at next occurrence'
+          action: 'Skip then new selection at next occurrence',
         },
         {
           mac: ['Ctrl + Shift + Up'],
           pc: ['Ctrl + Alt + Up'],
-          action: 'New cursor at previous line'
+          action: 'New cursor at previous line',
         },
         {
           mac: ['Ctrl + Shift + Down'],
           pc: ['Ctrl + Alt + Down'],
-          action: 'New cursor at next line'
+          action: 'New cursor at next line',
         },
-      ]
-    }
+      ],
+    },
   ];
 
   const keyType = window.navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'pc';
@@ -147,26 +147,26 @@ const Shortcuts = () => {
 
       <div class={style.tableWrapper}>
         <table class={style.table}>
-          {data.map((group) =>
+          {data.map((group) => (
             <Fragment>
               <tr>
                 <th />
                 <th class={style.title}>{group.title}</th>
               </tr>
-              {group.keys.map((key) =>
+              {group.keys.map((key) => (
                 <tr>
                   <td class={style.keys}>
-                    {key[keyType].map((step) =>
+                    {key[keyType].map((step) => (
                       <span class={style.step}>{step}</span>
-                    )}
+                    ))}
                   </td>
                   <td>
                     {key.action}
                   </td>
                 </tr>
-              )}
+              ))}
             </Fragment>
-          )}
+          ))}
         </table>
       </div>
     </div>

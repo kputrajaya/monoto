@@ -5,7 +5,14 @@ import { route } from 'preact-router';
 import { EDIT_PATH, TREE_MAX_LEVEL } from '../utils';
 import style from './style';
 
-const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, children }) => {
+const SidebarNode = ({
+  node,
+  level,
+  sidebarRef,
+  onLinkClick,
+  onMenuClick,
+  children,
+}) => {
   const [open, setOpen] = useState(!!node.open);
 
   const actionOpen = () => {
@@ -27,8 +34,8 @@ const SidebarNode = ({ node, level, sidebarRef, onLinkClick, onMenuClick, childr
       node,
       level,
       position: {
-        top: sidebarScroll + nodePosition + nodeHeight
-      }
+        top: sidebarScroll + nodePosition + nodeHeight,
+      },
     });
   };
 

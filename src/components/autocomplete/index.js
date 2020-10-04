@@ -5,8 +5,16 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import { useShortcut } from '../utils';
 import style from './style';
 
-// eslint-disable-next-line react/display-name
-const Autocomplete = forwardRef(({ placeholder, getChoices, getLabel, setChoice, resultMaxHeight }, ref) => {
+const Autocomplete = forwardRef((
+  {
+    placeholder,
+    getChoices,
+    getLabel,
+    setChoice,
+    resultMaxHeight,
+  },
+  ref,
+) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const choices = useMemo(() => getChoices(query), [getChoices, query]);
@@ -60,8 +68,9 @@ const Autocomplete = forwardRef(({ placeholder, getChoices, getLabel, setChoice,
         ref={ref}
       />
       {
-        query && choices.length > 0 &&
-        <div class={style.result} style={resultMaxHeight ? {maxHeight: resultMaxHeight} : null}>
+        query
+        && choices.length > 0
+        && <div class={style.result} style={resultMaxHeight ? {maxHeight: resultMaxHeight} : null}>
           {
             choices.map((choice, index) => (
               <div

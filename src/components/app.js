@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) return null;
     const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((docs) => {
       setTree(docs);
     });
@@ -45,15 +45,19 @@ const App = () => {
         );
       default:
         return (
-          <Layout>
-            <Router>
-              <Home path="/" />
-              <Edit path="/e/:id" />
-              <Shortcuts path="/shortcuts" />
-              <Logout path="/logout" />
-              <NotFound default />
-            </Router>
-          </Layout>
+          <UserContext.Provider value={user}>
+            <TreeContext.Provider value={tree}>
+              <Layout>
+                <Router>
+                  <Home path="/" />
+                  <Edit path="/e/:id" />
+                  <Shortcuts path="/shortcuts" />
+                  <Logout path="/logout" />
+                  <NotFound default />
+                </Router>
+              </Layout>
+            </TreeContext.Provider>
+          </UserContext.Provider>
         )
     }
   };
@@ -61,12 +65,7 @@ const App = () => {
   return (
     <div id="app">
       <Helmet defaultTitle="Monoto" titleTemplate="%s - Monoto" />
-
-      <UserContext.Provider value={user}>
-        <TreeContext.Provider value={tree}>
-          {renderApp()}
-        </TreeContext.Provider>
-      </UserContext.Provider>
+      {renderApp()}
     </div>
   );
 };
