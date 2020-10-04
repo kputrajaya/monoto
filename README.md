@@ -33,15 +33,15 @@ Note taking app, text editor feel.
     * Select closest region
     * Set database rules
       ```
-        rules_version = '2';
-        service cloud.firestore {
-          match /databases/{database}/documents {
-            match /tree/{node} {
-              allow create: if request.auth.uid == request.resource.data.userId
-              allow read, update, delete: if request.auth.uid == resource.data.userId
-            }
+      rules_version = '2';
+      service cloud.firestore {
+        match /databases/{database}/documents {
+          match /tree/{node} {
+            allow create: if request.auth.uid == request.resource.data.userId
+            allow read, update, delete: if request.auth.uid == resource.data.userId
           }
         }
+      }
       ```
   * Create new web-app under project
   * Use `firebaseConfig` values for env vars
