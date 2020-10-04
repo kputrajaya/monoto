@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 import firebase from '../../components/firebase';
-import { userAlert } from '../../components/utils';
+import { log } from '../../components/utils';
 import Svg from '../../components/svgr/icon8-google';
 import style from './style';
 
@@ -9,7 +9,7 @@ const Login = () => {
   const actionSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).catch((error) => {
-      userAlert(`Error: ${error}`);
+      log(`Error: ${error}`);
     });
   }
 

@@ -31,5 +31,13 @@ module.exports = {
       'error',
       'never',
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'preact.config.js',
+        ],
+      },
+    ],
   },
 };
