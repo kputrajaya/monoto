@@ -8,7 +8,7 @@ import style from './style';
 const SidebarNode = ({
   node,
   level,
-  sidebarRef,
+  parentRef,
   onLinkClick,
   onMenuClick,
   children,
@@ -27,7 +27,7 @@ const SidebarNode = ({
   const actionMenuOpen = (e) => {
     e.stopPropagation();
 
-    const sidebarScroll = sidebarRef?.current?.scrollTop || 0;
+    const sidebarScroll = parentRef?.current?.scrollTop || 0;
     const nodePosition = e.target.getBoundingClientRect().top;
     const nodeHeight = e.target.offsetHeight;
     onMenuClick({
