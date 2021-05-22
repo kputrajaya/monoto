@@ -59,6 +59,10 @@
     top: 8px;
     left: - gap(md);
   }
+
+  &.glow::before {
+    border: 2px solid color(danger);
+  }
 }
 
 .actions {

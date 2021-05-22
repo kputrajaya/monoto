@@ -75,5 +75,9 @@
     &:hover {
       background: transparentize(color(secondary), .9);
     }
+
+    &.glow {
+      color: color(danger);
+    }
   }
 }

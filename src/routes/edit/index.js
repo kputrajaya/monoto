@@ -130,7 +130,7 @@ const Edit = ({ id }) => {
           </div>
         }
         <div class={style.actions}>
-          <a class={style.button} href={`/v/${id}`} target="_blank" rel="noreferrer">Preview</a>
+          <a class={style.button} href={`/v/${id}`} target="_blank" rel="noreferrer">View</a>
         </div>
       </div>
       <CodeMirror

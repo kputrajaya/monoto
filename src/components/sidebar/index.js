@@ -150,12 +150,13 @@ const Sidebar = ({ hideSidebar }) => {
           </Fragment>
         }
         {
-          (shownMenu?.node?.id && shownMenu?.node?.isFolder)
-          && <hr />
-        }
-        {
           shownMenu?.node?.id
           && <Fragment>
+            {
+              shownMenu?.node?.isFolder
+              && <hr />
+            }
+
             <div class={style.item} ref={menuRenameRef} onClick={actionMenuRename}>
               <u>R</u>ename&hellip;
             </div>
@@ -166,11 +167,15 @@ const Sidebar = ({ hideSidebar }) => {
               <u>D</u>elete
             </div>
 
-            <hr />
-
-            <div class={style.item} ref={menuPublicRef} onClick={actionMenuPublic}>
-              Make <u>P</u>{shownMenu?.node?.public ? 'rivate' : 'ublic'}
-            </div>
+            {
+              !shownMenu?.node?.isFolder
+              && <Fragment>
+                <hr />
+                <div class={`${style.item} ${shownMenu?.node?.public ? '' : style.glow}`} ref={menuPublicRef} onClick={actionMenuPublic}>
+                  Make <u>P</u>{shownMenu?.node?.public ? 'rivate' : 'ublic'}
+                </div>
+              </Fragment>
+            }
           </Fragment>
         }
       </div>

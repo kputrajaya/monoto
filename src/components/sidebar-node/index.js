@@ -45,7 +45,7 @@ const SidebarNode = ({
         {
           node.isFolder
             ? <span class={`${style.folder} ${open ? style.open : ''}`}>{node.title}</span>
-            : <span class={style.note}>{node.title}</span>
+            : <span class={`${style.note}  ${node.public ? style.glow : ''}`}>{node.title}</span>
         }
         <div class={style.actions} onClick={actionMenuOpen}>
           &bull;&thinsp;&bull;&thinsp;&bull;
