@@ -1,20 +1,17 @@
-import { createRef, h } from 'preact';
+import { h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import marked from 'marked';
 
 import { TreeContext } from '../../components/context';
 import firebase from '../../components/firebase';
 import Svg from '../../components/svgr/svg-loaders-dot';
 import {
   EDIT_DEBOUNCE_DURATION,
-  DOWNLOAD_PATH,
   hashNote,
   log,
   HOME_PATH,
-  useShortcut,
 } from '../../components/utils';
 import style from './style';
 
@@ -30,20 +27,14 @@ const Edit = ({ id }) => {
   const [editorBody, setEditorBody] = useState();
   const [editedBody, setEditedBody] = useState();
 
-  const [htmlContent, setHtmlContent] = useState();
-
   const [syncing, setSyncing] = useState(false);
   const [syncingHash, setSyncingHash] = useState();
-
-  const downloadFormRef = createRef();
-  const downloadBodyRef = createRef();
 
   useEffect(() => {
     log('Resetting');
     setTitle(null);
     setEditorBody(null);
     setEditedBody(null);
-    setHtmlContent(null);
     setSyncing(false);
     setSyncingHash(null);
   }, [id]);
@@ -114,23 +105,11 @@ const Edit = ({ id }) => {
     editor.focus();
   }, [id, editor]);
 
-  useShortcut('esc', () => setHtmlContent(null), []);
-
   const actionChange = (editor, data, value) => {
     // Ignore if it's a programmatic change
     if (!data.origin) return;
 
     setEditedBody(value);
-  };
-
-  const actionPreview = () => {
-    setHtmlContent((oldHtmlContent) => (oldHtmlContent ? null : marked(editedBody || editorBody)));
-  };
-
-  const actionDownload = async () => {
-    // Use DOM to prevent rerenders for download
-    downloadBodyRef.current.value = editedBody || editorBody;
-    downloadFormRef.current.submit();
   };
 
   return (
@@ -151,18 +130,7 @@ const Edit = ({ id }) => {
           </div>
         }
         <div class={style.actions}>
-          {
-            htmlContent
-            && <button class={style.buttonPrimary} onClick={actionDownload}>
-              Download
-            </button>
-          }
-          <button
-            class={htmlContent ? style.buttonSecondary : style.buttonPrimary}
-            onClick={actionPreview}
-          >
-            {htmlContent ? 'Close' : 'Preview'}
-          </button>
+          <a class={style.button} href={`/v/${id}`} target="_blank" rel="noreferrer">Preview</a>
         </div>
       </div>
       <CodeMirror
@@ -191,18 +159,6 @@ const Edit = ({ id }) => {
         editorDidMount={setEditor}
         onChange={actionChange}
       />
-
-      {
-        htmlContent
-        && <div class={style.preview}>
-          {/* eslint-disable-next-line react/no-danger */}
-          <div class={style.previewContent} dangerouslySetInnerHTML={{__html: htmlContent}} />
-        </div>
-      }
-      <form class={style.hidden} action={DOWNLOAD_PATH} method="POST" ref={downloadFormRef}>
-        <input name="title" value={title} />
-        <textarea name="markdown" ref={downloadBodyRef} />
-      </form>
     </div>
   );
 };

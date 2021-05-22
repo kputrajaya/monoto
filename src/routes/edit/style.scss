@@ -1,10 +1,6 @@
 @import '../../style/variables';
 @import '../../style/mixins';
 
-.hidden {
-  display: none;
-}
-
 .edit {
   height: 100%;
   position: relative;
@@ -60,14 +56,9 @@
   right: 0;
 }
 
-.buttonPrimary {
+.button {
   margin-right: gap(xs);
   @include button(primary);
-}
-
-.buttonSecondary {
-  margin-right: gap(xs);
-  @include button(secondary);
 }
 
 .editor {

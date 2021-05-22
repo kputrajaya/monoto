@@ -8,6 +8,7 @@ import { UserContext, TreeContext } from './context';
 import firebase from './firebase';
 import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
+import View from '../routes/view';
 import Home from '../routes/home';
 import Login from '../routes/login';
 import Logout from '../routes/logout';
@@ -40,24 +41,28 @@ const App = () => {
         return (
           <Router>
             <Login path="/" />
+            <View path="/v/:id" />
             <NotFound default />
           </Router>
         );
       default:
         return (
-          <UserContext.Provider value={user}>
-            <TreeContext.Provider value={tree}>
-              <Layout>
-                <Router>
-                  <Home path="/" />
-                  <Edit path="/e/:id" />
-                  <Shortcuts path="/shortcuts" />
-                  <Logout path="/logout" />
-                  <NotFound default />
-                </Router>
-              </Layout>
-            </TreeContext.Provider>
-          </UserContext.Provider>
+          <Router>
+            <View path="/v/:id" />
+            <UserContext.Provider value={user} default>
+              <TreeContext.Provider value={tree}>
+                <Layout>
+                  <Router>
+                    <Home path="/" />
+                    <Edit path="/e/:id" />
+                    <Shortcuts path="/shortcuts" />
+                    <Logout path="/logout" />
+                    <NotFound default />
+                  </Router>
+                </Layout>
+              </TreeContext.Provider>
+            </UserContext.Provider>
+          </Router>
         )
     }
   };

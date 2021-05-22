@@ -238,6 +238,12 @@ export const treeDeleteNode = async (node, user) => {
   route(HOME_PATH);
 };
 
+export const treePublicNode = async (node) => {
+  if (!node) return;
+
+  firebase.firestore().collection('tree').doc(node.id).update({public: !node.public});
+};
+
 export const treeSearchNote = (tree, query) => {
   let result = [];
   if (!query || query.length < 2) return result;

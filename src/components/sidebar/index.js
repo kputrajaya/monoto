@@ -18,6 +18,7 @@ import {
   treeCreateNote,
   treeDeleteNode,
   treeMoveNode,
+  treePublicNode,
   treeRenameNode,
   treeSearchNote,
   TREE_MAX_LEVEL,
@@ -37,6 +38,7 @@ const Sidebar = ({ hideSidebar }) => {
   const menuRenameRef = createRef();
   const menuMoveRef = createRef();
   const menuDeleteRef = createRef();
+  const menuPublicRef = createRef();
 
   const actionMenuClose = () => {
     setShownMenu(null);
@@ -65,6 +67,7 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuRename = () => treeRenameNode(shownMenu?.node);
   const actionMenuMove = () => treeMoveNode(shownMenu?.node, tree);
   const actionMenuDelete = () => treeDeleteNode(shownMenu?.node, user);
+  const actionMenuPublic = () => treePublicNode(shownMenu?.node);
 
   const menuShortcutArgs = (key, ref) => [
     key,
@@ -76,6 +79,7 @@ const Sidebar = ({ hideSidebar }) => {
   useShortcut(...menuShortcutArgs('r', menuRenameRef));
   useShortcut(...menuShortcutArgs('v', menuMoveRef));
   useShortcut(...menuShortcutArgs('d', menuDeleteRef));
+  useShortcut(...menuShortcutArgs('p', menuPublicRef));
   useShortcut('esc', actionMenuClose, [shownMenu]);
   useShortcut('ctrl+shift+s', () => (searchRef.current ? searchRef.current.focus() : null), [searchRef]);
   useShortcut('ctrl+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
@@ -160,6 +164,12 @@ const Sidebar = ({ hideSidebar }) => {
             </div>
             <div class={style.item} ref={menuDeleteRef} onClick={actionMenuDelete}>
               <u>D</u>elete
+            </div>
+
+            <hr />
+
+            <div class={style.item} ref={menuPublicRef} onClick={actionMenuPublic}>
+              Make <u>P</u>{shownMenu?.node?.public ? 'rivate' : 'ublic'}
             </div>
           </Fragment>
         }
