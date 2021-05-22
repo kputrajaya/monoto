@@ -53,15 +53,15 @@
 
   &::before {
     content: '';
-    border: 2px solid transparentize(color(secondary), .5);
+    border: 3px solid transparentize(color(secondary), .5);
     border-radius: 50%;
     position: absolute;
-    top: 8px;
-    left: - gap(md);
+    top: 7px;
+    left: -16px;
   }
 
   &.glow::before {
-    border: 2px solid color(danger);
+    border-color: color(danger);
   }
 }
 
