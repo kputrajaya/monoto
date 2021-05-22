@@ -11,6 +11,7 @@ const View = ({ id }) => {
   const [node, setNode] = useState();
 
   const downloadFormRef = createRef();
+  const downloadBodyRef = createRef();
 
   useEffect(() => {
     if (!id) return null;
@@ -21,6 +22,7 @@ const View = ({ id }) => {
   }, [id]);
 
   const actionDownload = async () => {
+    downloadBodyRef.current.value = marked(node.body);
     downloadFormRef.current.submit();
   };
 
@@ -41,7 +43,7 @@ const View = ({ id }) => {
 
           <form class={style.hidden} action={DOWNLOAD_PATH} method="POST" ref={downloadFormRef}>
             <input name="title" value={node.title} />
-            <input name="markdown" value={node.body} />
+            <input name="markdown" ref={downloadBodyRef} />
           </form>
         </div>
       }
