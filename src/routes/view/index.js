@@ -30,7 +30,7 @@ const View = ({ id }) => {
       {
         note
         && <div>
-          <Helmet>
+          <Helmet titleTemplate={null}>
             <title>{note.title}</title>
           </Helmet>
 
