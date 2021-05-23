@@ -1,16 +1,13 @@
 import { h } from 'preact';
 
 import firebase from '../../components/firebase';
-import { log } from '../../components/utils';
 import Svg from '../../components/svgr/icon8-google';
 import style from './style';
 
 const Login = () => {
   const actionSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).catch((error) => {
-      log(`Firebase sign in failed: ${error}`);
-    });
+    firebase.auth().signInWithRedirect(provider);
   }
 
   return (

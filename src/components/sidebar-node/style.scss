@@ -60,7 +60,7 @@
     left: -16px;
   }
 
-  &.glow::before {
+  &.danger::before {
     border-color: color(danger);
   }
 }

@@ -76,8 +76,12 @@
       background: transparentize(color(secondary), .9);
     }
 
-    &.glow {
+    &.danger {
       color: color(danger);
+    }
+
+    &.success {
+      color: color(success);
     }
   }
 }

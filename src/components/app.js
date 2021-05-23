@@ -6,6 +6,13 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, TreeContext } from './context';
 import firebase from './firebase';
+import {
+  EDIT_PATH,
+  HOME_PATH,
+  LOGOUT_PATH,
+  SHORTCUTS_PATH,
+  VIEW_PATH,
+} from './utils';
 import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
 import View from '../routes/view';
@@ -20,6 +27,9 @@ const App = () => {
   const [tree, setTree] = useState();
 
   useEffect(() => {
+    firebase.auth().getRedirectResult().then((result) => {
+      setUser(result.user);
+    });
     firebase.auth().onAuthStateChanged((newUser) => {
       setUser(newUser);
     });
@@ -27,8 +37,8 @@ const App = () => {
 
   useEffect(() => {
     if (!user) return null;
-    const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((docs) => {
-      setTree(docs);
+    const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((qs) => {
+      setTree(qs.docs);
     });
     return unsubscribe;
   }, [user]);
@@ -40,23 +50,23 @@ const App = () => {
       case null:
         return (
           <Router>
-            <Login path="/" />
-            <View path="/v/:id" />
+            <Login path={HOME_PATH} />
+            <View path={`${VIEW_PATH}:id`} />
             <NotFound default />
           </Router>
         );
       default:
         return (
           <Router>
-            <View path="/v/:id" />
+            <View path={`${VIEW_PATH}:id`} />
             <UserContext.Provider value={user} default>
               <TreeContext.Provider value={tree}>
                 <Layout>
                   <Router>
-                    <Home path="/" />
-                    <Edit path="/e/:id" />
-                    <Shortcuts path="/shortcuts" />
-                    <Logout path="/logout" />
+                    <Home path={HOME_PATH} />
+                    <Edit path={`${EDIT_PATH}:id`} />
+                    <Shortcuts path={SHORTCUTS_PATH} />
+                    <Logout path={LOGOUT_PATH} />
                     <NotFound default />
                   </Router>
                 </Layout>

@@ -7,16 +7,20 @@
 }
 
 .control {
-  height: gap(xs) + gap(lg);
-  padding: gap(xs) gap(sm) 0;
+  width: 100%;
+  height: gap(lg) + gap(xs);
+  padding-left: gap(xs);
   background: color(sidebar);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   @include no-select;
 }
 
 .tab {
-  margin: 0 gap(sm);
-  padding: 0 gap(md);
   min-width: gap(lg);
+  margin: gap(xs) gap(sm) 0;
+  padding: 0 gap(md);
   font-size: font(sm);
   line-height: gap(lg);
   background: color(content);
@@ -51,14 +55,32 @@
 }
 
 .actions {
-  position: absolute;
-  top: gap(xs);
-  right: 0;
+  text-align: right;
+  flex-grow: 1;
 }
 
-.button {
-  margin-right: gap(xs);
+.buttonPrimary {
+  margin: gap(sm);
+  margin-left: 0;
   @include button(primary);
+}
+
+.buttonSecondary {
+  margin: gap(sm);
+  margin-left: 0;
+  @include button(secondary);
+}
+
+.buttonSuccess {
+  margin: gap(sm);
+  margin-left: 0;
+  @include button(success);
+}
+
+.buttonDanger {
+  margin: gap(sm);
+  margin-left: 0;
+  @include button(danger);
 }
 
 .editor {

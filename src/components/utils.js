@@ -5,6 +5,9 @@ import firebase from './firebase';
 
 export const HOME_PATH = '/';
 export const EDIT_PATH = '/e/';
+export const VIEW_PATH = '/v/';
+export const LOGOUT_PATH = '/logout';
+export const SHORTCUTS_PATH = '/shortcuts';
 export const DOWNLOAD_PATH = '/api/download';
 
 export const TREE_MAX_LEVEL = 4;
@@ -238,10 +241,28 @@ export const treeDeleteNode = async (node, user) => {
   route(HOME_PATH);
 };
 
-export const treePublicNode = async (node) => {
+export const treePublicNode = (node) => {
   if (!node) return;
 
   firebase.firestore().collection('tree').doc(node.id).update({public: !node.public});
+};
+
+export const treeLinkNode = (node) => {
+  if (!node) return;
+
+  const currentUrl = window.location.href;
+  const currentPath = window.location.pathname;
+  const host = currentUrl.substr(0, currentUrl.length - currentPath.length);
+  const viewUrl = `${host}${VIEW_PATH}${node.id}`;
+
+  const input = document.body.appendChild(document.createElement('input'));
+  input.value = viewUrl;
+  input.focus();
+  input.select();
+  document.execCommand('copy');
+  input.parentNode.removeChild(input);
+
+  userAlert({title: 'Link copied!'})
 };
 
 export const treeSearchNote = (tree, query) => {

@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
@@ -10,8 +10,11 @@ import Svg from '../../components/svgr/svg-loaders-dot';
 import {
   EDIT_DEBOUNCE_DURATION,
   hashNote,
-  log,
   HOME_PATH,
+  log,
+  treeLinkNode,
+  treePublicNode,
+  VIEW_PATH,
 } from '../../components/utils';
 import style from './style';
 
@@ -22,79 +25,71 @@ require('codemirror/theme/dracula.css');
 
 const Edit = ({ id }) => {
   const tree = useContext(TreeContext);
-  const [editor, setEditor] = useState();
-  const [title, setTitle] = useState();
-  const [editorBody, setEditorBody] = useState();
-  const [editedBody, setEditedBody] = useState();
-
-  const [syncing, setSyncing] = useState(false);
-  const [syncingHash, setSyncingHash] = useState();
+  const [note, setNote] = useState(null);
+  const [initialBody, setInitialBody] = useState(null);
+  const [editedBody, setEditedBody] = useState(null);
+  const [syncingFlag, setSyncingFlag] = useState(false);
+  const [syncingHash, setSyncingHash] = useState(null);
+  const [editor, setEditor] = useState(null);
 
   useEffect(() => {
     log('Resetting');
-    setTitle(null);
-    setEditorBody(null);
+    setNote(null);
+    setInitialBody(null);
     setEditedBody(null);
-    setSyncing(false);
+    setSyncingFlag(false);
     setSyncingHash(null);
   }, [id]);
 
   useEffect(() => {
     if (!id || !tree) return;
 
-    let found = false;
-    tree.forEach((node) => {
-      if (node.id !== id) return;
-
-      found = true;
-      const { title: newTitle, body: newBody } = node.data();
-      const newBodyHash = hashNote(id, newBody);
-      log('Received', newBodyHash);
-
-      setTitle(newTitle);
-      setEditedBody((oldEditedBody) => {
-        if (newBodyHash === syncingHash) {
-          log('Not replacing, same hash');
-          return oldEditedBody;
-        }
-        if (newBody === oldEditedBody) {
-          log('Not replacing, same body');
-          return oldEditedBody;
-        }
-
-        // Only update editorBody on remote changes
-        // Timeout allows it to reset to null first, ensuring proper clean up
-        log('Replacing content');
-        setTimeout(() => setEditorBody(newBody), 0);
-        return null;
-      });
-    });
-    if (!found) {
+    const newNode = tree.find((node) => node.id === id);
+    if (!newNode) {
+      log('Document not found');
       route(HOME_PATH);
+      return;
     }
+
+    const newNote = {id, ...newNode.data()};
+    const newHash = hashNote(id, newNote.body);
+    log('Received', newHash);
+    setNote(newNote);
+
+    if (newHash === syncingHash) {
+      log('Not replacing, same hash');
+      return;
+    }
+    if (newNote.body === editedBody) {
+      log('Not replacing, same body');
+      return;
+    }
+
+    log('Replacing content');
+    setInitialBody(newNote.body);
+    setEditedBody(null);
+    setSyncingFlag(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, tree]);
 
   useEffect(() => {
-    if (typeof editedBody !== 'string') return null;
+    if (!id || typeof editedBody !== 'string') return null;
 
-    setSyncing(true);
-
+    setSyncingFlag(true);
     const timeout = setTimeout(async () => {
-      const editedBodyHash = hashNote(id, editedBody);
-      log('Syncing', editedBodyHash);
+      const newHash = hashNote(id, editedBody);
+      log('Syncing', newHash);
 
-      setSyncingHash(editedBodyHash);
+      setSyncingHash(newHash);
       try {
         await firebase.firestore().collection('tree').doc(id).update({
           body: editedBody,
         });
-      } catch {
-        // TODO: Handle update errors
+      } catch (err) {
+        log('Error', err);
       }
-      setSyncing(false);
+      setSyncingFlag(false);
     }, EDIT_DEBOUNCE_DURATION);
-
     return () => clearTimeout(timeout);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editedBody]);
@@ -106,7 +101,7 @@ const Edit = ({ id }) => {
   }, [id, editor]);
 
   const actionChange = (editor, data, value) => {
-    // Ignore if it's a programmatic change
+    // Ignore programmatic change
     if (!data.origin) return;
 
     setEditedBody(value);
@@ -115,27 +110,40 @@ const Edit = ({ id }) => {
   return (
     <div class={style.edit}>
       {
-        title
+        note?.title
         && <Helmet>
-          <title>{title}</title>
+          <title>{note.title}</title>
         </Helmet>
       }
 
       <div class={style.control}>
         {
-          title
-          && <div class={style.tab}>
-            {title}
-            {syncing && <Svg />}
-          </div>
+          note
+          && <Fragment>
+            <div class={style.tab}>
+              {note.title}
+              {syncingFlag && <Svg />}
+            </div>
+            <div class={style.actions}>
+              {
+                note.public
+                && <Fragment>
+                  <button type="button" class={style.buttonSecondary} onClick={() => treeLinkNode(note)}>Copy Link</button>
+                  <button type="button" class={style.buttonSuccess} onClick={() => treePublicNode(note)}>Make Private</button>
+                </Fragment>
+              }
+              {
+                !note.public
+                && <button type="button" class={style.buttonDanger} onClick={() => treePublicNode(note)}>Make Public</button>
+              }
+              <a class={style.buttonPrimary} href={`${VIEW_PATH}${id}`} target="_blank" rel="noreferrer">View</a>
+            </div>
+          </Fragment>
         }
-        <div class={style.actions}>
-          <a class={style.button} href={`/v/${id}`} target="_blank" rel="noreferrer">View</a>
-        </div>
       </div>
       <CodeMirror
         className={style.editor}
-        value={editorBody}
+        value={initialBody}
         options={{
           autofocus: true,
           lineWrapping: true,

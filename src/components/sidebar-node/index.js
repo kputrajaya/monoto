@@ -25,6 +25,7 @@ const SidebarNode = ({
   };
 
   const actionMenuOpen = (e) => {
+    e.preventDefault();
     e.stopPropagation();
 
     const sidebarScroll = parentRef?.current?.scrollTop || 0;
@@ -41,11 +42,11 @@ const SidebarNode = ({
 
   return (
     <Fragment>
-      <div class={`${style.node} ${style[`level${Math.min(level, TREE_MAX_LEVEL)}`]}`} title={node.title} onClick={actionOpen}>
+      <div class={`${style.node} ${style[`level${Math.min(level, TREE_MAX_LEVEL)}`]}`} title={node.title} onClick={actionOpen} onContextMenu={actionMenuOpen}>
         {
           node.isFolder
             ? <span class={`${style.folder} ${open ? style.open : ''}`}>{node.title}</span>
-            : <span class={`${style.note}  ${node.public ? style.glow : ''}`}>{node.title}</span>
+            : <span class={`${style.note}  ${node.public ? style.danger : ''}`}>{node.title}</span>
         }
         <div class={style.actions} onClick={actionMenuOpen}>
           &bull;&thinsp;&bull;&thinsp;&bull;

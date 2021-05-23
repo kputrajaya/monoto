@@ -17,6 +17,7 @@ import {
   treeCreateFolder,
   treeCreateNote,
   treeDeleteNode,
+  treeLinkNode,
   treeMoveNode,
   treePublicNode,
   treeRenameNode,
@@ -39,6 +40,7 @@ const Sidebar = ({ hideSidebar }) => {
   const menuMoveRef = createRef();
   const menuDeleteRef = createRef();
   const menuPublicRef = createRef();
+  const menuLinkRef = createRef();
 
   const actionMenuClose = () => {
     setShownMenu(null);
@@ -68,6 +70,7 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuMove = () => treeMoveNode(shownMenu?.node, tree);
   const actionMenuDelete = () => treeDeleteNode(shownMenu?.node, user);
   const actionMenuPublic = () => treePublicNode(shownMenu?.node);
+  const actionMenuLink = () => treeLinkNode(shownMenu?.node);
 
   const menuShortcutArgs = (key, ref) => [
     key,
@@ -80,6 +83,7 @@ const Sidebar = ({ hideSidebar }) => {
   useShortcut(...menuShortcutArgs('v', menuMoveRef));
   useShortcut(...menuShortcutArgs('d', menuDeleteRef));
   useShortcut(...menuShortcutArgs('p', menuPublicRef));
+  useShortcut(...menuShortcutArgs('c', menuLinkRef));
   useShortcut('esc', actionMenuClose, [shownMenu]);
   useShortcut('ctrl+shift+s', () => (searchRef.current ? searchRef.current.focus() : null), [searchRef]);
   useShortcut('ctrl+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
@@ -147,16 +151,15 @@ const Sidebar = ({ hideSidebar }) => {
                 New <u>F</u>older&hellip;
               </div>
             }
+            {
+              shownMenu?.node?.id
+              && <hr />
+            }
           </Fragment>
         }
         {
           shownMenu?.node?.id
           && <Fragment>
-            {
-              shownMenu?.node?.isFolder
-              && <hr />
-            }
-
             <div class={style.item} ref={menuRenameRef} onClick={actionMenuRename}>
               <u>R</u>ename&hellip;
             </div>
@@ -171,9 +174,23 @@ const Sidebar = ({ hideSidebar }) => {
               !shownMenu?.node?.isFolder
               && <Fragment>
                 <hr />
-                <div class={`${style.item} ${shownMenu?.node?.public ? '' : style.glow}`} ref={menuPublicRef} onClick={actionMenuPublic}>
-                  Make <u>P</u>{shownMenu?.node?.public ? 'rivate' : 'ublic'}
-                </div>
+                {
+                  shownMenu?.node?.public
+                  && <Fragment>
+                    <div class={style.item} ref={menuLinkRef} onClick={actionMenuLink}>
+                      <u>C</u>opy Link
+                    </div>
+                    <div class={`${style.item} ${style.success}`} ref={menuPublicRef} onClick={actionMenuPublic}>
+                      Make <u>P</u>rivate
+                    </div>
+                  </Fragment>
+                }
+                {
+                  !shownMenu?.node?.public
+                  && <div class={`${style.item} ${style.danger}`} ref={menuPublicRef} onClick={actionMenuPublic}>
+                    Make <u>P</u>ublic
+                  </div>
+                }
               </Fragment>
             }
           </Fragment>
