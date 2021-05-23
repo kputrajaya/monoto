@@ -13,23 +13,23 @@ const Login = () => {
   return (
     <div class={style.login}>
       <h1 class={style.title}>Monoto</h1>
-      <h2 class={style.subtitle}>Note taking app, text editor feel</h2>
+      <h2 class={style.subtitle}>Monospace note and writing app</h2>
       <ul class={style.features}>
         <li>
-          <h3>Cloud-based</h3>
-          Notes are synced to all devices
+          <h3>Cloud Sync</h3>
+          Access from anywhere
+        </li>
+        <li>
+          <h3>Responsive</h3>
+          Works across devices
+        </li>
+        <li>
+          <h3>Shareable</h3>
+          Links for your friends
         </li>
         <li>
           <h3>Lightweight</h3>
-          Built to achieve fast load times
-        </li>
-        <li>
-          <h3>Mobile-friendly</h3>
-          Responsive for desktops and phones
-        </li>
-        <li>
-          <h3>Organizable</h3>
-          Folders (and nested folders) supported
+          Built to load fast
         </li>
       </ul>
       <button class={style.button} onClick={actionSignIn}>

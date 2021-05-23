@@ -120,9 +120,13 @@ const Edit = ({ id }) => {
         {
           note
           && <Fragment>
-            <div class={style.tab}>
-              {note.title}
-              {syncingFlag && <Svg />}
+            <div class={style.tabs}>
+              <div class={style.tab}>
+                <div class={style.tabContent}>
+                  {note.title}
+                  {syncingFlag && <Svg />}
+                </div>
+              </div>
             </div>
             <div class={style.actions}>
               {

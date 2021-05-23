@@ -20,7 +20,6 @@
 @mixin button($name) {
   padding: gap(xs) gap(sm);
   font-size: font(sm);
-  font-weight: 600;
   color: color(light);
   text-align: center;
   background: scale-color(color($name), $lightness: -33%, $saturation: -50%);

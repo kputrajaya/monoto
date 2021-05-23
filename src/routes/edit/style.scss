@@ -9,17 +9,24 @@
 .control {
   width: 100%;
   height: gap(lg) + gap(xs);
-  padding-left: gap(xs);
   background: color(sidebar);
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  overflow: hidden;
   @include no-select;
 }
 
+.tabs {
+  min-width: 0;
+  margin-right: gap(md);
+  padding: gap(sm) gap(xs) 0;
+  flex-grow: 1;
+}
+
 .tab {
-  min-width: gap(lg);
-  margin: gap(xs) gap(sm) 0;
+  max-width: 100%;
+  margin: 0 gap(sm);
   padding: 0 gap(md);
   font-size: font(sm);
   line-height: gap(lg);
@@ -45,18 +52,24 @@
     border-right-width: gap(sm);
     right: - gap(sm);
   }
+}
+
+.tabContent {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   svg {
     width: gap(sm);
     height: gap(sm);
-    margin: 0 (- gap(x2s)) 0 gap(sm);
+    margin-left: gap(sm);
     display: inline-block;
   }
 }
 
 .actions {
   text-align: right;
-  flex-grow: 1;
+  flex-shrink: 0;
 }
 
 .buttonPrimary {
