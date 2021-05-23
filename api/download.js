@@ -3,7 +3,7 @@ const chrome = require('chrome-aws-lambda');
 const marked = require('marked');
 const puppeteer = require('puppeteer-core');
 
-const mdToHtml = (md) => md ? marked(md) : null;
+const mdToHtml = (md) => (md ? marked(md) : null);
 
 const htmlToPdf = async (html) => {
   if (!html) return null;
@@ -11,7 +11,7 @@ const htmlToPdf = async (html) => {
   const browser = await puppeteer.launch({
     executablePath: await chrome.executablePath,
     args: chrome.args,
-    headless: chrome.headless
+    headless: chrome.headless,
   });
   const page = await browser.newPage();
 

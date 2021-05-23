@@ -11,7 +11,7 @@
 }
 
 .view {
-  max-width: 760px;
+  max-width: 640px;
   margin: 0 auto;
   padding: gap(lg);
 }
@@ -86,5 +86,10 @@
     code {
       padding: 0;
     }
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
   }
 }
