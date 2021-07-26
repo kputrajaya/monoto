@@ -42,5 +42,5 @@
   background: transparentize(color(secondary), 0.5);
   border-radius: gap(xs);
   display: inline-block;
-  word-spacing: -gap(x3s);
+  word-spacing: -(gap(x3s));
 }

@@ -46,12 +46,12 @@
 
   &::before {
     border-left-width: gap(sm);
-    left: -gap(sm);
+    left: -(gap(sm));
   }
 
   &::after {
     border-right-width: gap(sm);
-    right: -gap(sm);
+    right: -(gap(sm));
   }
 }
 
