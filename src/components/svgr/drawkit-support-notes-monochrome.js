@@ -27,7 +27,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-1,.prefix__cls-5,.prefix__cls-6,.prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{fill:#f2f2f2}.prefix__cls-5,.prefix__cls-6,.prefix__cls-7{stroke:#000;stroke-linecap:round}.prefix__cls-5{stroke-miterlimit:10}.prefix__cls-5,.prefix__cls-7{stroke-width:2.5px}.prefix__cls-6,.prefix__cls-7{stroke-linejoin:round}.prefix__cls-6{stroke-width:8px}"
+            '.prefix__cls-1,.prefix__cls-5,.prefix__cls-6,.prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{fill:#f2f2f2}.prefix__cls-5,.prefix__cls-6,.prefix__cls-7{stroke:#000;stroke-linecap:round}.prefix__cls-5{stroke-miterlimit:10}.prefix__cls-5,.prefix__cls-7{stroke-width:2.5px}.prefix__cls-6,.prefix__cls-7{stroke-linejoin:round}.prefix__cls-6{stroke-width:8px}'
           }
         </style>
       </defs>
@@ -51,10 +51,7 @@ function SvgComponent(props) {
             className="prefix__cls-5"
             d="M458 420.45c27.36-11.06 122.2-55.37 145.76-75.57 26.59-22.79-5.19-40.41-15.2-34.54-7.57 4.44-69 31.16-107.78 46.79"
           />
-          <path
-            className="prefix__cls-6"
-            d="M543.21 287.91l10.28 20.89M508.82 217.97l13.26 26.97"
-          />
+          <path className="prefix__cls-6" d="M543.21 287.91l10.28 20.89M508.82 217.97l13.26 26.97" />
           <path
             className="prefix__cls-5"
             d="M295.76 160.08a75.55 75.55 0 01-8.45-16M346.51 62.35c12.07 10.47 21.1 28.35 23.4 49.37 3.78 34.59-12.09 64.83-35.62 68.52M453.05 390.83c15.6 84.23 15.47 163.74 12.45 166.76-6.5 6.5-157 37-239 3-9.89-43-11.56-133.89 1-214.81M335.62 192.58c49.76 11 81.37 66.08 101.08 130.28M257.6 239.31c10.86-21.77 24.25-37.8 40.54-44.81"

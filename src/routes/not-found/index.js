@@ -13,7 +13,9 @@ const NotFound = () => (
 
     <Svg class={style.image} />
     <h2 class={style.text}>&quot;I think I'm lost&hellip;&quot;</h2>
-    <Link class={style.link} href="/">Go back to safety</Link>
+    <Link class={style.link} href="/">
+      Go back to safety
+    </Link>
   </div>
 );
 

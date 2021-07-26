@@ -51,7 +51,7 @@ const Edit = ({ id }) => {
       return;
     }
 
-    const newNote = {id, ...newNode.data()};
+    const newNote = { id, ...newNode.data() };
     const newHash = hashNote(id, newNote.body);
     log('Received', newHash);
     setNote(newNote);
@@ -69,7 +69,7 @@ const Edit = ({ id }) => {
     setInitialBody(newNote.body);
     setEditedBody(null);
     setSyncingFlag(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, tree]);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const Edit = ({ id }) => {
       setSyncingFlag(false);
     }, EDIT_DEBOUNCE_DURATION);
     return () => clearTimeout(timeout);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editedBody]);
 
   useEffect(() => {
@@ -109,17 +109,15 @@ const Edit = ({ id }) => {
 
   return (
     <div class={style.edit}>
-      {
-        note?.title
-        && <Helmet>
+      {note?.title && (
+        <Helmet>
           <title>{note.title}</title>
         </Helmet>
-      }
+      )}
 
       <div class={style.control}>
-        {
-          note
-          && <Fragment>
+        {note && (
+          <Fragment>
             <div class={style.tabs}>
               <div class={style.tab}>
                 <div class={style.tabContent}>
@@ -129,21 +127,27 @@ const Edit = ({ id }) => {
               </div>
             </div>
             <div class={style.actions}>
-              {
-                note.public
-                && <Fragment>
-                  <button type="button" class={style.buttonSecondary} onClick={() => treeLinkNode(note)}>Copy Link</button>
-                  <button type="button" class={style.buttonSuccess} onClick={() => treePublicNode(note)}>Make Private</button>
+              {note.public && (
+                <Fragment>
+                  <button type="button" class={style.buttonSecondary} onClick={() => treeLinkNode(note)}>
+                    Copy Link
+                  </button>
+                  <button type="button" class={style.buttonSuccess} onClick={() => treePublicNode(note)}>
+                    Make Private
+                  </button>
                 </Fragment>
-              }
-              {
-                !note.public
-                && <button type="button" class={style.buttonDanger} onClick={() => treePublicNode(note)}>Make Public</button>
-              }
-              <a class={style.buttonPrimary} href={`${VIEW_PATH}${id}`} target="_blank" rel="noreferrer">View</a>
+              )}
+              {!note.public && (
+                <button type="button" class={style.buttonDanger} onClick={() => treePublicNode(note)}>
+                  Make Public
+                </button>
+              )}
+              <a class={style.buttonPrimary} href={`${VIEW_PATH}${id}`} target="_blank" rel="noreferrer">
+                View
+              </a>
             </div>
           </Fragment>
-        }
+        )}
       </div>
       <CodeMirror
         className={style.editor}
@@ -165,7 +169,7 @@ const Edit = ({ id }) => {
             },
           },
         }}
-        cursor={{line: 0, ch: 0}}
+        cursor={{ line: 0, ch: 0 }}
         autoCursor={true}
         autoScroll={true}
         editorDidMount={setEditor}

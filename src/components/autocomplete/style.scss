@@ -13,7 +13,7 @@
   line-height: gap(lg);
   background: transparent;
   border: none;
-  border-bottom: gap(x3s) solid transparentize(color(secondary), .5);
+  border-bottom: gap(x3s) solid transparentize(color(secondary), 0.5);
 }
 
 .result {
@@ -33,7 +33,8 @@
   cursor: pointer;
   @include transition(background $transition-sm ease-out);
 
-  &:hover, &.selected {
-    background: transparentize(color(secondary), .9);
+  &:hover,
+  &.selected {
+    background: transparentize(color(secondary), 0.9);
   }
 }

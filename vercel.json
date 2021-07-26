@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/download.js": {
-      "includeFiles": "api/github-markdown-css.css"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)\\.(css|ico|jpeg|jpg|js|json|png)",

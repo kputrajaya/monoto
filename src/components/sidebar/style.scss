@@ -63,7 +63,7 @@
 
   hr {
     margin: gap(xs) 0;
-    border: gap(x3s) solid transparentize(color(secondary), .9);
+    border: gap(x3s) solid transparentize(color(secondary), 0.9);
     border-bottom-width: 0;
   }
 
@@ -73,7 +73,7 @@
     @include transition(background $transition-sm ease-out);
 
     &:hover {
-      background: transparentize(color(secondary), .9);
+      background: transparentize(color(secondary), 0.9);
     }
 
     &.danger {

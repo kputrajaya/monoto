@@ -34,7 +34,8 @@
   display: inline-block;
   position: relative;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     border: 0 solid transparent;
     border-bottom-width: gap(lg);
@@ -45,12 +46,12 @@
 
   &::before {
     border-left-width: gap(sm);
-    left: - gap(sm);
+    left: -gap(sm);
   }
 
   &::after {
     border-right-width: gap(sm);
-    right: - gap(sm);
+    right: -gap(sm);
   }
 }
 

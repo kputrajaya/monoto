@@ -25,7 +25,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-4{fill:#f3f3f3}.prefix__cls-6{fill:url(#prefix__New_Pattern)}.prefix__cls-7{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}"
+            '.prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-4{fill:#f3f3f3}.prefix__cls-6{fill:url(#prefix__New_Pattern)}.prefix__cls-7{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}'
           }
         </style>
       </defs>
@@ -34,15 +34,7 @@ function SvgComponent(props) {
           d="M876.41 595.49v496.24a65.66 65.66 0 01-65.66 65.66H425a65.66 65.66 0 01-65.66-65.66V107A65.67 65.67 0 01425 41.34h385.75A65.67 65.67 0 01876.41 107v488.49"
           fill="#fff"
         />
-        <rect
-          className="prefix__cls-4"
-          x={488.92}
-          y={15.42}
-          width={257.9}
-          height={64.39}
-          rx={15.72}
-          ry={15.72}
-        />
+        <rect className="prefix__cls-4" x={488.92} y={15.42} width={257.9} height={64.39} rx={15.72} ry={15.72} />
         <path
           className="prefix__cls-4"
           d="M405.91 149.31h423.93v207.6H405.91zM429.63 525.61H995.2v19.53H429.63zM429.63 576.97H995.2v19.53H429.63zM429.63 628.32H995.2v19.53H429.63zM429.63 679.68H995.2v19.53H429.63zM429.63 731.04H995.2v19.53H429.63zM429.63 782.4H995.2v19.53H429.63zM429.63 833.76H995.2v19.53H429.63zM429.63 885.12H995.2v19.53H429.63zM540.74 974.2H807.8v19.53H540.74zM540.74 1015.26h294.41v19.53H540.74zM403.44 472.93h63.86v20.28h-63.86zM483.08 472.93h63.86v20.28h-63.86zM568.07 472.93h63.86v20.28h-63.86z"
@@ -72,10 +64,7 @@ function SvgComponent(props) {
           className="prefix__cls-7"
           d="M223.12 267.49c-94 54.15-54.29 352.51-47.58 361.92 4.12 5.76 48.62 10.52 88.66 9"
         />
-        <path
-          fill="#333"
-          d="M61.11 436.3L2.12 397.84l32.25-17.83 57.54 36.21-30.8 20.08z"
-        />
+        <path fill="#333" d="M61.11 436.3L2.12 397.84l32.25-17.83 57.54 36.21-30.8 20.08z" />
         <path
           className="prefix__cls-7"
           d="M266.9 419.78c2.22 22.66 9.82 73.4 20 100.25-4.66 24-30.27 158.33-30.27 158.33l18 23.28s65.86-139.86 69.19-161.73c2.87-18.88-2.68-102.21-5.11-128.12"

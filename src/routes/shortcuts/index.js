@@ -160,9 +160,7 @@ const Shortcuts = () => {
                       <span class={style.step}>{step}</span>
                     ))}
                   </td>
-                  <td>
-                    {key.action}
-                  </td>
+                  <td>{key.action}</td>
                 </tr>
               ))}
             </Fragment>

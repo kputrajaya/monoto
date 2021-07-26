@@ -39,8 +39,8 @@
   padding: gap(x2s) gap(xs);
   font-size: font(sm);
   color: color(light);
-  background: transparentize(color(secondary), .5);
+  background: transparentize(color(secondary), 0.5);
   border-radius: gap(xs);
   display: inline-block;
-  word-spacing: - gap(x3s);
+  word-spacing: -gap(x3s);
 }

@@ -8,7 +8,7 @@ const Login = () => {
   const actionSignIn = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider);
-  }
+  };
 
   return (
     <div class={style.login}>

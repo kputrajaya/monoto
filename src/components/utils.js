@@ -18,12 +18,7 @@ export const EDIT_DEBOUNCE_DURATION = 750;
 // eslint-disable-next-line no-alert
 export const userAlert = ({ title }) => window.alert(title);
 
-export const userInput = ({
-  title,
-  defaultValue,
-  transform,
-  error,
-}) => {
+export const userInput = ({ title, defaultValue, transform, error }) => {
   // eslint-disable-next-line no-alert
   let input = window.prompt(title, defaultValue);
   if (input === null) return null;
@@ -33,9 +28,9 @@ export const userInput = ({
     input = transform(input);
   }
   if (!input && error) {
-    userAlert({title: error});
+    userAlert({ title: error });
   }
-  return input
+  return input;
 };
 
 // eslint-disable-next-line no-alert
@@ -61,16 +56,17 @@ export const hashString = (input) => {
 
 export const hashNote = (id, body) => hashString(`${id}: ${body}`);
 
-export const useShortcut = (key, action, deps) => useHotkeys(
-  key.indexOf('cmd') >= 0 ? `${key}, ${key.replace(/cmd/g, 'ctrl')}` : key,
-  (e) => {
-    action();
-    e.preventDefault();
-    return false;
-  },
-  {filter: () => true, keydown: false, keyup: true},
-  deps,
-);
+export const useShortcut = (key, action, deps) =>
+  useHotkeys(
+    key.indexOf('cmd') >= 0 ? `${key}, ${key.replace(/cmd/g, 'ctrl')}` : key,
+    (e) => {
+      action();
+      e.preventDefault();
+      return false;
+    },
+    { filter: () => true, keydown: false, keyup: true },
+    deps
+  );
 
 export const treeBuild = (tree) => {
   const treeRoot = {
@@ -95,13 +91,12 @@ export const treeBuild = (tree) => {
 
   // Build sorted tree
   const getSortableString = (node) => `${node.isFolder ? '0' : '1'} - ${node.title}`;
-  const getChildrenRecursive = (parentId) => (
+  const getChildrenRecursive = (parentId) =>
     nodeMap[parentId]
       ? nodeMap[parentId]
-        .map((node) => ({...node, children: node.isFolder ? getChildrenRecursive(node.id) : null}))
-        .sort((a, b) => getSortableString(a).localeCompare(getSortableString(b)))
-      : null
-  );
+          .map((node) => ({ ...node, children: node.isFolder ? getChildrenRecursive(node.id) : null }))
+          .sort((a, b) => getSortableString(a).localeCompare(getSortableString(b)))
+      : null;
   treeRoot.children = getChildrenRecursive(null);
   return [treeRoot];
 };
@@ -117,19 +112,20 @@ const prvGetNewName = (isFolder, defaultValue) => {
 };
 
 const prvGetNewParentId = (tree, currentNode = null) => {
-  const getFoldersRecursive = (nodes, level = 1) => nodes
-    .map(({ id, title, children }) => {
-      // Exclude notes and itself
-      const childFolders = children
-        ? getFoldersRecursive(
-          children.filter((childNode) => childNode.isFolder && childNode.id !== currentNode?.id),
-          level + 1,
-        )
-        : [];
-      childFolders.splice(0, 0, {id, title, level});
-      return childFolders;
-    })
-    .reduce((acc, folders) => acc.concat(folders), []);
+  const getFoldersRecursive = (nodes, level = 1) =>
+    nodes
+      .map(({ id, title, children }) => {
+        // Exclude notes and itself
+        const childFolders = children
+          ? getFoldersRecursive(
+              children.filter((childNode) => childNode.isFolder && childNode.id !== currentNode?.id),
+              level + 1
+            )
+          : [];
+        childFolders.splice(0, 0, { id, title, level });
+        return childFolders;
+      })
+      .reduce((acc, folders) => acc.concat(folders), []);
 
   // Check if root is the only valid option
   const folders = getFoldersRecursive(treeBuild(tree));
@@ -153,9 +149,7 @@ const prvGetNewParentId = (tree, currentNode = null) => {
     defaultValue: '1',
     transform: (input) => {
       const inputNumber = Math.floor(input);
-      return Number.isNaN(inputNumber) || inputNumber < minNumber || inputNumber > maxNumber
-        ? null
-        : inputNumber;
+      return Number.isNaN(inputNumber) || inputNumber < minNumber || inputNumber > maxNumber ? null : inputNumber;
     },
     error: 'Chosen an invalid folder!',
   });
@@ -203,7 +197,7 @@ export const treeRenameNode = async (node) => {
   const name = prvGetNewName(node.isFolder, node.title);
   if (!name) return;
 
-  firebase.firestore().collection('tree').doc(node.id).update({title: name});
+  firebase.firestore().collection('tree').doc(node.id).update({ title: name });
 };
 
 export const treeMoveNode = async (node, tree) => {
@@ -212,23 +206,24 @@ export const treeMoveNode = async (node, tree) => {
   const parentId = prvGetNewParentId(tree, node);
   if (parentId === undefined) return;
   if (parentId === node.parentId) {
-    userAlert({title: 'No valid folders found!'});
+    userAlert({ title: 'No valid folders found!' });
     return;
   }
 
-  firebase.firestore().collection('tree').doc(node.id).update({parentId});
+  firebase.firestore().collection('tree').doc(node.id).update({ parentId });
 };
 
 export const treeDeleteNode = async (node, user) => {
   if (!node) return;
 
-  if (!userConfirm({title: `Delete "${node.title}"${node.isFolder ? ' and its contents' : ''}?`})) return;
+  if (!userConfirm({ title: `Delete "${node.title}"${node.isFolder ? ' and its contents' : ''}?` })) return;
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
       const { id } = doc;
       doc.ref.delete();
-      const childDocs = await firebase.firestore()
+      const childDocs = await firebase
+        .firestore()
         .collection('tree')
         .where('userId', '==', user.uid)
         .where('parentId', '==', id)
@@ -244,7 +239,7 @@ export const treeDeleteNode = async (node, user) => {
 export const treePublicNode = (node) => {
   if (!node) return;
 
-  firebase.firestore().collection('tree').doc(node.id).update({public: !node.public});
+  firebase.firestore().collection('tree').doc(node.id).update({ public: !node.public });
 };
 
 export const treeLinkNode = (node) => {
@@ -262,7 +257,7 @@ export const treeLinkNode = (node) => {
   document.execCommand('copy');
   input.parentNode.removeChild(input);
 
-  userAlert({title: 'Link copied!'})
+  userAlert({ title: 'Link copied!' });
 };
 
 export const treeSearchNote = (tree, query) => {

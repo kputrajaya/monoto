@@ -1,10 +1,5 @@
 import { createRef, Fragment, h } from 'preact';
-import {
-  useEffect,
-  useContext,
-  useMemo,
-  useState,
-} from 'preact/hooks';
+import { useEffect, useContext, useMemo, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Link } from 'preact-router/match';
 
@@ -58,10 +53,7 @@ const Sidebar = ({ hideSidebar }) => {
   };
 
   const actionMenuClick = (newShownMenu) => {
-    setShownMenu((oldShownMenu) => (oldShownMenu?.node?.id === newShownMenu?.node?.id
-      ? null
-      : newShownMenu
-    ));
+    setShownMenu((oldShownMenu) => (oldShownMenu?.node?.id === newShownMenu?.node?.id ? null : newShownMenu));
   };
 
   const actionMenuNewNote = () => treeCreateNote(shownMenu?.node, user, tree);
@@ -72,11 +64,7 @@ const Sidebar = ({ hideSidebar }) => {
   const actionMenuPublic = () => treePublicNode(shownMenu?.node);
   const actionMenuLink = () => treeLinkNode(shownMenu?.node);
 
-  const menuShortcutArgs = (key, ref) => [
-    key,
-    () => (ref.current ? ref.current.click() : null),
-    [ref],
-  ];
+  const menuShortcutArgs = (key, ref) => [key, () => (ref.current ? ref.current.click() : null), [ref]];
   useShortcut(...menuShortcutArgs('e', menuNewNoteRef));
   useShortcut(...menuShortcutArgs('f', menuNewFolderRef));
   useShortcut(...menuShortcutArgs('r', menuRenameRef));
@@ -89,21 +77,20 @@ const Sidebar = ({ hideSidebar }) => {
   useShortcut('ctrl+shift+e', () => treeCreateNote(null, user, tree), [user, tree]);
   useShortcut('ctrl+shift+f', () => treeCreateFolder(null, user, tree), [user, tree]);
 
-  const renderNodesRecursive = (nodes, level = 1) => (
+  const renderNodesRecursive = (nodes, level = 1) =>
     nodes
       ? nodes.map((node) => (
-        <SidebarNode
-          node={node}
-          level={level}
-          parentRef={sidebarRef}
-          onLinkClick={actionLinkClick}
-          onMenuClick={actionMenuClick}
-        >
-          {renderNodesRecursive(node.children, level + 1)}
-        </SidebarNode>
-      ))
-      : null
-  );
+          <SidebarNode
+            node={node}
+            level={level}
+            parentRef={sidebarRef}
+            onLinkClick={actionLinkClick}
+            onMenuClick={actionMenuClick}
+          >
+            {renderNodesRecursive(node.children, level + 1)}
+          </SidebarNode>
+        ))
+      : null;
 
   return (
     <div class={style.sidebar} ref={sidebarRef}>
@@ -123,43 +110,41 @@ const Sidebar = ({ hideSidebar }) => {
         </div>
 
         <ul class={style.nav}>
-          <li class={`${style.item} ${style.tree}`}>
-            {renderNodesRecursive(nodeTree)}
+          <li class={`${style.item} ${style.tree}`}>{renderNodesRecursive(nodeTree)}</li>
+          <li class={style.item}>
+            <Link href="/" onClick={actionLinkClick}>
+              <h3>Home</h3>
+            </Link>
           </li>
           <li class={style.item}>
-            <Link href="/" onClick={actionLinkClick}><h3>Home</h3></Link>
+            <Link href="/shortcuts" onClick={actionLinkClick}>
+              <h3>Shortcuts</h3>
+            </Link>
           </li>
           <li class={style.item}>
-            <Link href="/shortcuts" onClick={actionLinkClick}><h3>Shortcuts</h3></Link>
-          </li>
-          <li class={style.item}>
-            <Link href="/logout" onClick={actionLinkClick}><h3>Logout</h3></Link>
+            <Link href="/logout" onClick={actionLinkClick}>
+              <h3>Logout</h3>
+            </Link>
           </li>
         </ul>
       </div>
 
       <div class={`${style.menu} ${shownMenu ? style.open : ''}`} style={shownMenu?.position}>
-        {
-          shownMenu?.node?.isFolder
-          && <Fragment>
+        {shownMenu?.node?.isFolder && (
+          <Fragment>
             <div class={style.item} ref={menuNewNoteRef} onClick={actionMenuNewNote}>
               New Not<u>e</u>&hellip;
             </div>
-            {
-              shownMenu?.level < TREE_MAX_LEVEL
-              && <div class={style.item} ref={menuNewFolderRef} onClick={actionMenuNewFolder}>
+            {shownMenu?.level < TREE_MAX_LEVEL && (
+              <div class={style.item} ref={menuNewFolderRef} onClick={actionMenuNewFolder}>
                 New <u>F</u>older&hellip;
               </div>
-            }
-            {
-              shownMenu?.node?.id
-              && <hr />
-            }
+            )}
+            {shownMenu?.node?.id && <hr />}
           </Fragment>
-        }
-        {
-          shownMenu?.node?.id
-          && <Fragment>
+        )}
+        {shownMenu?.node?.id && (
+          <Fragment>
             <div class={style.item} ref={menuRenameRef} onClick={actionMenuRename}>
               <u>R</u>ename&hellip;
             </div>
@@ -170,13 +155,11 @@ const Sidebar = ({ hideSidebar }) => {
               <u>D</u>elete
             </div>
 
-            {
-              !shownMenu?.node?.isFolder
-              && <Fragment>
+            {!shownMenu?.node?.isFolder && (
+              <Fragment>
                 <hr />
-                {
-                  shownMenu?.node?.public
-                  && <Fragment>
+                {shownMenu?.node?.public && (
+                  <Fragment>
                     <div class={style.item} ref={menuLinkRef} onClick={actionMenuLink}>
                       <u>C</u>opy Link
                     </div>
@@ -184,17 +167,16 @@ const Sidebar = ({ hideSidebar }) => {
                       Make <u>P</u>rivate
                     </div>
                   </Fragment>
-                }
-                {
-                  !shownMenu?.node?.public
-                  && <div class={`${style.item} ${style.danger}`} ref={menuPublicRef} onClick={actionMenuPublic}>
+                )}
+                {!shownMenu?.node?.public && (
+                  <div class={`${style.item} ${style.danger}`} ref={menuPublicRef} onClick={actionMenuPublic}>
                     Make <u>P</u>ublic
                   </div>
-                }
+                )}
               </Fragment>
-            }
+            )}
           </Fragment>
-        }
+        )}
       </div>
     </div>
   );

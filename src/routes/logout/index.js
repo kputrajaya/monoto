@@ -6,11 +6,15 @@ import { HOME_PATH, log } from '../../components/utils';
 
 const Logout = () => {
   useEffect(() => {
-    firebase.auth().signOut().then(() => {
-      route(HOME_PATH, true);
-    }).catch((error) => {
-      log(`Firebase sign out failed: ${error}`);
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        route(HOME_PATH, true);
+      })
+      .catch((error) => {
+        log(`Firebase sign out failed: ${error}`);
+      });
   }, []);
 };
 

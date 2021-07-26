@@ -26,7 +26,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-1,.prefix__cls-6,.prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{fill:#f8f8f8}.prefix__cls-5{fill:#d3d3d3}.prefix__cls-6,.prefix__cls-7{stroke:#000;stroke-linecap:round;stroke-width:2.5px}.prefix__cls-6{stroke-linejoin:round}.prefix__cls-7{stroke-miterlimit:10}"
+            '.prefix__cls-1,.prefix__cls-6,.prefix__cls-7{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{fill:#f8f8f8}.prefix__cls-5{fill:#d3d3d3}.prefix__cls-6,.prefix__cls-7{stroke:#000;stroke-linecap:round;stroke-width:2.5px}.prefix__cls-6{stroke-linejoin:round}.prefix__cls-7{stroke-miterlimit:10}'
           }
         </style>
       </defs>
@@ -70,10 +70,7 @@ function SvgComponent(props) {
             className="prefix__cls-6"
             d="M472.8 218.76c-4.07 1.38-27.94 10.69-27.94 10.69-.4-4.8-18.75-100-19.88-105.83a47.62 47.62 0 003.37-18.3C428.35 89.69 422 77 414.17 77S400 89.69 400 105.32a46.85 46.85 0 003.7 19.06c-.88 11.9-8.78 124.89 7.34 141 16.44 16.44 55.53 2.68 80.81-8.57"
           />
-          <path
-            transform="rotate(14.87 446.238 113.066)"
-            d="M438.44 107.64h15.5v10.83h-15.5z"
-          />
+          <path transform="rotate(14.87 446.238 113.066)" d="M438.44 107.64h15.5v10.83h-15.5z" />
           <path
             className="prefix__cls-7"
             d="M527.77 195.32c8.55 1 15.57 4 18.68 10 11.29 21.92-33.42 61.41-45.79 58.47s-32.32-47.08-28.59-55c1.06-2.27 6.73-5.28 14.52-7.91"
@@ -86,10 +83,7 @@ function SvgComponent(props) {
             className="prefix__cls-6"
             d="M504.46 141.17c.58 5.45 2.64 8.2 4.48 8.2 2.17 0 7.89-1.5 11.57-1.5 36.14 0 78.58 37.31 160 37.31 42.53 0 109.27-10.73 109.27-73.19 0-33.73-12.14-74.49-76.31-74.49-40.75 0-69.3 20-102.78 20-43 0-59.58-15.57-89.29-15.57-21.16 0-68.78 12.26-68.78 44.38 0 12.2 3.82 15.74 5 16.37.39-1.3 2.77-8.22 4.6-11.28a18.94 18.94 0 003.62 12.56M498.24 123.68a32.23 32.23 0 012.34 3"
           />
-          <path
-            className="prefix__cls-6"
-            d="M497.05 128.09a7.43 7.43 0 014.21-1.29 7.54 7.54 0 013.2 14.37"
-          />
+          <path className="prefix__cls-6" d="M497.05 128.09a7.43 7.43 0 014.21-1.29 7.54 7.54 0 013.2 14.37" />
           <path d="M428.35 105.32a49.32 49.32 0 01-2.71 16.68c8.51 1 14.67 1.73 14.67 1.73l5.87-23.73s-8.68-3.61-19.49-8a51.94 51.94 0 011.66 13.32zM400 105.32c0-8.83 2-16.71 5.2-21.9-9.33-3.67-17.18-6.65-19.41-7.21-6.49-1.6-16 37.61-9.69 39.18 2.55.63 13.52 2.1 25.69 3.64a51.61 51.61 0 01-1.79-13.71z" />
           <path
             className="prefix__cls-6"

@@ -13,23 +13,26 @@ const View = ({ id }) => {
 
   useEffect(() => {
     if (!id) return null;
-    const unsubscribe = firebase.firestore().collection('tree').doc(id).onSnapshot(
-      (doc) => {
-        setNote(doc.data());
-      },
-      (err) => {
-        log('Document not found', err);
-        route(HOME_PATH);
-      },
-    );
+    const unsubscribe = firebase
+      .firestore()
+      .collection('tree')
+      .doc(id)
+      .onSnapshot(
+        (doc) => {
+          setNote(doc.data());
+        },
+        (err) => {
+          log('Document not found', err);
+          route(HOME_PATH);
+        }
+      );
     return unsubscribe;
   }, [id]);
 
   return (
     <div class={style.view}>
-      {
-        note
-        && <div>
+      {note && (
+        <div>
           <Helmet>
             <title>{note.title}</title>
           </Helmet>
@@ -37,9 +40,9 @@ const View = ({ id }) => {
           <h1>{note.title}</h1>
 
           {/* eslint-disable-next-line react/no-danger */}
-          <div class={style.content} dangerouslySetInnerHTML={{__html: marked(note.body)}} />
+          <div class={style.content} dangerouslySetInnerHTML={{ __html: marked(note.body) }} />
         </div>
-      }
+      )}
     </div>
   );
 };

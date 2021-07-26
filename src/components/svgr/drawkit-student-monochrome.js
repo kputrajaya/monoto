@@ -84,7 +84,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-1,.prefix__cls-12,.prefix__cls-14,.prefix__cls-17,.prefix__cls-18,.prefix__cls-4,.prefix__cls-8,.prefix__cls-9{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-12,.prefix__cls-14,.prefix__cls-4{stroke:#000}.prefix__cls-12,.prefix__cls-14,.prefix__cls-17,.prefix__cls-18,.prefix__cls-4,.prefix__cls-8,.prefix__cls-9{stroke-linecap:round}.prefix__cls-14,.prefix__cls-4{stroke-miterlimit:10;stroke-width:2.5px}.prefix__cls-12,.prefix__cls-17,.prefix__cls-18,.prefix__cls-8,.prefix__cls-9{stroke-linejoin:round}.prefix__cls-6{fill:#dfdfdf}.prefix__cls-10,.prefix__cls-11,.prefix__cls-14,.prefix__cls-6{fill-rule:evenodd}.prefix__cls-8{stroke:#6bd5e1}.prefix__cls-12,.prefix__cls-17,.prefix__cls-8,.prefix__cls-9{stroke-width:3.11px}.prefix__cls-9{stroke:#ff8364}.prefix__cls-10{fill:#ffd98e}.prefix__cls-17{stroke:#383838}.prefix__cls-18{stroke:#fff;stroke-width:4.23px}"
+            '.prefix__cls-1,.prefix__cls-12,.prefix__cls-14,.prefix__cls-17,.prefix__cls-18,.prefix__cls-4,.prefix__cls-8,.prefix__cls-9{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-12,.prefix__cls-14,.prefix__cls-4{stroke:#000}.prefix__cls-12,.prefix__cls-14,.prefix__cls-17,.prefix__cls-18,.prefix__cls-4,.prefix__cls-8,.prefix__cls-9{stroke-linecap:round}.prefix__cls-14,.prefix__cls-4{stroke-miterlimit:10;stroke-width:2.5px}.prefix__cls-12,.prefix__cls-17,.prefix__cls-18,.prefix__cls-8,.prefix__cls-9{stroke-linejoin:round}.prefix__cls-6{fill:#dfdfdf}.prefix__cls-10,.prefix__cls-11,.prefix__cls-14,.prefix__cls-6{fill-rule:evenodd}.prefix__cls-8{stroke:#6bd5e1}.prefix__cls-12,.prefix__cls-17,.prefix__cls-8,.prefix__cls-9{stroke-width:3.11px}.prefix__cls-9{stroke:#ff8364}.prefix__cls-10{fill:#ffd98e}.prefix__cls-17{stroke:#383838}.prefix__cls-18{stroke:#fff;stroke-width:4.23px}'
           }
         </style>
       </defs>
@@ -106,76 +106,29 @@ function SvgComponent(props) {
             strokeLinecap="round"
             fill="none"
           />
-          <path
-            className="prefix__cls-6"
-            d="M178.13 382.39l47.47-12.05 19.23 75.78-47.46 12.05z"
-          />
-          <path
-            d="M188.13 390.74l32.66-8.29 2.52 9.93-32.66 8.29z"
-            fill="#ff8364"
-            fillRule="evenodd"
-          />
+          <path className="prefix__cls-6" d="M178.13 382.39l47.47-12.05 19.23 75.78-47.46 12.05z" />
+          <path d="M188.13 390.74l32.66-8.29 2.52 9.93-32.66 8.29z" fill="#ff8364" fillRule="evenodd" />
           <path
             className="prefix__cls-8"
             d="M193.39 411.45l32.66-8.29M196.13 422.23l32.67-8.29M199 433.48l32.69-8.3M201.74 444.35l12.82-3.26M229.29 437.35l5.14-1.3"
           />
-          <path
-            className="prefix__cls-6"
-            d="M146.66 210.33l122.84-58.49 38.39 80.61L185.05 291z"
-          />
-          <path
-            className="prefix__cls-9"
-            d="M189.14 273.12l12.22-35.77 22.77 4.25 8.94-44.11 22 3.66L261.5 170"
-          />
+          <path className="prefix__cls-6" d="M146.66 210.33l122.84-58.49 38.39 80.61L185.05 291z" />
+          <path className="prefix__cls-9" d="M189.14 273.12l12.22-35.77 22.77 4.25 8.94-44.11 22 3.66L261.5 170" />
           <path
             className="prefix__cls-10"
             d="M197.05 239.69a6.33 6.33 0 118.45 3 6.34 6.34 0 01-8.45-3zM227.65 201.27a6.34 6.34 0 118.45 3 6.33 6.33 0 01-8.45-3z"
           />
-          <path
-            className="prefix__cls-11"
-            d="M460.34 269.25A21.7 21.7 0 11482 291a21.69 21.69 0 01-21.66-21.75z"
-          />
-          <path
-            className="prefix__cls-12"
-            d="M518.67 265.46a25 25 0 01-24 31.76 25.14 25.14 0 01-4.87-.47"
-          />
-          <path
-            className="prefix__cls-11"
-            d="M468.88 285.73l-8.32 14.89 34.35 5.53-3.76-17.39"
-          />
-          <path
-            d="M476.92 269.25a5.12 5.12 0 115.12 5.12 5.12 5.12 0 01-5.12-5.12z"
-            fill="#fff"
-            fillRule="evenodd"
-          />
-          <path
-            className="prefix__cls-11"
-            d="M512.17 264.13a5.12 5.12 0 115.12 5.12 5.12 5.12 0 01-5.12-5.12z"
-          />
-          <path
-            className="prefix__cls-6"
-            d="M431.43 81.86l121.17 29.26-20 82.61-121.12-29.26z"
-          />
-          <path
-            className="prefix__cls-8"
-            d="M438.59 103.29l95.66 23.1M433.05 126l57.77 14"
-          />
-          <path
-            className="prefix__cls-9"
-            d="M351.24 159.67a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z"
-          />
-          <path
-            className="prefix__cls-11"
-            d="M91.4 315.45a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z"
-          />
-          <path
-            className="prefix__cls-8"
-            d="M130.62 474.21a16 16 0 1116 16 16 16 0 01-16-16z"
-          />
-          <path
-            className="prefix__cls-9"
-            d="M485.13 467.47a9.31 9.31 0 119.31 9.3 9.3 9.3 0 01-9.31-9.3z"
-          />
+          <path className="prefix__cls-11" d="M460.34 269.25A21.7 21.7 0 11482 291a21.69 21.69 0 01-21.66-21.75z" />
+          <path className="prefix__cls-12" d="M518.67 265.46a25 25 0 01-24 31.76 25.14 25.14 0 01-4.87-.47" />
+          <path className="prefix__cls-11" d="M468.88 285.73l-8.32 14.89 34.35 5.53-3.76-17.39" />
+          <path d="M476.92 269.25a5.12 5.12 0 115.12 5.12 5.12 5.12 0 01-5.12-5.12z" fill="#fff" fillRule="evenodd" />
+          <path className="prefix__cls-11" d="M512.17 264.13a5.12 5.12 0 115.12 5.12 5.12 5.12 0 01-5.12-5.12z" />
+          <path className="prefix__cls-6" d="M431.43 81.86l121.17 29.26-20 82.61-121.12-29.26z" />
+          <path className="prefix__cls-8" d="M438.59 103.29l95.66 23.1M433.05 126l57.77 14" />
+          <path className="prefix__cls-9" d="M351.24 159.67a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z" />
+          <path className="prefix__cls-11" d="M91.4 315.45a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z" />
+          <path className="prefix__cls-8" d="M130.62 474.21a16 16 0 1116 16 16 16 0 01-16-16z" />
+          <path className="prefix__cls-9" d="M485.13 467.47a9.31 9.31 0 119.31 9.3 9.3 9.3 0 01-9.31-9.3z" />
           <path
             className="prefix__cls-14"
             d="M234.94 680.57c4.91-15.34 10.4-31.58 10.74-49.66.6-32.3-4-51.69-3.37-104.25.47-41.5 38.48-85.8 92.5-85.8s83 36.08 88.39 72.72c5.48 37.47-.77 68.5.79 113.81.72 20.62 7.08 36.6 13.78 53.19"
@@ -209,26 +162,14 @@ function SvgComponent(props) {
             fill="url(#prefix__New_Pattern)"
             fillRule="evenodd"
           />
-          <path
-            className="prefix__cls-6"
-            d="M178.13 383.13l47.47-12.05 19.23 75.78-47.46 12.05z"
-          />
-          <path
-            className="prefix__cls-11"
-            d="M188.13 391.48l32.66-8.29 2.52 9.93-32.66 8.29z"
-          />
+          <path className="prefix__cls-6" d="M178.13 383.13l47.47-12.05 19.23 75.78-47.46 12.05z" />
+          <path className="prefix__cls-11" d="M188.13 391.48l32.66-8.29 2.52 9.93-32.66 8.29z" />
           <path
             className="prefix__cls-17"
             d="M193.39 412.2l32.66-8.29M196.13 423l32.67-8.3M199 434.23l32.69-8.3M201.74 445.09l12.82-3.25M229.29 438.1l5.14-1.31"
           />
-          <path
-            className="prefix__cls-6"
-            d="M146.66 211.08l122.84-58.5 38.39 80.62-122.84 58.49z"
-          />
-          <path
-            className="prefix__cls-17"
-            d="M189.14 273.86l12.22-35.76 22.77 4.25 8.94-44.12 22 3.66 6.4-31.11"
-          />
+          <path className="prefix__cls-6" d="M146.66 211.08l122.84-58.5 38.39 80.62-122.84 58.49z" />
+          <path className="prefix__cls-17" d="M189.14 273.86l12.22-35.76 22.77 4.25 8.94-44.12 22 3.66 6.4-31.11" />
           <path
             className="prefix__cls-11"
             d="M197.05 240.44a6.34 6.34 0 118.45 3 6.33 6.33 0 01-8.45-3zM227.65 202a6.33 6.33 0 118.45 3 6.34 6.34 0 01-8.45-3zM100.45 107.93l32.11 8.67-31.6 117-32.12-8.6z"
@@ -237,18 +178,9 @@ function SvgComponent(props) {
             className="prefix__cls-18"
             d="M79.51 186.13l17.67 4.77M73.9 206.88l17.68 4.77M85.11 165.38l17.68 4.77M90.72 144.63l17.67 4.77M96.32 123.88l17.68 4.77"
           />
-          <path
-            className="prefix__cls-11"
-            d="M501.73 176.92a13.06 13.06 0 119.63 15.76 13.05 13.05 0 01-9.63-15.76z"
-          />
-          <path
-            className="prefix__cls-11"
-            d="M505.58 187.68l-8.71 22.71 12.13-2.76 7.81 7.25 1.57-24.75"
-          />
-          <path
-            className="prefix__cls-17"
-            d="M438.59 104l95.66 23.1M433.05 126.71l57.77 14"
-          />
+          <path className="prefix__cls-11" d="M501.73 176.92a13.06 13.06 0 119.63 15.76 13.05 13.05 0 01-9.63-15.76z" />
+          <path className="prefix__cls-11" d="M505.58 187.68l-8.71 22.71 12.13-2.76 7.81 7.25 1.57-24.75" />
+          <path className="prefix__cls-17" d="M438.59 104l95.66 23.1M433.05 126.71l57.77 14" />
           <path
             d="M255.81 110.35l-13-14.09L261.5 92l18.71-4.23-5.69 18.31-5.69 18.31z"
             fill="url(#prefix__New_Pattern-3)"
@@ -259,10 +191,7 @@ function SvgComponent(props) {
             fill="url(#prefix__New_Pattern-5)"
             fillRule="evenodd"
           />
-          <path
-            className="prefix__cls-12"
-            d="M351.24 160.41a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z"
-          />
+          <path className="prefix__cls-12" d="M351.24 160.41a9.3 9.3 0 119.3 9.3 9.3 9.3 0 01-9.3-9.3z" />
           <path
             className="prefix__cls-14"
             d="M333 711.05c-15.57-.14-31.15-2.75-31.15-7.37v-76.57M364 629.87c.06 20.69.14 56.44-.06 73.81M301.81 627.11c-18.45-14.57-31-41-31.79-71.41"

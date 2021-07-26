@@ -4,10 +4,11 @@
   font-family: inherit;
   box-sizing: border-box;
   outline: none;
-  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -22,7 +23,12 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
 }
 h1 {
@@ -47,7 +53,7 @@ h6 {
 a {
   color: color(primary);
   text-decoration: none;
-  border-bottom: gap(x3s) dotted transparentize(color(secondary), .5);
+  border-bottom: gap(x3s) dotted transparentize(color(secondary), 0.5);
   cursor: pointer;
 }
 

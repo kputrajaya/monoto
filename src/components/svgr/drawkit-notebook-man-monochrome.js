@@ -25,7 +25,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:#dfdfdf}.prefix__cls-6{fill:#f3f3f3}.prefix__cls-7{fill:#d0d0d0}.prefix__cls-8{fill:#dedede}"
+            '.prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:#dfdfdf}.prefix__cls-6{fill:#f3f3f3}.prefix__cls-7{fill:#d0d0d0}.prefix__cls-8{fill:#dedede}'
           }
         </style>
       </defs>
@@ -44,10 +44,7 @@ function SvgComponent(props) {
           className="prefix__cls-5"
           d="M915.22 991.24l-.6 4.27a20.09 20.09 0 003.16 13.94zM1036.5 349.28l-9.84-1.4-20-2.83-2.83 20L921 950.47l14.16 9.31-14.25 53.36a20 20 0 0010.87 5.17l9.85 1.4a20.18 20.18 0 0022.8-17.16l5.22-36.87 84-593.6 2.83-20z"
         />
-        <path
-          className="prefix__cls-6"
-          d="M925.28 953.29l9.87 6.49-3.38 12.66 36.19 5.13 2.53-17.88-45.21-6.4z"
-        />
+        <path className="prefix__cls-6" d="M925.28 953.29l9.87 6.49-3.38 12.66 36.19 5.13 2.53-17.88-45.21-6.4z" />
         <rect
           className="prefix__cls-7"
           x={211.6}
@@ -72,11 +69,7 @@ function SvgComponent(props) {
           className="prefix__cls-8"
           d="M682.82 571.67c-6.65-2.24-11.66-6.37-11.66-13.87 0-3.21 1.82-7.58 4.75-12.51l-59.79-228.16a64.48 64.48 0 00-78.71-46l-373.34 97.8a64.48 64.48 0 00-46 78.72l145.15 553.93a64.47 64.47 0 0078.71 46l373.34-97.83a64.47 64.47 0 0046-78.71z"
         />
-        <path
-          className="prefix__cls-6"
-          transform="rotate(-14 596.046 626.285)"
-          d="M557.32 271.31h49v701.58h-49z"
-        />
+        <path className="prefix__cls-6" transform="rotate(-14 596.046 626.285)" d="M557.32 271.31h49v701.58h-49z" />
         <path
           className="prefix__cls-6"
           transform="rotate(-14.68 400.509 494.215)"
@@ -92,14 +85,8 @@ function SvgComponent(props) {
           transform="rotate(-14.68 370.149 952.304)"
           d="M290.31 903.27h159.46v97.65H290.31z"
         />
-        <path
-          className="prefix__cls-6"
-          d="M1040.88 282.86l-34.2 62.19 49.8 7.05-15.6-69.24z"
-        />
-        <path
-          className="prefix__cls-5"
-          d="M1046.02 305.68l-5.14-22.82-11.27 20.49 16.41 2.33z"
-        />
+        <path className="prefix__cls-6" d="M1040.88 282.86l-34.2 62.19 49.8 7.05-15.6-69.24z" />
+        <path className="prefix__cls-5" d="M1046.02 305.68l-5.14-22.82-11.27 20.49 16.41 2.33z" />
         <path
           className="prefix__cls-4"
           d="M858.43 478.13c19.29 2.62 48.6 27.9 49.6 34.39 1.09 7.06-12.77 31.39-26.6 38.79M772 471c7.23-8.51 16.13-14.48 27.06-16.93M745.78 545.35q.36-2.79.77-5.57"
@@ -116,13 +103,7 @@ function SvgComponent(props) {
           className="prefix__cls-4"
           d="M746.58 539.55a7.22 7.22 0 01-3.31 1.35c-7.93 0-35.58-28.77-32.57-46.64s59.08-30.45 68.43-20.11c14.47 16-19.83 57.38-32.55 65.4M797.76 424.26s1.59 36.14 1.62 41.25c0 3.12 11.17 4.63 19.83 3.74M818.48 443.09a21.51 21.51 0 003.94.21c16.45-.65 29.06-19.71 28.16-42.58a52.37 52.37 0 00-7.33-25.28M794 396.12a9.59 9.59 0 106.27 17.27M782.21 401.64c-5.18-3.62-6.51-29.44 6.06-38.1 12.25-8.45 49.89-14.84 65.84-26.57M843.89 360.49c3.67-2.67 15-18.2 16.81-22.41M855.12 366.48c4-4.31 6.77-11.7 8-16.72"
         />
-        <ellipse
-          cx={827.58}
-          cy={396.73}
-          rx={2.61}
-          ry={2.27}
-          transform="rotate(-81.64 827.566 396.73)"
-        />
+        <ellipse cx={827.58} cy={396.73} rx={2.61} ry={2.27} transform="rotate(-81.64 827.566 396.73)" />
         <path
           className="prefix__cls-4"
           d="M837.32 393.56c.1 2.82 1.77 10.58 4.94 17.38M831.86 422.57a7.13 7.13 0 01-5.12-4.5"

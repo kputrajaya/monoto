@@ -20,8 +20,8 @@ $gaps: (
 }
 
 $fonts: (
-  xs: .64 * 14px,
-  sm: .8 * 14px,
+  xs: 0.64 * 14px,
+  sm: 0.8 * 14px,
   md: 14px,
   lg: 1.25 * 14px,
   xl: 1.563 * 14px,
@@ -36,7 +36,6 @@ $colors: (
   light: #f4f4f0,
   sidebar: #181920,
   content: #282a36,
-
   primary: #c097fc,
   secondary: #9e9fa4,
   success: #73cd6e,

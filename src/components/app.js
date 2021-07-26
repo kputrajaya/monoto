@@ -6,13 +6,7 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, TreeContext } from './context';
 import firebase from './firebase';
-import {
-  EDIT_PATH,
-  HOME_PATH,
-  LOGOUT_PATH,
-  SHORTCUTS_PATH,
-  VIEW_PATH,
-} from './utils';
+import { EDIT_PATH, HOME_PATH, LOGOUT_PATH, SHORTCUTS_PATH, VIEW_PATH } from './utils';
 import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
 import View from '../routes/view';
@@ -27,9 +21,12 @@ const App = () => {
   const [tree, setTree] = useState();
 
   useEffect(() => {
-    firebase.auth().getRedirectResult().then((result) => {
-      setUser(result.user);
-    });
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then((result) => {
+        setUser(result.user);
+      });
     firebase.auth().onAuthStateChanged((newUser) => {
       setUser(newUser);
     });
@@ -37,16 +34,24 @@ const App = () => {
 
   useEffect(() => {
     if (!user) return null;
-    const unsubscribe = firebase.firestore().collection('tree').where('userId', '==', user.uid).onSnapshot((qs) => {
-      setTree(qs.docs);
-    });
+    const unsubscribe = firebase
+      .firestore()
+      .collection('tree')
+      .where('userId', '==', user.uid)
+      .onSnapshot((qs) => {
+        setTree(qs.docs);
+      });
     return unsubscribe;
   }, [user]);
 
   const renderApp = () => {
     switch (user) {
       case undefined:
-        return <div id="loading"><Svg /></div>;
+        return (
+          <div id="loading">
+            <Svg />
+          </div>
+        );
       case null:
         return (
           <Router>
@@ -73,7 +78,7 @@ const App = () => {
               </TreeContext.Provider>
             </UserContext.Provider>
           </Router>
-        )
+        );
     }
   };
 

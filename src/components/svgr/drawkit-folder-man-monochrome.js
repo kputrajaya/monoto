@@ -25,7 +25,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:#dfdfdf}.prefix__cls-6{fill:#f3f3f3}.prefix__cls-7{fill:#fff}"
+            '.prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-3{fill:url(#prefix__New_Pattern)}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:#dfdfdf}.prefix__cls-6{fill:#f3f3f3}.prefix__cls-7{fill:#fff}'
           }
         </style>
       </defs>
@@ -51,10 +51,7 @@ function SvgComponent(props) {
           className="prefix__cls-4"
           d="M1058.27 366.36c15 8.25 25.55 23.31 32.62 41.92M1065.21 329.87s-8.93 46.42-9.94 53c-.62 4-15.32 3.86-26.35 1.06M1034.84 350.28a28.85 28.85 0 01-5.14-.49c-21.15-4-33.83-31-28.32-60.42a68.4 68.4 0 0114.28-31.29M1075.47 294.19a12.53 12.53 0 11-11.38 21.14M933.83 518.47c26.29 7.7 59.37 14.71 86.57 12.26 5 .36 20.73-13 29.69-21.49M1011.18 472.28a53.9 53.9 0 00-16.51 19.59c-10.35-1.87-61.48-11.08-98.67-10.73a31.36 31.36 0 00-14.79-8.93c-12.87-3.73-25.34.24-27.84 8.87s5.91 18.64 18.79 22.38c6.8 2 13.49 1.79 18.65-.09a415 415 0 0043 15.1"
         />
-        <path
-          className="prefix__cls-5"
-          d="M627.91 416.4H296.17v538.33h453.7V538.36L627.91 416.4z"
-        />
+        <path className="prefix__cls-5" d="M627.91 416.4H296.17v538.33h453.7V538.36L627.91 416.4z" />
         <circle className="prefix__cls-7" cx={419.37} cy={622.1} r={52.66} />
         <path
           className="prefix__cls-7"
@@ -77,13 +74,7 @@ function SvgComponent(props) {
           className="prefix__cls-6"
           d="M953 163.74h-29.75a19.21 19.21 0 012.21 8.92c0 12.18-11.54 22.05-25.78 22.05s-25.77-9.87-25.77-22.05a19.33 19.33 0 012.2-8.92H678.32a24.54 24.54 0 00-24.53 24.54V289a24.54 24.54 0 0024.53 24.54H953A24.54 24.54 0 00977.54 289V188.28A24.54 24.54 0 00953 163.74z"
         />
-        <ellipse
-          className="prefix__cls-4"
-          cx={899.68}
-          cy={172.66}
-          rx={25.77}
-          ry={22.05}
-        />
+        <ellipse className="prefix__cls-4" cx={899.68} cy={172.66} rx={25.77} ry={22.05} />
       </g>
     </svg>
   );

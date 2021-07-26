@@ -27,7 +27,7 @@ function SvgComponent(props) {
         </pattern>
         <style>
           {
-            ".prefix__cls-1,.prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:url(#prefix__New_Pattern)}"
+            '.prefix__cls-1,.prefix__cls-4{fill:none}.prefix__cls-2{fill:#949494}.prefix__cls-4{stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.5px}.prefix__cls-5{fill:url(#prefix__New_Pattern)}'
           }
         </style>
       </defs>
@@ -46,13 +46,7 @@ function SvgComponent(props) {
             className="prefix__cls-5"
             d="M449.19 30.59l-2.51 12.79a12.06 12.06 0 01-14.13 9.49l-85.62-16.8a12.07 12.07 0 01-9.49-14.13L340 9.15"
           />
-          <path
-            stroke="#f2f2f2"
-            strokeMiterlimit={10}
-            strokeWidth={3}
-            fill="none"
-            d="M175.09 386.56L368 424.42"
-          />
+          <path stroke="#f2f2f2" strokeMiterlimit={10} strokeWidth={3} fill="none" d="M175.09 386.56L368 424.42" />
           <circle className="prefix__cls-5" cx={310.67} cy={434.45} r={10.03} />
           <path
             className="prefix__cls-4"
