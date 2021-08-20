@@ -31,7 +31,7 @@
     "codemirror": "^5.58.2",
     "dotenv-webpack": "^3.0.0",
     "firebase": "^8.0.1",
-    "marked": "^1.1.1",
+    "marked": "^2.0.0",
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1",
