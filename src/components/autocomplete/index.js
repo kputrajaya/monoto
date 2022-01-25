@@ -64,6 +64,7 @@ const Autocomplete = forwardRef(({ placeholder, getChoices, getLabel, setChoice,
             <div
               class={`${style.item} ${selectedIndex === index ? style.selected : ''}`}
               onClick={() => actionSelect(choice)}
+              key={index}
             >
               {getLabel(choice)}
             </div>

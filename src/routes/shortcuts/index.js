@@ -147,17 +147,19 @@ const Shortcuts = () => {
 
       <div class={style.tableWrapper}>
         <table class={style.table}>
-          {data.map((group) => (
-            <Fragment>
+          {data.map((group, groupIndex) => (
+            <Fragment key={groupIndex}>
               <tr>
                 <th />
                 <th class={style.title}>{group.title}</th>
               </tr>
-              {group.keys.map((key) => (
-                <tr>
+              {group.keys.map((key, keyIndex) => (
+                <tr key={keyIndex}>
                   <td class={style.keys}>
-                    {key[keyType].map((step) => (
-                      <span class={style.step}>{step}</span>
+                    {key[keyType].map((step, stepIndex) => (
+                      <span class={style.step} key={stepIndex}>
+                        {step}
+                      </span>
                     ))}
                   </td>
                   <td>{key.action}</td>

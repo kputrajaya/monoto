@@ -79,13 +79,14 @@ const Sidebar = ({ hideSidebar }) => {
 
   const renderNodesRecursive = (nodes, level = 1) =>
     nodes
-      ? nodes.map((node) => (
+      ? nodes.map((node, index) => (
           <SidebarNode
             node={node}
             level={level}
             parentRef={sidebarRef}
             onLinkClick={actionLinkClick}
             onMenuClick={actionMenuClick}
+            key={index}
           >
             {renderNodesRecursive(node.children, level + 1)}
           </SidebarNode>
