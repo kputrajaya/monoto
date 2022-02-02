@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { route } from 'preact-router';
 import { Helmet } from 'react-helmet';
-import marked from 'marked';
+import { marked } from 'marked';
 
 import firebase from '../../components/firebase';
 import { HOME_PATH, log } from '../../components/utils';
@@ -40,7 +40,7 @@ const View = ({ id }) => {
           <h1>{note.title}</h1>
 
           {/* eslint-disable-next-line react/no-danger */}
-          <div class={style.content} dangerouslySetInnerHTML={{ __html: marked(note.body) }} />
+          <div class={style.content} dangerouslySetInnerHTML={{ __html: marked.parse(note.body) }} />
         </div>
       )}
     </div>
