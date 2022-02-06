@@ -243,17 +243,12 @@ export const treeLinkNode = (node) => {
 
   const currentUrl = window.location.href;
   const currentPath = window.location.pathname;
-  const host = currentUrl.substr(0, currentUrl.length - currentPath.length);
+  const host = currentUrl.substring(0, currentUrl.length - currentPath.length);
   const viewUrl = `${host}${VIEW_PATH}${node.id}`;
-
-  const input = document.body.appendChild(document.createElement('input'));
-  input.value = viewUrl;
-  input.focus();
-  input.select();
-  document.execCommand('copy');
-  input.parentNode.removeChild(input);
-
-  userAlert({ title: 'Link copied!' });
+  window.navigator.clipboard.writeText(viewUrl).then(
+    () => userAlert({ title: 'Link copied!' }),
+    () => userAlert({ title: 'Link copying is not supported!' })
+  );
 };
 
 export const treeSearchNote = (tree, query) => {
