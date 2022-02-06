@@ -13,7 +13,9 @@ const View = ({ id }) => {
 
   useEffect(() => {
     if (!id) return null;
-    const unsubscribe = firebase
+
+    // For unsubscribing
+    return firebase
       .firestore()
       .collection('tree')
       .doc(id)
@@ -26,7 +28,6 @@ const View = ({ id }) => {
           route(HOME_PATH);
         }
       );
-    return unsubscribe;
   }, [id]);
 
   return (

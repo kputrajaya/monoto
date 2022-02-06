@@ -34,14 +34,15 @@ const App = () => {
 
   useEffect(() => {
     if (!user) return null;
-    const unsubscribe = firebase
+
+    // For unsubscribing
+    return firebase
       .firestore()
       .collection('tree')
       .where('userId', '==', user.uid)
       .onSnapshot((qs) => {
         setTree(qs.docs);
       });
-    return unsubscribe;
   }, [user]);
 
   const renderApp = () => {

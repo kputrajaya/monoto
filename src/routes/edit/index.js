@@ -100,7 +100,7 @@ const Edit = ({ id }) => {
     editor.focus();
   }, [id, editor]);
 
-  const actionChange = (editor, data, value) => {
+  const actionChange = (_, data, value) => {
     // Ignore programmatic change
     if (!data.origin) return;
 

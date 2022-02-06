@@ -103,12 +103,11 @@ export const treeBuild = (tree) => {
 
 const prvGetNewName = (isFolder, defaultValue) => {
   const nodeType = isFolder ? 'folder' : 'note';
-  const name = userInput({
+  return userInput({
     title: `Enter new ${nodeType} name:`,
     defaultValue,
     error: 'Entered an invalid name!',
   });
-  return name;
 };
 
 const prvGetNewParentId = (tree, currentNode = null) => {
@@ -125,7 +124,7 @@ const prvGetNewParentId = (tree, currentNode = null) => {
         childFolders.splice(0, 0, { id, title, level });
         return childFolders;
       })
-      .reduce((acc, folders) => acc.concat(folders), []);
+      .reduce((acc, childFolders) => acc.concat(childFolders), []);
 
   // Check if root is the only valid option
   const folders = getFoldersRecursive(treeBuild(tree));
@@ -214,9 +213,7 @@ export const treeMoveNode = async (node, tree) => {
 };
 
 export const treeDeleteNode = async (node, user) => {
-  if (!node) return;
-
-  if (!userConfirm({ title: `Delete "${node.title}"${node.isFolder ? ' and its contents' : ''}?` })) return;
+  if (!node || !userConfirm({ title: `Delete "${node.title}"${node.isFolder ? ' and its contents' : ''}?` })) return;
 
   const deleteRecursive = (docs) => {
     docs.forEach(async (doc) => {
@@ -231,8 +228,7 @@ export const treeDeleteNode = async (node, user) => {
       deleteRecursive(childDocs);
     });
   };
-  const doc = await firebase.firestore().collection('tree').doc(node.id).get();
-  deleteRecursive([doc]);
+  deleteRecursive([await firebase.firestore().collection('tree').doc(node.id).get()]);
   route(HOME_PATH);
 };
 
