@@ -14,7 +14,7 @@ Note taking app, text editor feel.
 - [SVGR](https://react-svgr.com/)
 - [Vercel](https://vercel.com/)
 
-## Deployment
+## Deploying
 
 ### Vercel
 
