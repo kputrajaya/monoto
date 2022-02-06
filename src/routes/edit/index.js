@@ -18,7 +18,7 @@ import {
 } from '../../components/utils';
 import style from './style';
 
-require('codemirror/keymap/sublime.js');
+require('codemirror/keymap/sublime');
 require('codemirror/lib/codemirror.css');
 require('codemirror/mode/markdown/markdown');
 require('codemirror/theme/dracula.css');
