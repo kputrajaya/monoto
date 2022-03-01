@@ -73,9 +73,9 @@ const Sidebar = ({ hideSidebar }) => {
   useShortcut(...menuShortcutArgs('p', menuPublicRef));
   useShortcut(...menuShortcutArgs('c', menuLinkRef));
   useShortcut('esc', actionMenuClose, [shownMenu]);
-  useShortcut('ctrl+alt+s', () => (searchRef.current ? searchRef.current.focus() : null), [searchRef]);
-  useShortcut('ctrl+alt+e', () => treeCreateNote(null, user, tree), [user, tree]);
-  useShortcut('ctrl+alt+f', () => treeCreateFolder(null, user, tree), [user, tree]);
+  useShortcut('ctrl+alt+s,command+option+s', () => (searchRef.current ? searchRef.current.focus() : null), [searchRef]);
+  useShortcut('ctrl+alt+e,command+option+e', () => treeCreateNote(null, user, tree), [user, tree]);
+  useShortcut('ctrl+alt+f,command+option+f', () => treeCreateFolder(null, user, tree), [user, tree]);
 
   const renderNodesRecursive = (nodes, level = 1) =>
     nodes

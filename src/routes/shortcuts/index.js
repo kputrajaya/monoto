@@ -9,17 +9,17 @@ const Shortcuts = () => {
       title: 'Global',
       keys: [
         {
-          mac: ['Cmd + Alt + S'],
+          mac: ['Cmd + Opt + S'],
           pc: ['Ctrl + Alt + S'],
           action: 'Search notes',
         },
         {
-          mac: ['Cmd + Alt + E'],
+          mac: ['Cmd + Opt + E'],
           pc: ['Ctrl + Alt + E'],
           action: 'New note',
         },
         {
-          mac: ['Cmd + Alt + F'],
+          mac: ['Cmd + Opt + F'],
           pc: ['Ctrl + Alt + F'],
           action: 'New folder',
         },
@@ -138,7 +138,7 @@ const Shortcuts = () => {
   ];
 
   const platformInfo = window.navigator.userAgentData?.platform || window.navigator.userAgent;
-  const keyType = platformInfo.indexOf('Mac') > -1 ? 'mac' : 'pc';
+  const keyType = platformInfo.toLowerCase().indexOf('mac') > -1 ? 'mac' : 'pc';
 
   return (
     <div class={style.shortcuts}>

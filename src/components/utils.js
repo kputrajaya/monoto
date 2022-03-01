@@ -58,7 +58,7 @@ export const hashNote = (id, body) => hashString(`${id}: ${body}`);
 
 export const useShortcut = (key, action, deps) =>
   useHotkeys(
-    key.indexOf('ctrl') >= 0 ? `${key}, ${key.replace(/ctrl/g, 'command')}` : key,
+    key,
     (e) => {
       action();
       e.preventDefault();
