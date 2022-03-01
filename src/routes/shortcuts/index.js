@@ -9,18 +9,18 @@ const Shortcuts = () => {
       title: 'Global',
       keys: [
         {
-          mac: ['Ctrl + Shift + S'],
-          pc: ['Ctrl + Shift + S'],
+          mac: ['Cmd + Alt + S'],
+          pc: ['Ctrl + Alt + S'],
           action: 'Search notes',
         },
         {
-          mac: ['Ctrl + Shift + E'],
-          pc: ['Ctrl + Shift + E'],
+          mac: ['Cmd + Alt + E'],
+          pc: ['Ctrl + Alt + E'],
           action: 'New note',
         },
         {
-          mac: ['Ctrl + Shift + F'],
-          pc: ['Ctrl + Shift + F'],
+          mac: ['Cmd + Alt + F'],
+          pc: ['Ctrl + Alt + F'],
           action: 'New folder',
         },
       ],
