@@ -9,17 +9,17 @@ const Shortcuts = () => {
       title: 'Global',
       keys: [
         {
-          mac: ['Cmd + Opt + S'],
+          mac: ['Ctrl + Opt + S'],
           pc: ['Ctrl + Alt + S'],
           action: 'Search notes',
         },
         {
-          mac: ['Cmd + Opt + E'],
+          mac: ['Ctrl + Opt + E'],
           pc: ['Ctrl + Alt + E'],
           action: 'New note',
         },
         {
-          mac: ['Cmd + Opt + F'],
+          mac: ['Ctrl + Opt + F'],
           pc: ['Ctrl + Alt + F'],
           action: 'New folder',
         },
@@ -34,7 +34,7 @@ const Shortcuts = () => {
           action: 'Delete until line end',
         },
         {
-          mac: ['Cmd + K', 'Cmd + Bksp'],
+          mac: ['Cmd + K', 'Cmd + Delete'],
           pc: ['Ctrl + K', 'Ctrl + Bksp'],
           action: 'Delete until line start',
         },
