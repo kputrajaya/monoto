@@ -1,5 +1,7 @@
 # Monoto
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kputrajaya_monoto&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kputrajaya_monoto)
+
 Note taking app, text editor feel.
 
 ## Built With
