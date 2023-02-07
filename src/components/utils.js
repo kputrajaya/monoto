@@ -70,7 +70,7 @@ export const useShortcut = (key, action, deps) =>
 
 export const treeBuild = (tree) => {
   const treeRoot = {
-    id: null,
+    id: 'root',
     title: TREE_ROOT_NAME,
     isFolder: true,
     open: true,

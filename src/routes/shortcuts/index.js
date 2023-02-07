@@ -137,9 +137,10 @@ const Shortcuts = () => {
     },
   ];
 
-  const platformInfo = window.navigator.userAgentData?.platform || window.navigator.userAgent;
-  const keyType = platformInfo.toLowerCase().indexOf('mac') > -1 ? 'mac' : 'pc';
-
+  const keyType =
+    (window.navigator.userAgentData?.platform || window.navigator.userAgent || '').toLowerCase().indexOf('mac') > -1
+      ? 'mac'
+      : 'pc';
   return (
     <div class={style.shortcuts}>
       <Helmet>
@@ -148,17 +149,17 @@ const Shortcuts = () => {
 
       <div class={style.tableWrapper}>
         <table class={style.table}>
-          {data.map((group, groupIndex) => (
-            <Fragment key={groupIndex}>
+          {data.map((group) => (
+            <Fragment key={group.title}>
               <tr>
                 <th />
                 <th class={style.title}>{group.title}</th>
               </tr>
-              {group.keys.map((key, keyIndex) => (
-                <tr key={keyIndex}>
+              {group.keys.map((key) => (
+                <tr key={key.action}>
                   <td class={style.keys}>
-                    {key[keyType].map((step, stepIndex) => (
-                      <span class={style.step} key={stepIndex}>
+                    {key[keyType].map((step) => (
+                      <span class={style.step} key={step}>
                         {step}
                       </span>
                     ))}

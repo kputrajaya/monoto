@@ -79,14 +79,14 @@ const Sidebar = ({ hideSidebar }) => {
 
   const renderNodesRecursive = (nodes, level = 1) =>
     nodes
-      ? nodes.map((node, index) => (
+      ? nodes.map((node) => (
           <SidebarNode
             node={node}
             level={level}
             parentRef={sidebarRef}
             onLinkClick={actionLinkClick}
             onMenuClick={actionMenuClick}
-            key={index}
+            key={node.id}
           >
             {renderNodesRecursive(node.children, level + 1)}
           </SidebarNode>
@@ -100,12 +100,11 @@ const Sidebar = ({ hideSidebar }) => {
           <Autocomplete
             placeholder="Search ..."
             getChoices={(query) => treeSearchNote(tree, query)}
-            getLabel={(choice) => choice.title}
             setChoice={(choice) => {
               route(EDIT_PATH + choice.id);
               actionLinkClick();
             }}
-            resultMaxHeight="calc(100vh - 60px)"
+            maxHeight="calc(100vh - 60px)"
             ref={searchRef}
           />
         </div>
