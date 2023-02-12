@@ -86,7 +86,7 @@ const Sidebar = ({ hideSidebar }) => {
             parentRef={sidebarRef}
             onLinkClick={actionLinkClick}
             onMenuClick={actionMenuClick}
-            key={node.id}
+            key={node.id || 'root'}
           >
             {renderNodesRecursive(node.children, level + 1)}
           </SidebarNode>
