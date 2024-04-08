@@ -20,7 +20,7 @@ Note taking app, text editor feel.
 
 ### Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fkiloev%2Fmonoto&env=FIREBASE_API_KEY,FIREBASE_AUTH_DOMAIN,FIREBASE_DATABASE_URL,FIREBASE_PROJECT_ID,FIREBASE_STORAGE_BUCKET,FIREBASE_MESSAGING_SENDER_ID,FIREBASE_APP_ID,FIREBASE_MEASUREMENT_ID&envDescription=The%20values%20of%20your%20Firebase%20config%20object.&envLink=https%3A%2F%2Ffirebase.google.com%2Fdocs%2Fweb%2Fsetup&project-name=monoto&repo-name=monoto&demo-title=Monoto&demo-description=Note%20taking%20app%2C%20text%20editor%20feel&demo-url=https%3A%2F%2Fmonoto.app&demo-image=https%3A%2F%2Fmonoto.app%2Fassets%2Ficons%2Fandroid-chrome-512x512.png)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fkiloev%2Fmonoto&env=FIREBASE_API_KEY,FIREBASE_AUTH_DOMAIN,FIREBASE_DATABASE_URL,FIREBASE_PROJECT_ID,FIREBASE_STORAGE_BUCKET,FIREBASE_MESSAGING_SENDER_ID,FIREBASE_APP_ID&envDescription=The%20values%20of%20your%20Firebase%20config%20object.&envLink=https%3A%2F%2Ffirebase.google.com%2Fdocs%2Fweb%2Fsetup&project-name=monoto&repo-name=monoto&demo-title=Monoto&demo-description=Note%20taking%20app%2C%20text%20editor%20feel&demo-url=https%3A%2F%2Fmonoto.app&demo-image=https%3A%2F%2Fmonoto.app%2Fassets%2Ficons%2Fandroid-chrome-512x512.png)
 
 ### Prerequisites
 
