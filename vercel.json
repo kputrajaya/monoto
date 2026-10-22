@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "build",
   "headers": [
     {
       "source": "/(.*)\\.(css|ico|jpeg|jpg|js|json|png)",
