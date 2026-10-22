@@ -19,10 +19,10 @@ import {
 } from '../../components/utils';
 import style from './style.module.scss';
 
-require('codemirror/keymap/sublime');
-require('codemirror/lib/codemirror.css');
-require('codemirror/mode/markdown/markdown');
-require('codemirror/theme/dracula.css');
+import 'codemirror/keymap/sublime';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/markdown/markdown';
+import 'codemirror/theme/dracula.css';
 
 const Edit = ({ id: propId }) => {
   const { id: routeId } = useParams();
