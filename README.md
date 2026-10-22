@@ -32,16 +32,6 @@ Note taking app with text editor feel.
     - Enable production mode
     - Select closest region
     - Set database rules
-      ```
-      rules_version = '2';
-      service cloud.firestore {
-        match /databases/{database}/documents {
-          match /tree/{node} {
-            allow create: if request.auth.uid == request.resource.data.userId
-            allow read, update, delete: if request.auth.uid == resource.data.userId
-          }
-        }
-      }
-      ```
+      Use the versioned rules in [`firestore.rules`](./firestore.rules). Deploy them with `firebase deploy --only firestore:rules` before publishing the app.
   - Create new web-app under project
   - Use `firebaseConfig` values for env vars

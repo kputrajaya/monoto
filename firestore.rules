@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /tree/{node} {
+      function signedIn() {
+        return request.auth != null;
+      }
+
+      function ownedByUser(data) {
+        return signedIn() && data.userId == request.auth.uid;
+      }
+
+      function isPublic(data) {
+        return data.get('public', false) == true;
+      }
+
+      // Public links may read one explicitly public note. Private notes stay owner-only.
+      allow get: if isPublic(resource.data) || ownedByUser(resource.data);
+
+      // App tree subscription is scoped by userId in src/components/app.jsx.
+      allow list: if signedIn() && resource.data.userId == request.auth.uid;
+
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid;
+
+      allow update: if ownedByUser(resource.data)
+        && request.resource.data.userId == resource.data.userId;
+
+      allow delete: if ownedByUser(resource.data);
+    }
+  }
+}
