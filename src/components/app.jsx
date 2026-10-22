@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import Layout from './layout';
 import { UserContext, TreeContext } from './context';
 import firebase from './firebase';
-import { EDIT_PATH, HOME_PATH, LOGOUT_PATH, SHORTCUTS_PATH, VIEW_PATH } from './utils';
+import { EDIT_PATH, HOME_PATH, log, LOGOUT_PATH, SHORTCUTS_PATH, VIEW_PATH } from './utils';
 import Svg from './svgr/svg-loaders-puff';
 import Edit from '../routes/edit';
 import View from '../routes/view';
@@ -15,42 +15,44 @@ import Logout from '../routes/logout';
 import NotFound from '../routes/not-found';
 import Shortcuts from '../routes/shortcuts';
 
+const AuthenticatedRoute = ({ user, tree, children }) => (
+  <UserContext.Provider value={user}>
+    <TreeContext.Provider value={tree}>
+      <Layout>{children}</Layout>
+    </TreeContext.Provider>
+  </UserContext.Provider>
+);
+
 const App = () => {
   const [user, setUser] = useState();
   const [tree, setTree] = useState();
 
   useEffect(() => {
-    firebase
-      .auth()
-      .getRedirectResult()
-      .then((result) => {
-        setUser(result.user);
-      });
-    firebase.auth().onAuthStateChanged((newUser) => {
-      setUser(newUser);
+    const unsubscribe = firebase.auth().onAuthStateChanged(
+      (newUser) => setUser(newUser),
+      (error) => log('Firebase auth state failed', error)
+    );
+
+    firebase.auth().getRedirectResult().catch((error) => {
+      log('Firebase redirect sign-in failed', error);
     });
+
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (!user) return null;
+    if (!user) return undefined;
 
     // For unsubscribing
     return firebase
       .firestore()
       .collection('tree')
       .where('userId', '==', user.uid)
-      .onSnapshot((qs) => {
-        setTree(qs.docs);
-      });
+      .onSnapshot(
+        (qs) => setTree(qs.docs),
+        (error) => log('Firestore tree subscription failed', error)
+      );
   }, [user]);
-
-  const AuthenticatedRoute = ({ children }) => (
-    <UserContext.Provider value={user}>
-      <TreeContext.Provider value={tree}>
-        <Layout>{children}</Layout>
-      </TreeContext.Provider>
-    </UserContext.Provider>
-  );
 
   const renderApp = () => {
     switch (user) {
@@ -72,11 +74,11 @@ const App = () => {
         return (
           <Routes>
             <Route path={`${VIEW_PATH}:id`} element={<View />} />
-            <Route path={HOME_PATH} element={<AuthenticatedRoute><Home /></AuthenticatedRoute>} />
-            <Route path={`${EDIT_PATH}:id`} element={<AuthenticatedRoute><Edit /></AuthenticatedRoute>} />
-            <Route path={SHORTCUTS_PATH} element={<AuthenticatedRoute><Shortcuts /></AuthenticatedRoute>} />
-            <Route path={LOGOUT_PATH} element={<AuthenticatedRoute><Logout /></AuthenticatedRoute>} />
-            <Route path="*" element={<AuthenticatedRoute><NotFound /></AuthenticatedRoute>} />
+            <Route path={HOME_PATH} element={<AuthenticatedRoute user={user} tree={tree}><Home /></AuthenticatedRoute>} />
+            <Route path={`${EDIT_PATH}:id`} element={<AuthenticatedRoute user={user} tree={tree}><Edit /></AuthenticatedRoute>} />
+            <Route path={SHORTCUTS_PATH} element={<AuthenticatedRoute user={user} tree={tree}><Shortcuts /></AuthenticatedRoute>} />
+            <Route path={LOGOUT_PATH} element={<AuthenticatedRoute user={user} tree={tree}><Logout /></AuthenticatedRoute>} />
+            <Route path="*" element={<AuthenticatedRoute user={user} tree={tree}><NotFound /></AuthenticatedRoute>} />
           </Routes>
         );
     }

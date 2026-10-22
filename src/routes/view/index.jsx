@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 
 import firebase from '../../components/firebase';
@@ -13,7 +14,7 @@ const View = ({ id: propId }) => {
   const [note, setNote] = useState();
 
   useEffect(() => {
-    if (!id) return null;
+    if (!id) return undefined;
 
     // For unsubscribing
     return firebase
@@ -42,7 +43,10 @@ const View = ({ id: propId }) => {
           <h1>{note.title}</h1>
 
           {/* eslint-disable-next-line react/no-danger */}
-          <div className={style.content} dangerouslySetInnerHTML={{ __html: marked.parse(note.body) }} />
+          <div
+            className={style.content}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(note.body)) }}
+          />
         </div>
       )}
     </div>

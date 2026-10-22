@@ -11,8 +11,12 @@ const FIREBASE_VARIABLES = [
   'FIREBASE_MESSAGING_SENDER_ID',
 ];
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const env = { ...loadEnv(mode, process.cwd(), ''), ...process.env };
+  const missingVariables = FIREBASE_VARIABLES.filter((name) => !env[name]);
+  if (command === 'build' && missingVariables.length) {
+    throw new Error(`Missing Firebase environment variables: ${missingVariables.join(', ')}`);
+  }
 
   return {
     plugins: [react()],
